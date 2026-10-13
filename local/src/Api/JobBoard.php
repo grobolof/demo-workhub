@@ -124,6 +124,37 @@ class JobBoard
         return $vacancies[0] ?? null;
     }
 
+    /** @param list<int> $ids
+     *  @return list<array<string, mixed>>
+     */
+    public static function byIds(array $ids): array
+    {
+        $ids = array_values(array_unique(array_filter(
+            array_map(static fn (mixed $id): int => (int)$id, $ids),
+            static fn (int $id): bool => $id > 0
+        )));
+        if ($ids === []) {
+            return [];
+        }
+
+        $helper = new self();
+        $companies = $helper->companies($helper->iblockId('companies'));
+        $cities = $helper->loadCities($helper->iblockId('cities'));
+        $vacancies = $helper->collect([
+            'IBLOCK_ID' => $helper->iblockId('vacancies'),
+            'ID' => $ids,
+            'ACTIVE' => 'Y',
+            'CHECK_PERMISSIONS' => 'N',
+        ], $companies, $cities, false);
+
+        $order = array_flip($ids);
+        usort($vacancies, static function (array $left, array $right) use ($order): int {
+            return ($order[$left['id']] ?? 0) <=> ($order[$right['id']] ?? 0);
+        });
+
+        return $vacancies;
+    }
+
     public static function company(int $id): ?array
     {
         if ($id <= 0) {

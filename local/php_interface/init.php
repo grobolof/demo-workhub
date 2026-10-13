@@ -2,9 +2,12 @@
 
 use App\Iblock\ElementGuard;
 use App\Search\VacancyIndex;
+use App\UserField\UserLink;
 use Bitrix\Main\EventManager;
 
 $eventManager = EventManager::getInstance();
+
+$eventManager->addEventHandler('main', 'OnUserTypeBuildList', [UserLink::class, 'getUserTypeDescription']);
 
 $eventManager->addEventHandler('iblock', 'OnStartIBlockElementAdd', [ElementGuard::class, 'onStart']);
 $eventManager->addEventHandler('iblock', 'OnStartIBlockElementUpdate', [ElementGuard::class, 'onStart']);

@@ -2,6 +2,7 @@
 import { onMounted, provide, ref, watch } from 'vue'
 import SiteHeader from './components/SiteHeader.vue'
 import { loadCities } from './api'
+import { refreshSession } from './session'
 
 const CITY_KEY = 'workhub-city'
 
@@ -19,6 +20,7 @@ watch(cityCode, (code) => {
 provide('cityCode', cityCode)
 
 onMounted(async () => {
+  refreshSession()
   try {
     const payload = await loadCities()
     cities.value = payload.cities || []

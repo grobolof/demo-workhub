@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import VacancyActions from '../components/VacancyActions.vue'
 import { loadVacancy } from '../api'
 import { formatSalary } from '../format'
 
@@ -53,6 +54,7 @@ watch(() => route.params.id, (id) => load(id), { immediate: true })
         <h1>{{ vacancy.name }}</h1>
         <p class="salary">{{ salary }}</p>
       </div>
+      <VacancyActions :vacancy-id="vacancy.id" layout="detail" />
 
       <router-link
         v-if="vacancy.company"

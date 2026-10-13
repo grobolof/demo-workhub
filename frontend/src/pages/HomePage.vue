@@ -44,15 +44,24 @@ async function refresh() {
   }
 }
 
-function submitSearch() {
-  query.value = draft.value.trim()
+let timer = 0
+
+function flushSearch() {
+  window.clearTimeout(timer)
+  const next = draft.value.trim()
+  if (next === query.value && !initialLoading.value) return
+  query.value = next
   refresh()
 }
 
+watch(draft, () => {
+  window.clearTimeout(timer)
+  timer = window.setTimeout(flushSearch, 300)
+})
+
 function applySuggestion(value) {
   draft.value = value
-  query.value = value
-  refresh()
+  flushSearch()
 }
 
 watch(cityCode, () => {
@@ -82,7 +91,7 @@ onMounted(async () => {
       <div class="search-card">
         <h1>Поиск работы</h1>
         <p class="search-place">{{ place }}</p>
-        <form class="search" @submit.prevent="submitSearch">
+        <form class="search" @submit.prevent="flushSearch">
           <label class="sr-only" for="query">Название вакансии</label>
           <input
             id="query"
@@ -91,7 +100,6 @@ onMounted(async () => {
             placeholder="Название вакансии"
             autocomplete="off"
           />
-          <button type="submit">Найти</button>
         </form>
         <div class="suggestions" aria-label="Популярные запросы">
           <button

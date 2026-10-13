@@ -12,6 +12,10 @@ export function cityPhrase(city) {
   return CITY_PHRASE[city.code] || `в городе ${city.name}`
 }
 
+export function formatMoney(value) {
+  return `${new Intl.NumberFormat('ru-RU').format(value)} ₽`
+}
+
 export function formatSalary(from, to) {
   const money = (value) => new Intl.NumberFormat('ru-RU').format(value)
   if (from && to) return `${money(from)} – ${money(to)} ₽`

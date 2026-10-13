@@ -1,5 +1,18 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { logout, session } from '../session'
+
+const router = useRouter()
+
+async function onLogout() {
+  try {
+    await logout()
+  } catch {
+    session.user = null
+  }
+  router.push('/')
+}
 
 const props = defineProps({
   cities: { type: Array, default: () => [] },
@@ -50,7 +63,15 @@ onUnmounted(() => {
         <span>WorkHub</span>
       </router-link>
 
-      <div ref="root" class="city">
+      <div class="header-tools">
+        <template v-if="session.ready && session.user">
+          <span class="who">{{ session.user.email }}</span>
+          <router-link class="menu-button solid" to="/account">Кабинет</router-link>
+          <button class="menu-button ghost" type="button" @click="onLogout">Выйти</button>
+        </template>
+        <router-link v-else-if="session.ready" class="menu-login" to="/login">Войти</router-link>
+
+        <div ref="root" class="city">
         <button
           class="city-button"
           type="button"
@@ -93,6 +114,7 @@ onUnmounted(() => {
           </button>
         </div>
       </div>
+    </div>
     </div>
   </header>
 </template>

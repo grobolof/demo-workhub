@@ -16,6 +16,15 @@ export default defineConfig({
       '/api': {
         target: apiTarget,
         changeOrigin: true,
+        configure(proxy) {
+          proxy.on('proxyRes', (proxyRes) => {
+            const cookies = proxyRes.headers['set-cookie']
+            if (!cookies) return
+            proxyRes.headers['set-cookie'] = cookies.map((cookie) =>
+              cookie.replace(/; ?Domain=[^;]*/gi, '').replace(/; ?Secure/gi, ''),
+            )
+          })
+        },
       },
       '/upload': {
         target: apiTarget,
