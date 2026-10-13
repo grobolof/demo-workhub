@@ -12,7 +12,7 @@ use CUtil;
 
 class ElementGuard
 {
-    private const TYPE = 'workhub';
+    private const TYPES = ['system', 'seekers', 'employers'];
 
     /** @var array<int, array{code: string, type: string}> */
     private static array $iblocks = [];
@@ -25,7 +25,7 @@ class ElementGuard
 
         $iblockId = self::resolveIblockId($fields);
         $meta = self::iblockMeta($iblockId);
-        if ($meta['type'] !== self::TYPE) {
+        if (!in_array($meta['type'], self::TYPES, true)) {
             return true;
         }
 
@@ -48,7 +48,7 @@ class ElementGuard
 
         $iblockId = self::resolveIblockId($fields);
         $meta = self::iblockMeta($iblockId);
-        if ($meta['type'] !== self::TYPE) {
+        if (!in_array($meta['type'], self::TYPES, true)) {
             return true;
         }
 

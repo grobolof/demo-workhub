@@ -18,6 +18,7 @@ export function formatMoney(value) {
 
 export function formatSalary(from, to) {
   const money = (value) => new Intl.NumberFormat('ru-RU').format(value)
+  if (from && to && from === to) return `${money(from)} ₽`
   if (from && to) return `${money(from)} – ${money(to)} ₽`
   if (from) return `от ${money(from)} ₽`
   if (to) return `до ${money(to)} ₽`

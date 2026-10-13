@@ -36064,7 +36064,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_agent` WRITE;
 /*!40000 ALTER TABLE `b_agent` DISABLE KEYS */;
 INSERT INTO `b_agent` VALUES
-(1,'main',100,'CCaptchaAgent::DeleteOldCaptcha(3600);','Y','2026-10-13 21:39:51','2026-10-13 22:39:51',NULL,3600,'N',NULL,'N',0),
+(1,'main',100,'CCaptchaAgent::DeleteOldCaptcha(3600);','Y','2026-10-13 23:37:23','2026-10-14 00:37:23',NULL,3600,'N',NULL,'N',0),
 (2,'main',100,'CSiteCheckerTest::CommonTest();','Y',NULL,'2026-10-14 03:00:00',NULL,86400,'N',NULL,'N',0),
 (3,'main',100,'CEvent::CleanUpAgent();','Y',NULL,'2026-10-14 03:10:00',NULL,86400,'N',NULL,'N',0),
 (4,'main',100,'CUser::CleanUpHitAuthAgent();','Y',NULL,'2026-10-14 03:15:00',NULL,86400,'N',NULL,'N',0),
@@ -36076,31 +36076,31 @@ INSERT INTO `b_agent` VALUES
 (10,'main',100,'CUser::DeactivateAgent();','Y',NULL,'2026-10-14 04:25:00',NULL,86400,'N',NULL,'N',0),
 (11,'main',100,'CEventLog::CleanUpAgent();','Y',NULL,'2026-10-14 04:30:00',NULL,86400,'N',NULL,'N',0),
 (12,'clouds',100,'CCloudStorage::CleanUp();','Y','2026-10-13 17:46:57','2026-10-14 17:46:57',NULL,86400,'N',NULL,'N',0),
-(13,'landing',100,'Bitrix\\Landing\\Agent::clearRecycle();','Y','2026-10-13 20:39:50','2026-10-13 22:39:50',NULL,7200,'N',NULL,'N',0),
-(14,'landing',100,'Bitrix\\Landing\\Agent::clearFiles(30);','Y','2026-10-13 21:39:51','2026-10-13 22:39:51',NULL,3600,'N',NULL,'N',0),
+(13,'landing',100,'Bitrix\\Landing\\Agent::clearRecycle();','Y','2026-10-13 23:37:23','2026-10-14 01:37:23',NULL,7200,'N',NULL,'N',0),
+(14,'landing',100,'Bitrix\\Landing\\Agent::clearFiles(30);','Y','2026-10-13 23:37:23','2026-10-14 00:37:23',NULL,3600,'N',NULL,'N',0),
 (15,'landing',100,'Bitrix\\Landing\\Agent::sendRestStatistic();','Y','2026-10-13 17:46:57','2026-10-14 17:46:57',NULL,86400,'N',NULL,'N',0),
 (16,'landing',100,'Bitrix\\Landing\\Agent::clearTempFiles();','Y','2026-10-13 17:46:57','2026-10-14 17:46:57',NULL,86400,'N',NULL,'N',0),
 (18,'location',100,'\\Bitrix\\Location\\Infrastructure\\Service\\RecentAddressesService::cleanUp();','Y','2026-10-13 20:39:50','2026-10-14 20:39:50',NULL,86400,'N',NULL,'N',0),
-(19,'messageservice',100,'Bitrix\\MessageService\\Queue::cleanUpAgent();','Y','2026-10-13 17:46:58','2026-10-14 00:00:00',NULL,86400,'Y',NULL,'N',0),
-(20,'messageservice',100,'Bitrix\\MessageService\\IncomingMessage::cleanUpAgent();','Y','2026-10-13 17:46:58','2026-10-14 00:00:00',NULL,86400,'Y',NULL,'N',0),
+(19,'messageservice',100,'Bitrix\\MessageService\\Queue::cleanUpAgent();','Y','2026-10-14 00:01:22','2026-10-15 00:00:00',NULL,86400,'Y',NULL,'N',0),
+(20,'messageservice',100,'Bitrix\\MessageService\\IncomingMessage::cleanUpAgent();','Y','2026-10-14 00:01:22','2026-10-15 00:00:00',NULL,86400,'Y',NULL,'N',0),
 (21,'rest',100,'Bitrix\\Rest\\Marketplace\\Client::getNumUpdates();','Y','2026-10-13 17:46:58','2026-10-14 17:46:58',NULL,86400,'N',NULL,'N',0),
 (22,'rest',100,'\\Bitrix\\Rest\\EventOfflineTable::cleanProcessAgent();','Y','2026-10-13 17:46:58','2026-10-14 17:46:58',NULL,86400,'N',NULL,'N',0),
 (23,'rest',100,'\\Bitrix\\Rest\\LogTable::cleanUpAgent();','Y','2026-10-13 17:46:58','2026-10-14 17:46:58',NULL,86400,'N',NULL,'N',0),
 (24,'rest',100,'\\Bitrix\\Rest\\Configuration\\Helper::sendStatisticAgent();','Y','2026-10-13 17:46:58','2026-10-14 17:46:58',NULL,86400,'N',NULL,'N',0),
-(25,'rest',100,'\\Bitrix\\Rest\\UsageStatTable::sendAgent();','Y','2026-10-13 21:39:51','2026-10-13 22:39:51',NULL,3600,'N',NULL,'N',0),
-(26,'rest',100,'\\Bitrix\\Rest\\UsageStatTable::cleanUpAgent();','Y','2026-10-13 21:39:51','2026-10-13 22:39:51',NULL,3600,'N',NULL,'N',0),
+(25,'rest',100,'\\Bitrix\\Rest\\UsageStatTable::sendAgent();','Y','2026-10-13 23:37:23','2026-10-14 00:37:23',NULL,3600,'N',NULL,'N',0),
+(26,'rest',100,'\\Bitrix\\Rest\\UsageStatTable::cleanUpAgent();','Y','2026-10-13 23:37:23','2026-10-14 00:37:23',NULL,3600,'N',NULL,'N',0),
 (27,'rest',100,'\\Bitrix\\Rest\\Marketplace\\Notification::checkAgent();','Y','2026-10-13 17:46:58','2026-10-14 17:46:58',NULL,86400,'N',NULL,'N',0),
 (28,'rest',100,'\\Bitrix\\Rest\\Marketplace\\Immune::load();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
 (29,'rest',100,'\\Bitrix\\Rest\\Configuration\\Structure::clearContentAgent();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
 (30,'rest',100,'\\Bitrix\\Rest\\Helper::recoveryAgents();','Y','2026-10-13 17:46:59','2026-10-20 17:46:59',NULL,604800,'N',NULL,'N',0),
 (31,'search',10,'CSearchSuggest::CleanUpAgent();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
 (32,'search',10,'CSearchStatistic::CleanUpAgent();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
-(33,'security',100,'CSecuritySession::CleanUpAgent();','Y','2026-10-13 21:15:07','2026-10-13 21:45:07',NULL,1800,'N',NULL,'N',0),
-(34,'security',100,'CSecurityIPRule::CleanUpAgent();','Y','2026-10-13 21:39:51','2026-10-13 22:39:51',NULL,3600,'N',NULL,'N',0),
-(35,'seo',100,'Bitrix\\Seo\\Engine\\YandexDirect::updateAgent();','Y','2026-10-13 21:39:51','2026-10-13 22:39:51',NULL,3600,'N',NULL,'N',0),
+(33,'security',100,'CSecuritySession::CleanUpAgent();','Y','2026-10-13 23:37:23','2026-10-14 00:07:23',NULL,1800,'N',NULL,'N',0),
+(34,'security',100,'CSecurityIPRule::CleanUpAgent();','Y','2026-10-13 23:37:23','2026-10-14 00:37:23',NULL,3600,'N',NULL,'N',0),
+(35,'seo',100,'Bitrix\\Seo\\Engine\\YandexDirect::updateAgent();','Y','2026-10-13 23:37:23','2026-10-14 00:37:23',NULL,3600,'N',NULL,'N',0),
 (36,'seo',100,'Bitrix\\Seo\\Adv\\LogTable::clean();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
-(37,'seo',100,'Bitrix\\Seo\\Adv\\Auto::checkQuantityAgent();','Y','2026-10-13 21:39:51','2026-10-13 22:39:51',NULL,3600,'N',NULL,'N',0),
-(39,'ui',100,'\\Bitrix\\UI\\FileUploader\\TempFileAgent::clearOldRecords();','Y','2026-10-13 21:15:07','2026-10-13 21:45:07',NULL,1800,'N',NULL,'N',0);
+(37,'seo',100,'Bitrix\\Seo\\Adv\\Auto::checkQuantityAgent();','Y','2026-10-13 23:37:23','2026-10-14 00:37:23',NULL,3600,'N',NULL,'N',0),
+(39,'ui',100,'\\Bitrix\\UI\\FileUploader\\TempFileAgent::clearOldRecords();','Y','2026-10-13 23:37:23','2026-10-14 00:07:23',NULL,1800,'N',NULL,'N',0);
 /*!40000 ALTER TABLE `b_agent` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -36229,7 +36229,7 @@ INSERT INTO `b_bitrixcloud_option` VALUES
 (1,'backup_quota',0,'0','0'),
 (2,'backup_total_size',0,'0','0'),
 (3,'backup_last_backup_time',0,'0','1791902823'),
-(4,'monitoring_expire_time',0,'0','1791915010');
+(4,'monitoring_expire_time',0,'0','1791925648');
 /*!40000 ALTER TABLE `b_bitrixcloud_option` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -36249,7 +36249,7 @@ CREATE TABLE `b_cache_clean_path` (
   `CLUSTER_GROUP` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`ID`),
   KEY `IX_CLEAN` (`CLUSTER_GROUP`,`CLEAN_FROM`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36259,9 +36259,6 @@ CREATE TABLE `b_cache_clean_path` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_cache_clean_path` WRITE;
 /*!40000 ALTER TABLE `b_cache_clean_path` DISABLE KEYS */;
-INSERT INTO `b_cache_clean_path` VALUES
-(8,'/bitrix/managed_cache/MYSQL/user_option.~758219','2026-10-13 21:49:48',0),
-(9,'/bitrix/managed_cache/MYSQL/orm_b_user_auth_action.~555609','2026-10-13 21:49:48',0);
 /*!40000 ALTER TABLE `b_cache_clean_path` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -36297,7 +36294,6 @@ LOCK TABLES `b_cache_tag` WRITE;
 INSERT INTO `b_cache_tag` VALUES
 (1,'s1','/e25','/s1/bitrix/menu/06f','bitrix:menu'),
 (3,'s1','/e25','/s1/bitrix/menu/345','bitrix:menu'),
-(2,'s1','/e25','/s1/bitrix/news.list/e25','iblock_id_1'),
 (4,'s1','/ff2','/s1/bitrix/menu/06f','bitrix:menu'),
 (5,'s1','/ff2','/s1/bitrix/menu/345','bitrix:menu');
 /*!40000 ALTER TABLE `b_cache_tag` ENABLE KEYS */;
@@ -37372,7 +37368,7 @@ CREATE TABLE `b_file` (
   `EXTERNAL_ID` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `IX_B_FILE_EXTERNAL_ID` (`EXTERNAL_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37712,7 +37708,7 @@ CREATE TABLE `b_group` (
   `SECURITY_POLICY` text DEFAULT NULL,
   `STRING_ID` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37729,7 +37725,8 @@ INSERT INTO `b_group` VALUES
 (4,'2026-10-13 14:46:03','Y',4,'N','Y','Пользователи имеющие право голосовать за авторитет','В эту группу пользователи добавляются автоматически.',NULL,'RATING_VOTE_AUTHORITY'),
 (5,'2026-10-13 14:47:00','Y',300,'N','Y','Контент-редакторы',NULL,NULL,'content_editor'),
 (6,'2026-10-13 17:21:43','Y',200,'N','Y','Соискатели','Соискатели WorkHub',NULL,'seeker'),
-(7,'2026-10-13 17:21:43','Y',210,'N','Y','Работодатели','Работодатели WorkHub',NULL,'employer');
+(7,'2026-10-13 17:21:43','Y',210,'N','Y','Работодатели','Работодатели WorkHub',NULL,'employer'),
+(8,'2026-10-13 20:55:05','Y',220,'N','Y','Поддержка','Инфоблоки системы, соискателей и работодателей, highload-блоки favourites и responses',NULL,'support');
 /*!40000 ALTER TABLE `b_group` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -37830,7 +37827,7 @@ CREATE TABLE `b_hlblock_entity` (
   `NAME` varchar(100) NOT NULL,
   `TABLE_NAME` varchar(64) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37842,7 +37839,8 @@ LOCK TABLES `b_hlblock_entity` WRITE;
 /*!40000 ALTER TABLE `b_hlblock_entity` DISABLE KEYS */;
 INSERT INTO `b_hlblock_entity` VALUES
 (1,'Favourites','favourites'),
-(2,'Responses','responses');
+(2,'Responses','responses'),
+(3,'ResumeFavourites','resume_favourites');
 /*!40000 ALTER TABLE `b_hlblock_entity` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -37873,7 +37871,9 @@ INSERT INTO `b_hlblock_entity_lang` VALUES
 (1,'ru','favourites'),
 (1,'en','favourites'),
 (2,'ru','responses'),
-(2,'en','responses');
+(2,'en','responses'),
+(3,'ru','Избранные резюме'),
+(3,'en','Favourite resumes');
 /*!40000 ALTER TABLE `b_hlblock_entity_lang` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -37892,7 +37892,7 @@ CREATE TABLE `b_hlblock_entity_rights` (
   `TASK_ID` int(11) unsigned NOT NULL,
   `ACCESS_CODE` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37902,6 +37902,9 @@ CREATE TABLE `b_hlblock_entity_rights` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_hlblock_entity_rights` WRITE;
 /*!40000 ALTER TABLE `b_hlblock_entity_rights` DISABLE KEYS */;
+INSERT INTO `b_hlblock_entity_rights` VALUES
+(1,1,32,'G8'),
+(2,2,32,'G8');
 /*!40000 ALTER TABLE `b_hlblock_entity_rights` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -38120,7 +38123,7 @@ CREATE TABLE `b_iblock` (
   UNIQUE KEY `ix_iblock_api_code` (`API_CODE`),
   KEY `ix_iblock` (`IBLOCK_TYPE_ID`,`LID`,`ACTIVE`),
   KEY `ix_iblock_code` (`CODE`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38131,13 +38134,12 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock` WRITE;
 /*!40000 ALTER TABLE `b_iblock` DISABLE KEYS */;
 INSERT INTO `b_iblock` VALUES
-(1,'2026-10-13 17:47:01','news','s1','corporate_news_s1',NULL,'N','[s1] Новости','Y',500,'#SITE_DIR#/news/','#SITE_DIR#/news/#ID#/','#SITE_DIR#/news/list.php?SECTION_ID=#ID#',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N','corporate_news_s1','2cf03142999ae0b3edc88fe106525ace','Y','Y','N','N','L',NULL,'S',NULL,NULL,1,0,NULL,NULL,NULL,'Разделы','Раздел','Новости','Новость','N'),
-(2,'2026-10-13 17:47:01','vacancies','s1','corp_vacancies_s1',NULL,'N','Вакансии','Y',500,'#SITE_DIR#/about/vacancies.php','#SITE_DIR#/about/vacancies.php##ID#',NULL,NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N','corp_vacancies_s1','233add535913fe8bb44e2557eb7dec10','Y','N','N','N','L',NULL,'S',NULL,NULL,1,0,NULL,NULL,NULL,'Разделы','Раздел','Вакансии','Вакансия','N'),
-(3,'2026-10-13 18:51:42','workhub','s1','companies',NULL,'N','Компании','Y',100,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'Y','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N'),
-(4,'2026-10-13 18:51:42','workhub','s1','cities',NULL,'N','Города','Y',200,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'N','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N'),
-(5,'2026-10-13 19:25:06','workhub','s1','vacancies',NULL,'N','Вакансии','Y',300,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'Y','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N'),
-(6,'2026-10-13 19:25:06','workhub','s1','banners',NULL,'N','Баннеры','Y',400,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'N','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N'),
-(7,'2026-10-13 20:21:43','workhub','s1','resumes',NULL,'N','Резюме','Y',500,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'N','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N');
+(3,'2026-10-13 23:55:05','employers','s1','companies',NULL,'N','Компании','Y',100,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'Y','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N'),
+(4,'2026-10-13 23:55:05','employers','s1','cities',NULL,'N','Города','Y',200,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'N','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N'),
+(5,'2026-10-13 23:55:05','employers','s1','vacancies',NULL,'N','Вакансии','Y',300,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'Y','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N'),
+(6,'2026-10-13 23:55:05','system','s1','banners',NULL,'N','Баннеры','Y',400,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'N','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N'),
+(7,'2026-10-13 23:55:05','seekers','s1','resumes',NULL,'N','Резюме','Y',500,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'N','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N'),
+(8,'2026-10-13 23:55:05','system','s1','requests',NULL,'N','Заявки','Y',600,'','','',NULL,NULL,NULL,'text',24,'Y','N',NULL,NULL,'N',NULL,NULL,'N','N','N','N','L',NULL,'S',NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N');
 /*!40000 ALTER TABLE `b_iblock` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -38217,7 +38219,7 @@ CREATE TABLE `b_iblock_element` (
   KEY `ix_iblock_element_3` (`WF_PARENT_ELEMENT_ID`),
   KEY `ix_iblock_element_code` (`IBLOCK_ID`,`CODE`),
   KEY `ix_iblock_element_name` (`IBLOCK_ID`,`NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38228,12 +38230,6 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_element` WRITE;
 /*!40000 ALTER TABLE `b_iblock_element` DISABLE KEYS */;
 INSERT INTO `b_iblock_element` VALUES
-(1,'2026-10-13 17:47:01',1,'2026-10-13 17:47:01',1,1,NULL,'Y','2010-05-28 00:00:00',NULL,500,'Банк переносит дату вступления в действие тарифов на услуги в иностранной валюте',NULL,'Уважаемые клиенты,<br />\nсообщаем Вам, что Банк переносит дату вступления в действие тарифов на услуги для юридических лиц и индивидуальных предпринимателей в иностранной валюте. В связи с этим до даты введения в действие новой редакции тарифов, услуги юридическим лицам и индивидуальным предпринимателям будут оказываться в рамках действующих тарифов. <br />\nИнформация о дате введения новой редакции тарифов будет сообщена дополнительно.','html',NULL,'Уважаемые клиенты,<br />\nсообщаем Вам, что Банк переносит дату вступления в действие тарифов на услуги для юридических лиц и индивидуальных предпринимателей в иностранной валюте. В связи с этим до даты введения в действие новой редакции тарифов, услуги юридическим лицам и индивидуальным предпринимателям будут оказываться в рамках действующих тарифов. <br />\nИнформация о дате введения новой редакции тарифов будет сообщена дополнительно.','html','БАНК ПЕРЕНОСИТ ДАТУ ВСТУПЛЕНИЯ В ДЕЙСТВИЕ ТАРИФОВ НА УСЛУГИ В ИНОСТРАННОЙ ВАЛЮТЕ\r\nУВАЖАЕМЫЕ КЛИЕНТЫ,\r\nСООБЩАЕМ ВАМ, ЧТО БАНК ПЕРЕНОСИТ ДАТУ ВСТУПЛЕНИЯ \r\nВ ДЕЙСТВИЕ ТАРИФОВ НА УСЛУГИ ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ И ИНДИВИДУАЛЬНЫХ ПРЕДПРИНИМАТЕЛЕЙ В ИНОСТРАННОЙ ВАЛЮТЕ. В СВЯЗИ С ЭТИМ ДО ДАТЫ ВВЕДЕНИЯ В ДЕЙСТВИЕ НОВОЙ РЕДАКЦИИ ТАРИФОВ, УСЛУГИ ЮРИДИЧЕСКИМ ЛИЦАМ И ИНДИВИДУАЛЬНЫМ ПРЕДПРИНИМАТЕЛЯМ БУДУТ ОКАЗЫВАТЬСЯ В РАМКАХ ДЕЙСТВУЮЩИХ ТАРИФОВ. \r\nИНФОРМАЦИЯ О ДАТЕ ВВЕДЕНИЯ НОВОЙ РЕДАКЦИИ \r\nТАРИФОВ БУДЕТ СООБЩЕНА ДОПОЛНИТЕЛЬНО.\r\nУВАЖАЕМЫЕ КЛИЕНТЫ,\r\nСООБЩАЕМ ВАМ, ЧТО БАНК ПЕРЕНОСИТ ДАТУ ВСТУПЛЕНИЯ \r\nВ ДЕЙСТВИЕ ТАРИФОВ НА УСЛУГИ ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ И ИНДИВИДУАЛЬНЫХ ПРЕДПРИНИМАТЕЛЕЙ В ИНОСТРАННОЙ ВАЛЮТЕ. В СВЯЗИ С ЭТИМ ДО ДАТЫ ВВЕДЕНИЯ В ДЕЙСТВИЕ НОВОЙ РЕДАКЦИИ ТАРИФОВ, УСЛУГИ ЮРИДИЧЕСКИМ ЛИЦАМ И ИНДИВИДУАЛЬНЫМ ПРЕДПРИНИМАТЕЛЯМ БУДУТ ОКАЗЫВАТЬСЯ В РАМКАХ ДЕЙСТВУЮЩИХ ТАРИФОВ. \r\nИНФОРМАЦИЯ О ДАТЕ ВВЕДЕНИЯ НОВОЙ РЕДАКЦИИ \r\nТАРИФОВ БУДЕТ СООБЩЕНА ДОПОЛНИТЕЛЬНО.',1,NULL,NULL,NULL,NULL,NULL,'N','1','','','346668823',NULL,NULL,NULL),
-(2,'2026-10-13 17:47:01',1,'2026-10-13 17:47:01',1,1,NULL,'Y','2010-05-27 00:00:00',NULL,500,'Начать работать с системой «Интернет-Клиент» стало еще проще ',NULL,'Наш Банк предлагает своим клиентам Мастер Установки «Интернет-Клиент», который существенно упростит начало работы с системой. Теперь достаточно скачать и запустить Мастер Установки, и все настройки будут произведены автоматически. Вам больше не нужно тратить время на изучение объемных инструкций, или звонить в службу техподдержки, чтобы начать работать с системой.','html',NULL,'Наш Банк предлагает своим клиентам Мастер Установки «Интернет-Клиент», который существенно упростит начало работы с системой. Теперь достаточно скачать и запустить Мастер Установки, и все настройки будут произведены автоматически. Вам больше не нужно тратить время на изучение объемных инструкций, или звонить в службу техподдержки, чтобы начать работать с системой.','text','НАЧАТЬ РАБОТАТЬ С СИСТЕМОЙ «ИНТЕРНЕТ-КЛИЕНТ» СТАЛО ЕЩЕ ПРОЩЕ \r\nНАШ БАНК ПРЕДЛАГАЕТ СВОИМ КЛИЕНТАМ МАСТЕР \r\nУСТАНОВКИ «ИНТЕРНЕТ-КЛИЕНТ», КОТОРЫЙ СУЩЕСТВЕННО УПРОСТИТ НАЧАЛО РАБОТЫ С СИСТЕМОЙ. ТЕПЕРЬ ДОСТАТОЧНО СКАЧАТЬ И ЗАПУСТИТЬ МАСТЕР УСТАНОВКИ, И ВСЕ НАСТРОЙКИ БУДУТ ПРОИЗВЕДЕНЫ АВТОМАТИЧЕСКИ. ВАМ БОЛЬШЕ НЕ НУЖНО ТРАТИТЬ ВРЕМЯ НА ИЗУЧЕНИЕ ОБЪЕМНЫХ ИНСТРУКЦИЙ, ИЛИ ЗВОНИТЬ В СЛУЖБУ ТЕХПОДДЕРЖКИ, ЧТОБЫ НАЧАТЬ РАБОТАТЬ С СИСТЕМОЙ.\r\nНАШ БАНК ПРЕДЛАГАЕТ СВОИМ КЛИЕНТАМ МАСТЕР УСТАНОВКИ «ИНТЕРНЕТ-КЛИЕНТ», КОТОРЫЙ СУЩЕСТВЕННО УПРОСТИТ НАЧАЛО РАБОТЫ С СИСТЕМОЙ. ТЕПЕРЬ ДОСТАТОЧНО СКАЧАТЬ И ЗАПУСТИТЬ МАСТЕР УСТАНОВКИ, И ВСЕ НАСТРОЙКИ БУДУТ ПРОИЗВЕДЕНЫ АВТОМАТИЧЕСКИ. ВАМ БОЛЬШЕ НЕ НУЖНО ТРАТИТЬ ВРЕМЯ НА ИЗУЧЕНИЕ ОБЪЕМНЫХ ИНСТРУКЦИЙ, ИЛИ ЗВОНИТЬ В СЛУЖБУ ТЕХПОДДЕРЖКИ, ЧТОБЫ НАЧАТЬ РАБОТАТЬ С СИСТЕМОЙ.',1,NULL,NULL,NULL,NULL,NULL,'N','2','','','847552514',NULL,NULL,NULL),
-(3,'2026-10-13 17:47:01',1,'2026-10-13 17:47:01',1,1,NULL,'Y','2010-05-24 00:00:00',NULL,500,'Реорганизация сети отделений Банка ',NULL,'В ближайшее время будет значительно расширен продуктовый ряд и перечень предоставляемых банковских услуг, которые Банк сможет предлагать во всех своих дополнительных офисах. Теперь наши клиенты смогут получить полный перечень услуг в любом из отделений Банка. <br />\nБыло проведено комплексное всестороннее исследование функционирования региональных офисов на предмет соответствия возросшим требованиям. В результате, принято решение о временном закрытии офисов, не соответствующих высоким стандартам и не приспособленных к требованиям растущего бизнеса. Офисы постепенно будут отремонтированы и переоборудованы, станут современными и удобными. <br />\n<br />\nПриносим свои извинения за временно доставленные неудобства. ','html',NULL,'В ближайшее время будет значительно расширен продуктовый ряд и перечень предоставляемых банковских услуг, которые Банк сможет предлагать во всех своих дополнительных офисах. Теперь наши клиенты смогут получить полный перечень услуг в любом из отделений Банка. <br />\nБыло проведено комплексное всестороннее исследование функционирования региональных офисов на предмет соответствия возросшим требованиям. В результате, принято решение о временном закрытии офисов, не соответствующих высоким стандартам и не приспособленных к требованиям растущего бизнеса. Офисы постепенно будут отремонтированы и переоборудованы, станут современными и удобными. <br />\n<br />\nПриносим свои извинения за временно доставленные неудобства. ','html','РЕОРГАНИЗАЦИЯ СЕТИ ОТДЕЛЕНИЙ БАНКА \r\nВ БЛИЖАЙШЕЕ ВРЕМЯ БУДЕТ ЗНАЧИТЕЛЬНО РАСШИРЕН \r\nПРОДУКТОВЫЙ РЯД И ПЕРЕЧЕНЬ ПРЕДОСТАВЛЯЕМЫХ БАНКОВСКИХ УСЛУГ, КОТОРЫЕ БАНК СМОЖЕТ ПРЕДЛАГАТЬ ВО ВСЕХ СВОИХ ДОПОЛНИТЕЛЬНЫХ ОФИСАХ. ТЕПЕРЬ НАШИ КЛИЕНТЫ СМОГУТ ПОЛУЧИТЬ ПОЛНЫЙ ПЕРЕЧЕНЬ УСЛУГ В ЛЮБОМ ИЗ ОТДЕЛЕНИЙ БАНКА. \r\nБЫЛО ПРОВЕДЕНО КОМПЛЕКСНОЕ ВСЕСТОРОННЕЕ \r\nИССЛЕДОВАНИЕ ФУНКЦИОНИРОВАНИЯ РЕГИОНАЛЬНЫХ ОФИСОВ НА ПРЕДМЕТ СООТВЕТСТВИЯ ВОЗРОСШИМ ТРЕБОВАНИЯМ. В РЕЗУЛЬТАТЕ, ПРИНЯТО РЕШЕНИЕ О ВРЕМЕННОМ ЗАКРЫТИИ ОФИСОВ, НЕ СООТВЕТСТВУЮЩИХ ВЫСОКИМ СТАНДАРТАМ И НЕ ПРИСПОСОБЛЕННЫХ К ТРЕБОВАНИЯМ РАСТУЩЕГО БИЗНЕСА. ОФИСЫ ПОСТЕПЕННО БУДУТ ОТРЕМОНТИРОВАНЫ И ПЕРЕОБОРУДОВАНЫ, СТАНУТ СОВРЕМЕННЫМИ И УДОБНЫМИ. \r\n\r\nПРИНОСИМ СВОИ ИЗВИНЕНИЯ ЗА ВРЕМЕННО ДОСТАВЛЕННЫЕ \r\nНЕУДОБСТВА.\r\nВ БЛИЖАЙШЕЕ ВРЕМЯ БУДЕТ ЗНАЧИТЕЛЬНО РАСШИРЕН \r\nПРОДУКТОВЫЙ РЯД И ПЕРЕЧЕНЬ ПРЕДОСТАВЛЯЕМЫХ БАНКОВСКИХ УСЛУГ, КОТОРЫЕ БАНК СМОЖЕТ ПРЕДЛАГАТЬ ВО ВСЕХ СВОИХ ДОПОЛНИТЕЛЬНЫХ ОФИСАХ. ТЕПЕРЬ НАШИ КЛИЕНТЫ СМОГУТ ПОЛУЧИТЬ ПОЛНЫЙ ПЕРЕЧЕНЬ УСЛУГ В ЛЮБОМ ИЗ ОТДЕЛЕНИЙ БАНКА. \r\nБЫЛО ПРОВЕДЕНО КОМПЛЕКСНОЕ ВСЕСТОРОННЕЕ \r\nИССЛЕДОВАНИЕ ФУНКЦИОНИРОВАНИЯ РЕГИОНАЛЬНЫХ ОФИСОВ НА ПРЕДМЕТ СООТВЕТСТВИЯ ВОЗРОСШИМ ТРЕБОВАНИЯМ. В РЕЗУЛЬТАТЕ, ПРИНЯТО РЕШЕНИЕ О ВРЕМЕННОМ ЗАКРЫТИИ ОФИСОВ, НЕ СООТВЕТСТВУЮЩИХ ВЫСОКИМ СТАНДАРТАМ И НЕ ПРИСПОСОБЛЕННЫХ К ТРЕБОВАНИЯМ РАСТУЩЕГО БИЗНЕСА. ОФИСЫ ПОСТЕПЕННО БУДУТ ОТРЕМОНТИРОВАНЫ И ПЕРЕОБОРУДОВАНЫ, СТАНУТ СОВРЕМЕННЫМИ И УДОБНЫМИ. \r\n\r\nПРИНОСИМ СВОИ ИЗВИНЕНИЯ ЗА ВРЕМЕННО ДОСТАВЛЕННЫЕ \r\nНЕУДОБСТВА.',1,NULL,NULL,NULL,NULL,NULL,'N','3','','','1337055006',NULL,NULL,NULL),
-(4,'2026-10-13 17:47:01',1,'2026-10-13 17:47:01',1,2,NULL,'Y','2010-05-01 00:00:00',NULL,200,'Главный специалист Отдела анализа кредитных проектов региональной сети',NULL,'','html',NULL,'<b>Требования</b> 						 						 \n<p>Высшее экономическое/финансовое образование, опыт в банках топ-100 не менее 3-х лет в кредитном отделе (анализ заемщиков), желателен опыт работы с кредитными заявками филиалов, знание технологий АФХД предприятий, навыки написания экспертного заключения, знание законодательства (в т.ч. Положение ЦБ № 254-П).</p>\n 						 						<b>Обязанности</b> 						 \n<p>Анализ кредитных проектов филиалов Банка, подготовка предложений по структурированию кредитных проектов, оценка полноты и качества формируемых филиалами заключений, выявление стоп-факторов, доработка заявок филиалов в соответствии со стандартами Банка, подготовка заключения (рекомендаций) на КК по заявкам филиалов в части оценки финансово-экономического состояния заемщика, защита проектов на КК Банка, консультирование и методологическая помощь филиалам Банка в части корпоративного кредитования.</p>\n 						 						<b>Условия</b> 						 \n<p> Место работы: М.Парк Культуры. Графики работы: пятидневная рабочая неделя, с 9:00 до 18:00, пт. до 16:45. Зарплата: 50000 руб. оклад + премии, полный соц. пакет,оформление согласно ТК РФ</p>\n ','html','ГЛАВНЫЙ СПЕЦИАЛИСТ ОТДЕЛА АНАЛИЗА КРЕДИТНЫХ ПРОЕКТОВ РЕГИОНАЛЬНОЙ СЕТИ\r\n\r\nТРЕБОВАНИЯ \r\n\r\nВЫСШЕЕ ЭКОНОМИЧЕСКОЕ/ФИНАНСОВОЕ ОБРАЗОВАНИЕ, \r\nОПЫТ В БАНКАХ ТОП-100 НЕ МЕНЕЕ 3-Х ЛЕТ В КРЕДИТНОМ ОТДЕЛЕ (АНАЛИЗ ЗАЕМЩИКОВ), ЖЕЛАТЕЛЕН ОПЫТ РАБОТЫ С КРЕДИТНЫМИ ЗАЯВКАМИ ФИЛИАЛОВ, ЗНАНИЕ ТЕХНОЛОГИЙ АФХД ПРЕДПРИЯТИЙ, НАВЫКИ НАПИСАНИЯ ЭКСПЕРТНОГО ЗАКЛЮЧЕНИЯ, ЗНАНИЕ ЗАКОНОДАТЕЛЬСТВА (В Т.Ч. ПОЛОЖЕНИЕ ЦБ № 254-П). ОБЯЗАННОСТИ \r\n\r\nАНАЛИЗ КРЕДИТНЫХ ПРОЕКТОВ ФИЛИАЛОВ БАНКА, \r\nПОДГОТОВКА ПРЕДЛОЖЕНИЙ ПО СТРУКТУРИРОВАНИЮ КРЕДИТНЫХ ПРОЕКТОВ, ОЦЕНКА ПОЛНОТЫ И КАЧЕСТВА ФОРМИРУЕМЫХ ФИЛИАЛАМИ ЗАКЛЮЧЕНИЙ, ВЫЯВЛЕНИЕ СТОП-ФАКТОРОВ, ДОРАБОТКА ЗАЯВОК ФИЛИАЛОВ В СООТВЕТСТВИИ СО СТАНДАРТАМИ БАНКА, ПОДГОТОВКА ЗАКЛЮЧЕНИЯ (РЕКОМЕНДАЦИЙ) НА КК ПО ЗАЯВКАМ ФИЛИАЛОВ В ЧАСТИ ОЦЕНКИ ФИНАНСОВО-ЭКОНОМИЧЕСКОГО СОСТОЯНИЯ ЗАЕМЩИКА, ЗАЩИТА ПРОЕКТОВ НА КК БАНКА, КОНСУЛЬТИРОВАНИЕ И МЕТОДОЛОГИЧЕСКАЯ ПОМОЩЬ ФИЛИАЛАМ БАНКА В ЧАСТИ КОРПОРАТИВНОГО КРЕДИТОВАНИЯ. УСЛОВИЯ \r\n\r\nМЕСТО РАБОТЫ: М.ПАРК КУЛЬТУРЫ. ГРАФИКИ РАБОТЫ: \r\nПЯТИДНЕВНАЯ РАБОЧАЯ НЕДЕЛЯ, С 9:00 ДО 18:00, ПТ. ДО 16:45. ЗАРПЛАТА: 50000 РУБ. ОКЛАД + ПРЕМИИ, ПОЛНЫЙ СОЦ. ПАКЕТ,ОФОРМЛЕНИЕ СОГЛАСНО ТК РФ',1,NULL,NULL,NULL,NULL,NULL,'N','2','','','1535716109',NULL,NULL,NULL),
-(5,'2026-10-13 17:47:01',1,'2026-10-13 17:47:01',1,2,NULL,'Y','2010-05-01 00:00:00',NULL,300,'Специалист по продажам розничных банковских продуктов',NULL,'','html',NULL,'<b>Требования</b> 						 						 \n<p>Высшее экономического образования ‚ опыт работы в сфере продаж банковских продуктов‚ опытный пользователь ПК‚ этика делового общения‚ ответственность‚ инициативность‚ активность.</p>\n 						 						<b>Обязанности</b> 						 \n<p>Продажа розничных банковских продуктов, оформление документов.</p>\n 						 						<b>Условия</b> 						 \n<p>Трудоустройство по ТК РФ‚ полный соц. пакет. График работы: пятидневная рабочая неделя. Зарплата: 20000 руб. оклад + премии</p>\n ','html','СПЕЦИАЛИСТ ПО ПРОДАЖАМ РОЗНИЧНЫХ БАНКОВСКИХ ПРОДУКТОВ\r\n\r\nТРЕБОВАНИЯ \r\n\r\nВЫСШЕЕ ЭКОНОМИЧЕСКОГО ОБРАЗОВАНИЯ ‚ ОПЫТ \r\nРАБОТЫ В СФЕРЕ ПРОДАЖ БАНКОВСКИХ ПРОДУКТОВ‚ ОПЫТНЫЙ ПОЛЬЗОВАТЕЛЬ ПК‚ ЭТИКА ДЕЛОВОГО ОБЩЕНИЯ‚ ОТВЕТСТВЕННОСТЬ‚ ИНИЦИАТИВНОСТЬ‚ АКТИВНОСТЬ. ОБЯЗАННОСТИ \r\n\r\nПРОДАЖА РОЗНИЧНЫХ БАНКОВСКИХ ПРОДУКТОВ, \r\nОФОРМЛЕНИЕ ДОКУМЕНТОВ. УСЛОВИЯ \r\n\r\nТРУДОУСТРОЙСТВО ПО ТК РФ‚ ПОЛНЫЙ СОЦ. ПАКЕТ. \r\nГРАФИК РАБОТЫ: ПЯТИДНЕВНАЯ РАБОЧАЯ НЕДЕЛЯ. ЗАРПЛАТА: 20000 РУБ. ОКЛАД + ПРЕМИИ',1,NULL,NULL,NULL,NULL,NULL,'N','3','','','925032528',NULL,NULL,NULL),
-(6,'2026-10-13 17:47:01',1,'2026-10-13 17:47:01',1,2,NULL,'Y','2010-05-01 00:00:00',NULL,400,'Специалист Отдела андеррайтинга',NULL,'','html',NULL,'<b>Требования</b> 						 						 \n<p>Высшее профессиональное образование, опыт работы от 2 лет в отделе по работе с физическими и юридическими лицами Банков, связанных с анализом платёжеспособности и кредитоспособности физических и юридических лиц.</p>\n 						 						<b>Обязанности</b> 						 \n<p>Проверка соответствия документов, предоставленных клиентами Банка, анализ информации о риске</p>\n 						 						<b>Условия</b> 						 \n<p>Трудоустройство по ТК РФ‚ полный соц. пакет. График работы: пятидневная рабочая неделя. Зарплата: оклад 25000 руб.</p>\n ','html','СПЕЦИАЛИСТ ОТДЕЛА АНДЕРРАЙТИНГА\r\n\r\nТРЕБОВАНИЯ \r\n\r\nВЫСШЕЕ ПРОФЕССИОНАЛЬНОЕ ОБРАЗОВАНИЕ, ОПЫТ \r\nРАБОТЫ ОТ 2 ЛЕТ В ОТДЕЛЕ ПО РАБОТЕ С ФИЗИЧЕСКИМИ И ЮРИДИЧЕСКИМИ ЛИЦАМИ БАНКОВ, СВЯЗАННЫХ С АНАЛИЗОМ ПЛАТЁЖЕСПОСОБНОСТИ И КРЕДИТОСПОСОБНОСТИ ФИЗИЧЕСКИХ И ЮРИДИЧЕСКИХ ЛИЦ. ОБЯЗАННОСТИ \r\n\r\nПРОВЕРКА СООТВЕТСТВИЯ ДОКУМЕНТОВ, ПРЕДОСТАВЛЕННЫХ \r\nКЛИЕНТАМИ БАНКА, АНАЛИЗ ИНФОРМАЦИИ О РИСКЕ УСЛОВИЯ \r\n\r\nТРУДОУСТРОЙСТВО ПО ТК РФ‚ ПОЛНЫЙ СОЦ. ПАКЕТ. \r\nГРАФИК РАБОТЫ: ПЯТИДНЕВНАЯ РАБОЧАЯ НЕДЕЛЯ. ЗАРПЛАТА: ОКЛАД 25000 РУБ.',1,NULL,NULL,NULL,NULL,NULL,'N','4','','','1177477483',NULL,NULL,NULL),
 (7,'2026-10-13 18:51:42',1,'2026-10-13 18:51:42',1,3,NULL,'Y',NULL,NULL,100,'Альфа-Банк',1,'Крупный частный банк: офисы по всей стране и цифровые сервисы для миллионов клиентов.','text',2,'Альфа-Банк развивает розничные и корпоративные продукты. В командах нужны специалисты поддержки, продаж и разработки. Офисы есть в крупных городах, часть задач можно закрывать удалённо.','text','АЛЬФА-БАНК\r\nКРУПНЫЙ ЧАСТНЫЙ БАНК: ОФИСЫ ПО ВСЕЙ СТРАНЕ И ЦИФРОВЫЕ СЕРВИСЫ ДЛЯ МИЛЛИОНОВ КЛИЕНТОВ.\r\nАЛЬФА-БАНК РАЗВИВАЕТ РОЗНИЧНЫЕ И КОРПОРАТИВНЫЕ ПРОДУКТЫ. В КОМАНДАХ НУЖНЫ СПЕЦИАЛИСТЫ ПОДДЕРЖКИ, ПРОДАЖ И РАЗРАБОТКИ. ОФИСЫ ЕСТЬ В КРУПНЫХ ГОРОДАХ, ЧАСТЬ ЗАДАЧ МОЖНО ЗАКРЫВАТЬ УДАЛЁННО.',1,NULL,NULL,NULL,NULL,NULL,'N','7','alfa-bank',NULL,NULL,NULL,NULL,NULL),
 (8,'2026-10-13 18:51:42',1,'2026-10-13 18:51:42',1,3,NULL,'Y',NULL,NULL,200,'Яндекс',3,'Технологическая компания: поиск, доставка, облако и сервисы, которыми пользуются каждый день.','text',4,'В Яндексе собирают продукты для миллионов людей. Команды ищут инженеров, аналитиков и специалистов поддержки в Москве и Санкт-Петербурге.','text','ЯНДЕКС\r\nТЕХНОЛОГИЧЕСКАЯ КОМПАНИЯ: ПОИСК, ДОСТАВКА, ОБЛАКО И СЕРВИСЫ, КОТОРЫМИ ПОЛЬЗУЮТСЯ КАЖДЫЙ ДЕНЬ.\r\nВ ЯНДЕКСЕ СОБИРАЮТ ПРОДУКТЫ ДЛЯ МИЛЛИОНОВ ЛЮДЕЙ. КОМАНДЫ ИЩУТ ИНЖЕНЕРОВ, АНАЛИТИКОВ И СПЕЦИАЛИСТОВ ПОДДЕРЖКИ В МОСКВЕ И САНКТ-ПЕТЕРБУРГЕ.',1,NULL,NULL,NULL,NULL,NULL,'N','8','yandex',NULL,NULL,NULL,NULL,NULL),
 (9,'2026-10-13 18:51:42',1,'2026-10-13 18:51:42',1,3,NULL,'Y',NULL,NULL,300,'Магнит',5,'Сеть магазинов у дома. Нужны продавцы, водители и сотрудники распределительных центров.','text',6,'«Магнит» — одна из крупнейших розничных сетей. Вакансии открыты в магазинах, на складах и в логистике. График и район подбирают на собеседовании.','text','МАГНИТ\r\nСЕТЬ МАГАЗИНОВ У ДОМА. НУЖНЫ ПРОДАВЦЫ, ВОДИТЕЛИ И СОТРУДНИКИ РАСПРЕДЕЛИТЕЛЬНЫХ ЦЕНТРОВ.\r\n«МАГНИТ» — ОДНА ИЗ КРУПНЕЙШИХ РОЗНИЧНЫХ СЕТЕЙ. ВАКАНСИИ ОТКРЫТЫ В МАГАЗИНАХ, НА СКЛАДАХ И В ЛОГИСТИКЕ. ГРАФИК И РАЙОН ПОДБИРАЮТ НА СОБЕСЕДОВАНИИ.',1,NULL,NULL,NULL,NULL,NULL,'N','9','magnit',NULL,NULL,NULL,NULL,NULL),
@@ -38510,6 +38506,40 @@ COMMIT;
 SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
+-- Table structure for table `b_iblock_element_prop_m8`
+--
+
+DROP TABLE IF EXISTS `b_iblock_element_prop_m8`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `b_iblock_element_prop_m8` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `IBLOCK_ELEMENT_ID` int(11) NOT NULL,
+  `IBLOCK_PROPERTY_ID` int(11) NOT NULL,
+  `VALUE` text NOT NULL,
+  `VALUE_ENUM` int(11) DEFAULT NULL,
+  `VALUE_NUM` decimal(18,4) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ix_iblock_elem_prop_m8_1` (`IBLOCK_ELEMENT_ID`,`IBLOCK_PROPERTY_ID`),
+  KEY `ix_iblock_elem_prop_m8_2` (`IBLOCK_PROPERTY_ID`),
+  KEY `ix_iblock_elem_prop_m8_3` (`VALUE_ENUM`,`IBLOCK_PROPERTY_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `b_iblock_element_prop_m8`
+--
+
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
+LOCK TABLES `b_iblock_element_prop_m8` WRITE;
+/*!40000 ALTER TABLE `b_iblock_element_prop_m8` DISABLE KEYS */;
+/*!40000 ALTER TABLE `b_iblock_element_prop_m8` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
+
+--
 -- Table structure for table `b_iblock_element_prop_s3`
 --
 
@@ -38518,6 +38548,8 @@ DROP TABLE IF EXISTS `b_iblock_element_prop_s3`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `b_iblock_element_prop_s3` (
   `IBLOCK_ELEMENT_ID` int(11) NOT NULL,
+  `PROPERTY_10` text DEFAULT NULL,
+  `PROPERTY_11` decimal(18,4) DEFAULT NULL,
   PRIMARY KEY (`IBLOCK_ELEMENT_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38530,12 +38562,12 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_element_prop_s3` WRITE;
 /*!40000 ALTER TABLE `b_iblock_element_prop_s3` DISABLE KEYS */;
 INSERT INTO `b_iblock_element_prop_s3` VALUES
-(7),
-(8),
-(9),
-(10),
-(11),
-(12);
+(7,NULL,NULL),
+(8,NULL,NULL),
+(9,NULL,NULL),
+(10,NULL,NULL),
+(11,NULL,NULL),
+(12,NULL,NULL);
 /*!40000 ALTER TABLE `b_iblock_element_prop_s3` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -38586,6 +38618,8 @@ CREATE TABLE `b_iblock_element_prop_s5` (
   `PROPERTY_2` longtext DEFAULT NULL,
   `PROPERTY_3` decimal(18,4) DEFAULT NULL,
   `PROPERTY_4` decimal(18,4) DEFAULT NULL,
+  `PROPERTY_12` int(11) DEFAULT NULL,
+  `PROPERTY_13` int(11) DEFAULT NULL,
   PRIMARY KEY (`IBLOCK_ELEMENT_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38598,16 +38632,16 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_element_prop_s5` WRITE;
 /*!40000 ALTER TABLE `b_iblock_element_prop_s5` DISABLE KEYS */;
 INSERT INTO `b_iblock_element_prop_s5` VALUES
-(19,10,NULL,90000.0000,140000.0000),
-(20,9,NULL,80000.0000,NULL),
-(21,9,NULL,55000.0000,75000.0000),
-(22,7,NULL,250000.0000,400000.0000),
-(23,8,NULL,200000.0000,NULL),
-(24,11,NULL,NULL,90000.0000),
-(25,12,NULL,90000.0000,130000.0000),
-(26,10,NULL,70000.0000,NULL),
-(27,7,NULL,120000.0000,180000.0000),
-(28,11,NULL,45000.0000,65000.0000);
+(19,10,NULL,90000.0000,140000.0000,NULL,NULL),
+(20,9,NULL,80000.0000,NULL,NULL,NULL),
+(21,9,NULL,55000.0000,75000.0000,NULL,NULL),
+(22,7,NULL,250000.0000,400000.0000,NULL,NULL),
+(23,8,NULL,200000.0000,NULL,NULL,NULL),
+(24,11,NULL,NULL,90000.0000,NULL,NULL),
+(25,12,NULL,90000.0000,130000.0000,NULL,NULL),
+(26,10,NULL,70000.0000,NULL,NULL,NULL),
+(27,7,NULL,120000.0000,180000.0000,NULL,NULL),
+(28,11,NULL,45000.0000,65000.0000,NULL,NULL);
 /*!40000 ALTER TABLE `b_iblock_element_prop_s5` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -38665,6 +38699,34 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_element_prop_s7` WRITE;
 /*!40000 ALTER TABLE `b_iblock_element_prop_s7` DISABLE KEYS */;
 /*!40000 ALTER TABLE `b_iblock_element_prop_s7` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
+
+--
+-- Table structure for table `b_iblock_element_prop_s8`
+--
+
+DROP TABLE IF EXISTS `b_iblock_element_prop_s8`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `b_iblock_element_prop_s8` (
+  `IBLOCK_ELEMENT_ID` int(11) NOT NULL,
+  `PROPERTY_7` text DEFAULT NULL,
+  `PROPERTY_8` text DEFAULT NULL,
+  `PROPERTY_9` longtext DEFAULT NULL,
+  PRIMARY KEY (`IBLOCK_ELEMENT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `b_iblock_element_prop_s8`
+--
+
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
+LOCK TABLES `b_iblock_element_prop_s8` WRITE;
+/*!40000 ALTER TABLE `b_iblock_element_prop_s8` DISABLE KEYS */;
+/*!40000 ALTER TABLE `b_iblock_element_prop_s8` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
@@ -38761,76 +38823,12 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_fields` WRITE;
 /*!40000 ALTER TABLE `b_iblock_fields` DISABLE KEYS */;
 INSERT INTO `b_iblock_fields` VALUES
-(1,'ACTIVE','Y','Y'),
-(1,'ACTIVE_FROM','N','=today'),
-(1,'ACTIVE_TO','N',''),
-(1,'CODE','N','a:8:{s:6:\"UNIQUE\";s:1:\"N\";s:15:\"TRANSLITERATION\";s:1:\"N\";s:9:\"TRANS_LEN\";i:100;s:10:\"TRANS_CASE\";s:1:\"L\";s:11:\"TRANS_SPACE\";s:1:\"-\";s:11:\"TRANS_OTHER\";s:1:\"-\";s:9:\"TRANS_EAT\";s:1:\"Y\";s:10:\"USE_GOOGLE\";s:1:\"N\";}'),
-(1,'DETAIL_PICTURE','N','a:17:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";}'),
-(1,'DETAIL_TEXT','N',''),
-(1,'DETAIL_TEXT_TYPE','Y','text'),
-(1,'DETAIL_TEXT_TYPE_ALLOW_CHANGE','N','Y'),
-(1,'IBLOCK_SECTION','N','a:1:{s:22:\"KEEP_IBLOCK_SECTION_ID\";s:1:\"N\";}'),
-(1,'LOG_ELEMENT_ADD','N',NULL),
-(1,'LOG_ELEMENT_DELETE','N',NULL),
-(1,'LOG_ELEMENT_EDIT','N',NULL),
-(1,'LOG_SECTION_ADD','N',NULL),
-(1,'LOG_SECTION_DELETE','N',NULL),
-(1,'LOG_SECTION_EDIT','N',NULL),
-(1,'NAME','Y',''),
-(1,'PREVIEW_PICTURE','N','a:20:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";s:11:\"FROM_DETAIL\";s:1:\"N\";s:18:\"DELETE_WITH_DETAIL\";s:1:\"N\";s:18:\"UPDATE_WITH_DETAIL\";s:1:\"N\";}'),
-(1,'PREVIEW_TEXT','N',''),
-(1,'PREVIEW_TEXT_TYPE','Y','text'),
-(1,'PREVIEW_TEXT_TYPE_ALLOW_CHANGE','N','Y'),
-(1,'SECTION_CODE','N','a:8:{s:6:\"UNIQUE\";s:1:\"N\";s:15:\"TRANSLITERATION\";s:1:\"N\";s:9:\"TRANS_LEN\";i:100;s:10:\"TRANS_CASE\";s:1:\"L\";s:11:\"TRANS_SPACE\";s:1:\"-\";s:11:\"TRANS_OTHER\";s:1:\"-\";s:9:\"TRANS_EAT\";s:1:\"Y\";s:10:\"USE_GOOGLE\";s:1:\"N\";}'),
-(1,'SECTION_DESCRIPTION','N',''),
-(1,'SECTION_DESCRIPTION_TYPE','Y','text'),
-(1,'SECTION_DESCRIPTION_TYPE_ALLOW_CHANGE','N','Y'),
-(1,'SECTION_DETAIL_PICTURE','N','a:17:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";}'),
-(1,'SECTION_NAME','Y',''),
-(1,'SECTION_PICTURE','N','a:20:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";s:11:\"FROM_DETAIL\";s:1:\"N\";s:18:\"DELETE_WITH_DETAIL\";s:1:\"N\";s:18:\"UPDATE_WITH_DETAIL\";s:1:\"N\";}'),
-(1,'SECTION_XML_ID','N',''),
-(1,'SORT','N','0'),
-(1,'TAGS','N',''),
-(1,'XML_ID','Y',''),
-(1,'XML_IMPORT_START_TIME','N','2026-10-13 17:47:01'),
-(2,'ACTIVE','Y','Y'),
-(2,'ACTIVE_FROM','N',''),
-(2,'ACTIVE_TO','N',''),
-(2,'CODE','N','a:8:{s:6:\"UNIQUE\";s:1:\"N\";s:15:\"TRANSLITERATION\";s:1:\"N\";s:9:\"TRANS_LEN\";i:100;s:10:\"TRANS_CASE\";s:1:\"L\";s:11:\"TRANS_SPACE\";s:1:\"-\";s:11:\"TRANS_OTHER\";s:1:\"-\";s:9:\"TRANS_EAT\";s:1:\"Y\";s:10:\"USE_GOOGLE\";s:1:\"N\";}'),
-(2,'DETAIL_PICTURE','N','a:17:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";}'),
-(2,'DETAIL_TEXT','N',''),
-(2,'DETAIL_TEXT_TYPE','Y','text'),
-(2,'DETAIL_TEXT_TYPE_ALLOW_CHANGE','N','Y'),
-(2,'IBLOCK_SECTION','N','a:1:{s:22:\"KEEP_IBLOCK_SECTION_ID\";s:1:\"N\";}'),
-(2,'LOG_ELEMENT_ADD','N',NULL),
-(2,'LOG_ELEMENT_DELETE','N',NULL),
-(2,'LOG_ELEMENT_EDIT','N',NULL),
-(2,'LOG_SECTION_ADD','N',NULL),
-(2,'LOG_SECTION_DELETE','N',NULL),
-(2,'LOG_SECTION_EDIT','N',NULL),
-(2,'NAME','Y',''),
-(2,'PREVIEW_PICTURE','N','a:20:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";s:11:\"FROM_DETAIL\";s:1:\"N\";s:18:\"DELETE_WITH_DETAIL\";s:1:\"N\";s:18:\"UPDATE_WITH_DETAIL\";s:1:\"N\";}'),
-(2,'PREVIEW_TEXT','N',''),
-(2,'PREVIEW_TEXT_TYPE','Y','text'),
-(2,'PREVIEW_TEXT_TYPE_ALLOW_CHANGE','N','Y'),
-(2,'SECTION_CODE','N','a:8:{s:6:\"UNIQUE\";s:1:\"N\";s:15:\"TRANSLITERATION\";s:1:\"N\";s:9:\"TRANS_LEN\";i:100;s:10:\"TRANS_CASE\";s:1:\"L\";s:11:\"TRANS_SPACE\";s:1:\"-\";s:11:\"TRANS_OTHER\";s:1:\"-\";s:9:\"TRANS_EAT\";s:1:\"Y\";s:10:\"USE_GOOGLE\";s:1:\"N\";}'),
-(2,'SECTION_DESCRIPTION','N',''),
-(2,'SECTION_DESCRIPTION_TYPE','Y','text'),
-(2,'SECTION_DESCRIPTION_TYPE_ALLOW_CHANGE','N','Y'),
-(2,'SECTION_DETAIL_PICTURE','N','a:17:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";}'),
-(2,'SECTION_NAME','Y',''),
-(2,'SECTION_PICTURE','N','a:20:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";s:11:\"FROM_DETAIL\";s:1:\"N\";s:18:\"DELETE_WITH_DETAIL\";s:1:\"N\";s:18:\"UPDATE_WITH_DETAIL\";s:1:\"N\";}'),
-(2,'SECTION_XML_ID','N',''),
-(2,'SORT','N','0'),
-(2,'TAGS','N',''),
-(2,'XML_ID','Y',''),
-(2,'XML_IMPORT_START_TIME','N','2026-10-13 17:47:01'),
 (3,'ACTIVE','Y','Y'),
 (3,'ACTIVE_FROM','N',''),
 (3,'ACTIVE_TO','N',''),
 (3,'CODE','Y','a:8:{s:6:\"UNIQUE\";s:1:\"Y\";s:15:\"TRANSLITERATION\";s:1:\"Y\";s:9:\"TRANS_LEN\";i:100;s:10:\"TRANS_CASE\";s:1:\"L\";s:11:\"TRANS_SPACE\";s:1:\"-\";s:11:\"TRANS_OTHER\";s:1:\"-\";s:9:\"TRANS_EAT\";s:1:\"Y\";s:10:\"USE_GOOGLE\";s:1:\"N\";}'),
-(3,'DETAIL_PICTURE','Y','a:17:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";}'),
-(3,'DETAIL_TEXT','Y',''),
+(3,'DETAIL_PICTURE','N','a:17:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";}'),
+(3,'DETAIL_TEXT','N',''),
 (3,'DETAIL_TEXT_TYPE','Y','text'),
 (3,'DETAIL_TEXT_TYPE_ALLOW_CHANGE','N',NULL),
 (3,'IBLOCK_SECTION','N','a:1:{s:22:\"KEEP_IBLOCK_SECTION_ID\";s:1:\"N\";}'),
@@ -38841,8 +38839,8 @@ INSERT INTO `b_iblock_fields` VALUES
 (3,'LOG_SECTION_DELETE','N',NULL),
 (3,'LOG_SECTION_EDIT','N',NULL),
 (3,'NAME','Y',''),
-(3,'PREVIEW_PICTURE','Y','a:20:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";s:11:\"FROM_DETAIL\";s:1:\"N\";s:18:\"DELETE_WITH_DETAIL\";s:1:\"N\";s:18:\"UPDATE_WITH_DETAIL\";s:1:\"N\";}'),
-(3,'PREVIEW_TEXT','Y',''),
+(3,'PREVIEW_PICTURE','N','a:20:{s:5:\"SCALE\";s:1:\"N\";s:5:\"WIDTH\";s:0:\"\";s:6:\"HEIGHT\";s:0:\"\";s:13:\"IGNORE_ERRORS\";s:1:\"N\";s:6:\"METHOD\";s:8:\"resample\";s:11:\"COMPRESSION\";i:95;s:18:\"USE_WATERMARK_TEXT\";s:1:\"N\";s:14:\"WATERMARK_TEXT\";s:0:\"\";s:19:\"WATERMARK_TEXT_FONT\";s:0:\"\";s:20:\"WATERMARK_TEXT_COLOR\";s:0:\"\";s:19:\"WATERMARK_TEXT_SIZE\";s:0:\"\";s:23:\"WATERMARK_TEXT_POSITION\";s:0:\"\";s:18:\"USE_WATERMARK_FILE\";s:1:\"N\";s:14:\"WATERMARK_FILE\";s:0:\"\";s:20:\"WATERMARK_FILE_ALPHA\";s:0:\"\";s:23:\"WATERMARK_FILE_POSITION\";s:0:\"\";s:20:\"WATERMARK_FILE_ORDER\";s:0:\"\";s:11:\"FROM_DETAIL\";s:1:\"N\";s:18:\"DELETE_WITH_DETAIL\";s:1:\"N\";s:18:\"UPDATE_WITH_DETAIL\";s:1:\"N\";}'),
+(3,'PREVIEW_TEXT','N',''),
 (3,'PREVIEW_TEXT_TYPE','Y','text'),
 (3,'PREVIEW_TEXT_TYPE_ALLOW_CHANGE','N',NULL),
 (3,'SECTION_CODE','N','a:8:{s:6:\"UNIQUE\";s:1:\"N\";s:15:\"TRANSLITERATION\";s:1:\"N\";s:9:\"TRANS_LEN\";i:100;s:10:\"TRANS_CASE\";s:1:\"L\";s:11:\"TRANS_SPACE\";s:1:\"-\";s:11:\"TRANS_OTHER\";s:1:\"-\";s:9:\"TRANS_EAT\";s:1:\"Y\";s:10:\"USE_GOOGLE\";s:1:\"N\";}'),
@@ -39013,17 +39011,18 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_group` WRITE;
 /*!40000 ALTER TABLE `b_iblock_group` DISABLE KEYS */;
 INSERT INTO `b_iblock_group` VALUES
-(1,1,'X'),
-(1,2,'R'),
-(1,5,'W'),
-(2,1,'X'),
-(2,2,'R'),
-(2,5,'W'),
 (3,2,'R'),
+(3,8,'W'),
 (4,2,'R'),
+(4,8,'W'),
 (5,2,'R'),
+(5,8,'W'),
 (6,2,'R'),
-(7,2,'R');
+(6,8,'W'),
+(7,2,'R'),
+(7,8,'W'),
+(8,2,'R'),
+(8,8,'W');
 /*!40000 ALTER TABLE `b_iblock_group` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -39110,27 +39109,6 @@ CREATE TABLE `b_iblock_messages` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_messages` WRITE;
 /*!40000 ALTER TABLE `b_iblock_messages` DISABLE KEYS */;
-INSERT INTO `b_iblock_messages` VALUES
-(1,'ELEMENT_ADD','Добавить новость'),
-(1,'ELEMENT_DELETE','Удалить новость'),
-(1,'ELEMENT_EDIT','Изменить новость'),
-(1,'ELEMENT_NAME','Новость'),
-(1,'ELEMENTS_NAME','Новости'),
-(1,'SECTION_ADD','Добавить раздел'),
-(1,'SECTION_DELETE','Удалить раздел'),
-(1,'SECTION_EDIT','Изменить раздел'),
-(1,'SECTION_NAME','Раздел'),
-(1,'SECTIONS_NAME','Разделы'),
-(2,'ELEMENT_ADD','Добавить вакансию'),
-(2,'ELEMENT_DELETE','Удалить вакансию'),
-(2,'ELEMENT_EDIT','Изменить вакансию'),
-(2,'ELEMENT_NAME','Вакансия'),
-(2,'ELEMENTS_NAME','Вакансии'),
-(2,'SECTION_ADD','Добавить раздел'),
-(2,'SECTION_DELETE','Удалить раздел'),
-(2,'SECTION_EDIT','Изменить раздел'),
-(2,'SECTION_NAME','Раздел'),
-(2,'SECTIONS_NAME','Разделы');
 /*!40000 ALTER TABLE `b_iblock_messages` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -39202,7 +39180,7 @@ CREATE TABLE `b_iblock_property` (
   KEY `ix_iblock_property_1` (`IBLOCK_ID`),
   KEY `ix_iblock_property_3` (`LINK_IBLOCK_ID`),
   KEY `ix_iblock_property_2` (`CODE`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39214,11 +39192,18 @@ LOCK TABLES `b_iblock_property` WRITE;
 /*!40000 ALTER TABLE `b_iblock_property` DISABLE KEYS */;
 INSERT INTO `b_iblock_property` VALUES
 (1,'2026-10-13 18:51:42',5,'Компания','Y',100,'COMPANY',NULL,'E',1,30,'L','N',NULL,NULL,NULL,NULL,3,NULL,'N','Y','Y',2,'',NULL,NULL),
-(2,'2026-10-13 18:51:42',5,'Город','Y',200,'CITY',NULL,'E',1,30,'L','Y',NULL,NULL,NULL,NULL,4,NULL,'N','Y','Y',2,'',NULL,NULL),
+(2,'2026-10-13 23:26:52',5,'Город','Y',200,'CITY',NULL,'E',1,30,'L','Y',NULL,NULL,NULL,NULL,4,NULL,'N','Y','N',2,'',NULL,NULL),
 (3,'2026-10-13 18:51:42',5,'Зарплата (от)','Y',300,'SALARY_FROM',NULL,'N',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','N',2,'',NULL,NULL),
 (4,'2026-10-13 18:51:42',5,'Зарплата (до)','Y',400,'SALARY_TO',NULL,'N',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','N',2,'',NULL,NULL),
 (5,'2026-10-13 20:21:43',7,'Заработная плата','Y',100,'SALARY',NULL,'N',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','Y',2,'',NULL,NULL),
-(6,'2026-10-13 20:21:43',7,'Пользователь','Y',200,'USER',NULL,'N',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','Y',2,'UserID',NULL,NULL);
+(6,'2026-10-13 20:21:43',7,'Пользователь','Y',200,'USER',NULL,'N',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','Y',2,'UserID',NULL,NULL),
+(7,'2026-10-13 22:56:28',8,'Email','Y',100,'EMAIL',NULL,'S',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','Y',2,'',NULL,NULL),
+(8,'2026-10-13 22:56:28',8,'Сообщение','Y',200,'MESSAGE',NULL,'S',8,60,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','Y',2,'',NULL,NULL),
+(9,'2026-10-13 22:56:28',8,'Файлы','Y',300,'FILES',NULL,'F',1,30,'L','Y',NULL,'jpg, jpeg, png',NULL,NULL,0,NULL,'N','Y','N',2,'',NULL,NULL),
+(10,'2026-10-13 23:26:52',3,'ИНН','Y',100,'INN',NULL,'S',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','N',2,'',NULL,NULL),
+(11,'2026-10-13 23:26:52',3,'Пользователь','Y',200,'USER',NULL,'N',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','N',2,'UserID',NULL,NULL),
+(12,'2026-10-13 23:26:52',5,'Место работы','Y',500,'WORKPLACE',NULL,'L',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','N',2,'',NULL,NULL),
+(13,'2026-10-13 23:26:52',5,'График работы','Y',600,'SCHEDULE',NULL,'L',1,30,'L','N',NULL,NULL,NULL,NULL,0,NULL,'N','Y','N',2,'',NULL,NULL);
 /*!40000 ALTER TABLE `b_iblock_property` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -39241,7 +39226,7 @@ CREATE TABLE `b_iblock_property_enum` (
   `TMP_ID` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ux_iblock_property_enum` (`PROPERTY_ID`,`XML_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39251,6 +39236,13 @@ CREATE TABLE `b_iblock_property_enum` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_property_enum` WRITE;
 /*!40000 ALTER TABLE `b_iblock_property_enum` DISABLE KEYS */;
+INSERT INTO `b_iblock_property_enum` VALUES
+(1,12,'Офис','N',100,'office',NULL),
+(2,12,'Гибрид','N',200,'hybrid',NULL),
+(3,12,'Удалённо','N',300,'remote',NULL),
+(4,13,'5/2','N',100,'5-2',NULL),
+(5,13,'Плавающий','N',200,'floating',NULL),
+(6,13,'Вахта','N',300,'shift',NULL);
 /*!40000 ALTER TABLE `b_iblock_property_enum` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -39576,13 +39568,12 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_site` WRITE;
 /*!40000 ALTER TABLE `b_iblock_site` DISABLE KEYS */;
 INSERT INTO `b_iblock_site` VALUES
-(1,'s1'),
-(2,'s1'),
 (3,'s1'),
 (4,'s1'),
 (5,'s1'),
 (6,'s1'),
-(7,'s1');
+(7,'s1'),
+(8,'s1');
 /*!40000 ALTER TABLE `b_iblock_site` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -39614,10 +39605,10 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_iblock_type` WRITE;
 /*!40000 ALTER TABLE `b_iblock_type` DISABLE KEYS */;
 INSERT INTO `b_iblock_type` VALUES
-('news','N',NULL,NULL,'N',50),
+('employers','N',NULL,NULL,'N',300),
 ('rest_entity','Y',NULL,NULL,'N',1000),
-('vacancies','Y',NULL,NULL,'N',150),
-('workhub','N',NULL,NULL,'N',100);
+('seekers','N',NULL,NULL,'N',200),
+('system','N',NULL,NULL,'N',100);
 /*!40000 ALTER TABLE `b_iblock_type` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -39648,12 +39639,12 @@ LOCK TABLES `b_iblock_type_lang` WRITE;
 /*!40000 ALTER TABLE `b_iblock_type_lang` DISABLE KEYS */;
 INSERT INTO `b_iblock_type_lang` VALUES
 ('rest_entity','ru','Хранилище данных для приложений','Разделы','Элементы'),
-('news','ru','Новости','','Новости'),
-('news','en','News','','News'),
-('vacancies','ru','Вакансии','Разделы','Вакансии'),
-('vacancies','en','Job','Categories','Vacancies'),
-('workhub','ru','WorkHub','Разделы','Элементы'),
-('workhub','en','WorkHub','Sections','Elements');
+('system','ru','Система','Разделы','Элементы'),
+('system','en','System','Sections','Elements'),
+('seekers','ru','Соискатели','Разделы','Элементы'),
+('seekers','en','Job seekers','Sections','Elements'),
+('employers','ru','Работодатели','Разделы','Элементы'),
+('employers','en','Employers','Sections','Elements');
 /*!40000 ALTER TABLE `b_iblock_type_lang` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -42692,7 +42683,7 @@ INSERT INTO `b_option` VALUES
 ('main','vendor','1c_bitrix',NULL,NULL),
 ('main','wizard_firstcorp_services_s1','Y',NULL,NULL),
 ('main_sec','sec_actualize_vendor_notifications','1791902816',NULL,NULL),
-('main_sec','wwall_actualize_rules','1791913810',NULL,NULL),
+('main_sec','wwall_actualize_rules','1791924905',NULL,NULL),
 ('messageservice','clean_up_period','14',NULL,NULL),
 ('rest','entity_iblock_type','rest_entity',NULL,NULL),
 ('rest','server_path','/rest',NULL,NULL),
@@ -43615,7 +43606,7 @@ CREATE TABLE `b_rating_user` (
   PRIMARY KEY (`ID`),
   KEY `RATING_ID` (`RATING_ID`,`ENTITY_ID`),
   KEY `IX_B_RAT_USER_2` (`ENTITY_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43628,7 +43619,8 @@ LOCK TABLES `b_rating_user` WRITE;
 INSERT INTO `b_rating_user` VALUES
 (1,2,1,3.0000,30.0000,13),
 (5,2,5,3.0000,30.0000,13),
-(6,2,6,3.0000,30.0000,13);
+(6,2,6,3.0000,30.0000,13),
+(10,2,10,3.0000,30.0000,13);
 /*!40000 ALTER TABLE `b_rating_user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -46159,7 +46151,7 @@ CREATE TABLE `b_search_content` (
   UNIQUE KEY `UX_B_SEARCH_CONTENT` (`MODULE_ID`,`ITEM_ID`),
   KEY `IX_B_SEARCH_CONTENT_1` (`MODULE_ID`,`PARAM1`(50),`PARAM2`(50)),
   KEY `IX_B_SEARCH_CONTENT_2` (`ENTITY_ID`(50),`ENTITY_TYPE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46200,12 +46192,6 @@ INSERT INTO `b_search_content` VALUES
 (28,'2026-10-13 17:47:01','main','s1|/services/smallbusiness/leazing.php',0,NULL,NULL,NULL,'/services/smallbusiness/leazing.php','Лизинг','Наш Банк оказывает весь спектр услуг по финансовой аренде (лизингу) отечественного и импортного оборудования, транспорта и недвижимости.\rЛизинг оборудования и транспорта\rОсновные условия:\rСрок финансирования:\nоборудование и транспорт - до 5 лет\rж/д подвижной состав - до 10 лет\rВалюта финансирования: рубли, доллары США, евро\rМинимальная сумма финансирования: от 4,5 млн.руб.\rАванс: от 0%\rУдорожание: от 9%\rСрок принятия решения: от 14 дней\rФинансирование импортных поставок\rМы предоставляем предприятиям доступ к льготному финансированию импортных поставок оборудования и транспорта с использованием механизма лизинга при участии экспортных кредитных агентств.\rОсновные условия:\rСрок финансирования: до 7 лет\rВалюта финансирования: рубли, доллары США, евро\rМинимальная сумма финансирования: от 15 млн.руб. \rАванс: от 15% (без учета таможенных пошлин) \rУдорожание: от 5%\rСрок принятия решения: от 14 дней\rЛизинг коммерческой недвижимости\rПозволяет предприятиям приобрести объекты коммерческой недвижимости без единовременного отвлечения значительных средств.\rВ качестве предмета лизинга могут выступать:\rофисные здания;\rторговые, складские и производственные помещения;\rдругие объекты коммерческой недвижимости.\rОсновные условия:\rСрок финансирования: от 5 лет\rВалюта финансирования: рубли, доллары США, евро\rМинимальная сумма финансирования: от 50 млн.руб.* \rАванс: от 0%\rУдорожание: от 7%\rСрок принятия решения: от 14 дней\r* Размер суммы финансирования зависит от региона, в котором находится объект недвижимости.\rОсновным требованием, предъявляемым нашим Банком для рассмотрения заявки на лизинг коммерческой недвижимости, является наличие полного комплекта правоустанавливающих документов на недвижимость и наличие отчета независимого оценщика.','','','','4795413abd4ae7ddba7d3506cdba7f6a',NULL,NULL),
 (29,'2026-10-13 17:47:01','main','s1|/services/smallbusiness/credit.php',0,NULL,NULL,NULL,'/services/smallbusiness/credit.php','Кредитование','Кредитование малого и среднего бизнеса является одним из стратегических направлений Банка.\rДанное направление включает в себя:\nкредитование юридических лиц\rкредитование индивидуальных предпринимателей\rВ зависимости от пожеланий клиента кредиты для бизнеса предоставляются в разных валютах: в рублях РФ, долларах США и евро. \nПреимущества получения кредита в нашем Банке:\rСрок рассмотрения кредитной заявки от 2-х рабочих дней; \rОтсутствие ежемесячной платы за ведение ссудного счета;\rОтсутствие требований по предоставлению бизнес-плана;\rПринимается к рассмотрению управленческая отчетность;\rВ качестве залога рассматриваются товары в обороте, автотранспорт, оборудование, недвижимость и другое ликвидное имущество; \rГибкие условия погашения кредита. \rДля получения кредита:\rПозвоните нам по телефону +7 (495) 757-57-57, обратитесь в ближайшее к Вам отделение Банка или заполните on-line заявку. \rНаши специалисты помогут Вам выбрать удобные условия кредитования и ответят на интересующие Вас вопросы.\rПодготовьте необходимые для рассмотрения кредитной заявки документы и договоритесь о встрече с кредитным экспертом Банка.\rПокажите кредитному эксперту Ваше предприятие и имущество, предлагаемое в залог.\rПолучите кредит на развитие Вашего бизнеса! \nПрограммы кредитования малого и среднего бизнеса:\rПрограмма\nСумма кредита\nПроцентная ставка\nСрок кредита\n«Овердрафт»\rот 300 000\nдо 5 000 000 рублей\nот 18% годовых\nдо 12 месяцев\n«Миникредит»\rот 150 000\nдо 1 000 000 рублей\nот 24% годовых\nдо 36 месяцев\n«Развитие»\nот 1 000 000\nдо 15 000 000 рублей\nот 17% годовых\nдо 36 месяцев\n«Инвест»\nот 1 000 000\nдо 30 000 000 рублей\nот 15% годовых\nдо 72 месяцев','','','','4795413abd4ae7ddba7d3506cdba7f6a',NULL,NULL),
 (30,'2026-10-13 17:47:01','main','s1|/services/smallbusiness/deposits.php',0,NULL,NULL,NULL,'/services/smallbusiness/deposits.php','Депозиты','Наш Банк предлагает вам эффективно разместить свободные деньги на банковском депозите и получить дополнительную прибыль.\rДепозитные продукты\r \rДосрочное расторжение\rПополнение\rЧастичное изъятие\rВыплата процентов\rДепозит с выплатой процентов в конце срока\rНе предусмотрено.\rНе предусмотрено.\rНе предусмотрено.\rВ конце срока.\rДепозит с выплатой процентов ежемесячно\rНе предусмотрено.\rНе предусмотрено.\rНе предусмотрено.\rЕжемесячно.\rДепозит с возможностью пополнения\rНе предусмотрено.\rПрекращается за 2 месяца до окончания срока действия депозита. \rНе предусмотрено \rВ конце срока. \rДепозит с возможностью пополнения и изъятия\rНе предусмотрено.\rПрекращается за 2 месяца до окончания срока действия депозита.\rНе более 40% от первоначальной суммы вклада за весь срок депозита \rВ конце срока. \rДепозит с возможностью досрочного расторжения \rВозможно при размещении на 12 месяцев, но не ранее чем через 6 месяцев.\rНе предусмотрено.\rНе предусмотрено. \rВ конце срока.','','','','4795413abd4ae7ddba7d3506cdba7f6a',NULL,NULL),
-(31,'2010-05-28 00:00:00','iblock','1',0,NULL,NULL,NULL,'=ID=1&EXTERNAL_ID=1&IBLOCK_SECTION_ID=&IBLOCK_TYPE_ID=news&IBLOCK_ID=1&IBLOCK_CODE=corporate_news&IBLOCK_EXTERNAL_ID=corporate_news&CODE=','Банк переносит дату вступления в действие тарифов на услуги в иностранной валюте','Уважаемые клиенты,\rсообщаем Вам, что Банк переносит дату вступления в действие тарифов на услуги для юридических лиц и индивидуальных предпринимателей в иностранной валюте. В связи с этим до даты введения в действие новой редакции тарифов, услуги юридическим лицам и индивидуальным предпринимателям будут оказываться в рамках действующих тарифов. \rИнформация о дате введения новой редакции тарифов будет сообщена дополнительно.\r\nУважаемые клиенты,\rсообщаем Вам, что Банк переносит дату вступления в действие тарифов на услуги для юридических лиц и индивидуальных предпринимателей в иностранной валюте. В связи с этим до даты введения в действие новой редакции тарифов, услуги юридическим лицам и индивидуальным предпринимателям будут оказываться в рамках действующих тарифов. \rИнформация о дате введения новой редакции тарифов будет сообщена дополнительно.','','news','1',NULL,'2010-05-28 00:00:00',NULL),
-(32,'2010-05-27 00:00:00','iblock','2',0,NULL,NULL,NULL,'=ID=2&EXTERNAL_ID=2&IBLOCK_SECTION_ID=&IBLOCK_TYPE_ID=news&IBLOCK_ID=1&IBLOCK_CODE=corporate_news&IBLOCK_EXTERNAL_ID=corporate_news&CODE=','Начать работать с системой «Интернет-Клиент» стало еще проще','Наш Банк предлагает своим клиентам Мастер Установки «Интернет-Клиент», который существенно упростит начало работы с системой. Теперь достаточно скачать и запустить Мастер Установки, и все настройки будут произведены автоматически. Вам больше не нужно тратить время на изучение объемных инструкций, или звонить в службу техподдержки, чтобы начать работать с системой.\r\nНаш Банк предлагает своим клиентам Мастер Установки «Интернет-Клиент», который существенно упростит начало работы с системой. Теперь достаточно скачать и запустить Мастер Установки, и все настройки будут произведены автоматически. Вам больше не нужно тратить время на изучение объемных инструкций, или звонить в службу техподдержки, чтобы начать работать с системой.','','news','1',NULL,'2010-05-27 00:00:00',NULL),
-(33,'2010-05-24 00:00:00','iblock','3',0,NULL,NULL,NULL,'=ID=3&EXTERNAL_ID=3&IBLOCK_SECTION_ID=&IBLOCK_TYPE_ID=news&IBLOCK_ID=1&IBLOCK_CODE=corporate_news&IBLOCK_EXTERNAL_ID=corporate_news&CODE=','Реорганизация сети отделений Банка','В ближайшее время будет значительно расширен продуктовый ряд и перечень предоставляемых банковских услуг, которые Банк сможет предлагать во всех своих дополнительных офисах. Теперь наши клиенты смогут получить полный перечень услуг в любом из отделений Банка. \rБыло проведено комплексное всестороннее исследование функционирования региональных офисов на предмет соответствия возросшим требованиям. В результате, принято решение о временном закрытии офисов, не соответствующих высоким стандартам и не приспособленных к требованиям растущего бизнеса. Офисы постепенно будут отремонтированы и переоборудованы, станут современными и удобными. \rПриносим свои извинения за временно доставленные неудобства. \r\nВ ближайшее время будет значительно расширен продуктовый ряд и перечень предоставляемых банковских услуг, которые Банк сможет предлагать во всех своих дополнительных офисах. Теперь наши клиенты смогут получить полный перечень услуг в любом из отделений Банка. \rБыло проведено комплексное всестороннее исследование функционирования региональных офисов на предмет соответствия возросшим требованиям. В результате, принято решение о временном закрытии офисов, не соответствующих высоким стандартам и не приспособленных к требованиям растущего бизнеса. Офисы постепенно будут отремонтированы и переоборудованы, станут современными и удобными. \rПриносим свои извинения за временно доставленные неудобства.','','news','1',NULL,'2010-05-24 00:00:00',NULL),
-(34,'2010-05-01 00:00:00','iblock','4',0,NULL,NULL,NULL,'=ID=4&EXTERNAL_ID=2&IBLOCK_SECTION_ID=&IBLOCK_TYPE_ID=vacancies&IBLOCK_ID=2&IBLOCK_CODE=corp_vacancies&IBLOCK_EXTERNAL_ID=corp_vacancies&CODE=','Главный специалист Отдела анализа кредитных проектов региональной сети','Требования\rВысшее экономическое/финансовое образование, опыт в банках топ-100 не менее 3-х лет в кредитном отделе (анализ заемщиков), желателен опыт работы с кредитными заявками филиалов, знание технологий АФХД предприятий, навыки написания экспертного заключения, знание законодательства (в т.ч. Положение ЦБ № 254-П).\rОбязанности\rАнализ кредитных проектов филиалов Банка, подготовка предложений по структурированию кредитных проектов, оценка полноты и качества формируемых филиалами заключений, выявление стоп-факторов, доработка заявок филиалов в соответствии со стандартами Банка, подготовка заключения (рекомендаций) на КК по заявкам филиалов в части оценки финансово-экономического состояния заемщика, защита проектов на КК Банка, консультирование и методологическая помощь филиалам Банка в части корпоративного кредитования.\rУсловия\rМесто работы: М.Парк Культуры. Графики работы: пятидневная рабочая неделя, с 9:00 до 18:00, пт. до 16:45. Зарплата: 50000 руб. оклад + премии, полный соц. пакет,оформление согласно ТК РФ','','vacancies','2',NULL,'2010-05-01 00:00:00',NULL),
-(35,'2010-05-01 00:00:00','iblock','5',0,NULL,NULL,NULL,'=ID=5&EXTERNAL_ID=3&IBLOCK_SECTION_ID=&IBLOCK_TYPE_ID=vacancies&IBLOCK_ID=2&IBLOCK_CODE=corp_vacancies&IBLOCK_EXTERNAL_ID=corp_vacancies&CODE=','Специалист по продажам розничных банковских продуктов','Требования\rВысшее экономического образования ‚ опыт работы в сфере продаж банковских продуктов‚ опытный пользователь ПК‚ этика делового общения‚ ответственность‚ инициативность‚ активность.\rОбязанности\rПродажа розничных банковских продуктов, оформление документов.\rУсловия\rТрудоустройство по ТК РФ‚ полный соц. пакет. График работы: пятидневная рабочая неделя. Зарплата: 20000 руб. оклад + премии','','vacancies','2',NULL,'2010-05-01 00:00:00',NULL),
-(36,'2010-05-01 00:00:00','iblock','6',0,NULL,NULL,NULL,'=ID=6&EXTERNAL_ID=4&IBLOCK_SECTION_ID=&IBLOCK_TYPE_ID=vacancies&IBLOCK_ID=2&IBLOCK_CODE=corp_vacancies&IBLOCK_EXTERNAL_ID=corp_vacancies&CODE=','Специалист Отдела андеррайтинга','Требования\rВысшее профессиональное образование, опыт работы от 2 лет в отделе по работе с физическими и юридическими лицами Банков, связанных с анализом платёжеспособности и кредитоспособности физических и юридических лиц.\rОбязанности\rПроверка соответствия документов, предоставленных клиентами Банка, анализ информации о риске\rУсловия\rТрудоустройство по ТК РФ‚ полный соц. пакет. График работы: пятидневная рабочая неделя. Зарплата: оклад 25000 руб.','','vacancies','2',NULL,'2010-05-01 00:00:00',NULL),
 (37,'2026-10-13 18:51:42','iblock','7',0,NULL,NULL,NULL,'=ID=7&EXTERNAL_ID=7&IBLOCK_SECTION_ID=&IBLOCK_TYPE_ID=workhub&IBLOCK_ID=3&IBLOCK_CODE=companies&IBLOCK_EXTERNAL_ID=&CODE=alfa-bank','Альфа-Банк','Крупный частный банк: офисы по всей стране и цифровые сервисы для миллионов клиентов.\r\nАльфа-Банк развивает розничные и корпоративные продукты. В командах нужны специалисты поддержки, продаж и разработки. Офисы есть в крупных городах, часть задач можно закрывать удалённо.','','workhub','3',NULL,NULL,NULL),
 (38,'2026-10-13 18:51:42','iblock','8',0,NULL,NULL,NULL,'=ID=8&EXTERNAL_ID=8&IBLOCK_SECTION_ID=&IBLOCK_TYPE_ID=workhub&IBLOCK_ID=3&IBLOCK_CODE=companies&IBLOCK_EXTERNAL_ID=&CODE=yandex','Яндекс','Технологическая компания: поиск, доставка, облако и сервисы, которыми пользуются каждый день.\r\nВ Яндексе собирают продукты для миллионов людей. Команды ищут инженеров, аналитиков и специалистов поддержки в Москве и Санкт-Петербурге.','','workhub','3',NULL,NULL,NULL),
 (39,'2026-10-13 18:51:42','iblock','9',0,NULL,NULL,NULL,'=ID=9&EXTERNAL_ID=9&IBLOCK_SECTION_ID=&IBLOCK_TYPE_ID=workhub&IBLOCK_ID=3&IBLOCK_CODE=companies&IBLOCK_EXTERNAL_ID=&CODE=magnit','Магнит','Сеть магазинов у дома. Нужны продавцы, водители и сотрудники распределительных центров.\r\n«Магнит» — одна из крупнейших розничных сетей. Вакансии открыты в магазинах, на складах и в логистике. График и район подбирают на собеседовании.','','workhub','3',NULL,NULL,NULL),
@@ -46336,12 +46322,6 @@ INSERT INTO `b_search_content_right` VALUES
 (28,'G2'),
 (29,'G2'),
 (30,'G2'),
-(31,'G2'),
-(32,'G2'),
-(33,'G2'),
-(34,'G2'),
-(35,'G2'),
-(36,'G2'),
 (37,'G2'),
 (38,'G2'),
 (39,'G2'),
@@ -46416,12 +46396,6 @@ INSERT INTO `b_search_content_site` VALUES
 (28,'s1',''),
 (29,'s1',''),
 (30,'s1',''),
-(31,'s1',''),
-(32,'s1',''),
-(33,'s1',''),
-(34,'s1',''),
-(35,'s1',''),
-(36,'s1',''),
 (37,'s1',''),
 (38,'s1',''),
 (39,'s1',''),
@@ -49195,304 +49169,6 @@ INSERT INTO `b_search_content_stem` VALUES
 (30,'ru',1367,0.1508,163),
 (30,'ru',1368,0.1508,165),
 (30,'ru',1369,0.1508,193),
-(31,'ru',26,0.4415,70.2857),
-(31,'ru',39,0.2333,106),
-(31,'ru',46,0.3805,62.2),
-(31,'ru',47,0.2944,36.3333),
-(31,'ru',92,0.3417,77),
-(31,'ru',132,0.2333,50),
-(31,'ru',148,0.3417,98),
-(31,'ru',156,0.3417,80),
-(31,'ru',178,0.3417,78),
-(31,'ru',267,0.2333,96),
-(31,'ru',299,0.2333,115),
-(31,'ru',674,0.2944,50.3333),
-(31,'ru',675,0.2944,51.3333),
-(31,'ru',761,0.6252,80.7778),
-(31,'ru',1005,0.2333,113),
-(31,'ru',1098,0.4889,80.7778),
-(31,'ru',1173,0.2333,98),
-(31,'ru',1188,0.4415,70.7143),
-(31,'ru',1330,0.3417,81),
-(31,'ru',1370,0.2944,37.3333),
-(31,'ru',1371,0.2944,39.3333),
-(31,'ru',1372,0.2333,49),
-(31,'ru',1373,0.2333,51),
-(31,'ru',1374,0.2333,78),
-(31,'ru',1375,0.3417,96),
-(31,'ru',1376,0.3417,99),
-(31,'ru',1377,0.2333,95),
-(31,'ru',1378,0.2333,114),
-(32,'ru',41,0.2522,40.5),
-(32,'ru',47,0.2522,41.5),
-(32,'ru',97,0.2522,79.5),
-(32,'ru',132,0.2522,44.5),
-(32,'ru',279,0.3182,64.3333),
-(32,'ru',303,0.2522,42.5),
-(32,'ru',352,0.2522,48.5),
-(32,'ru',363,0.4113,61.6),
-(32,'ru',468,0.2522,52.5),
-(32,'ru',552,0.4113,58.6),
-(32,'ru',553,0.2522,83.5),
-(32,'ru',562,0.1591,6),
-(32,'ru',645,0.2522,82.5),
-(32,'ru',742,0.2522,91.5),
-(32,'ru',982,0.2522,81.5),
-(32,'ru',1377,0.2522,70.5),
-(32,'ru',1379,0.3182,33.3333),
-(32,'ru',1380,0.1591,8),
-(32,'ru',1381,0.3694,55.5),
-(32,'ru',1382,0.3694,56.5),
-(32,'ru',1383,0.2522,49.5),
-(32,'ru',1384,0.2522,50.5),
-(32,'ru',1385,0.2522,60.5),
-(32,'ru',1386,0.2522,61.5),
-(32,'ru',1387,0.2522,62.5),
-(32,'ru',1388,0.2522,64.5),
-(32,'ru',1389,0.2522,69.5),
-(32,'ru',1390,0.2522,71.5),
-(32,'ru',1391,0.2522,72.5),
-(32,'ru',1392,0.2522,85.5),
-(32,'ru',1393,0.2522,86.5),
-(32,'ru',1394,0.2522,87.5),
-(32,'ru',1395,0.2522,89.5),
-(32,'ru',1396,0.2522,92.5),
-(33,'ru',41,0.2211,90),
-(33,'ru',43,0.2211,93),
-(33,'ru',46,0.3238,85),
-(33,'ru',47,0.3605,71.6),
-(33,'ru',55,0.5161,120.667),
-(33,'ru',69,0.2211,131),
-(33,'ru',74,0.2211,94),
-(33,'ru',115,0.2211,73),
-(33,'ru',130,0.2211,72),
-(33,'ru',132,0.2211,91),
-(33,'ru',135,0.2211,135),
-(33,'ru',141,0.2211,136),
-(33,'ru',145,0.2211,156),
-(33,'ru',161,0.2211,68),
-(33,'ru',186,0.2211,143),
-(33,'ru',195,0.1395,2),
-(33,'ru',215,0.2211,113),
-(33,'ru',226,0.2211,128),
-(33,'ru',249,0.2211,80),
-(33,'ru',299,0.2211,82),
-(33,'ru',300,0.3238,123),
-(33,'ru',303,0.2211,78),
-(33,'ru',304,0.2211,127),
-(33,'ru',314,0.2211,126),
-(33,'ru',352,0.2211,75),
-(33,'ru',538,0.2211,69),
-(33,'ru',553,0.2211,64),
-(33,'ru',638,0.2211,158),
-(33,'ru',642,0.3238,149),
-(33,'ru',652,0.2211,98),
-(33,'ru',709,0.3238,130),
-(33,'ru',725,0.2211,109),
-(33,'ru',857,0.3238,125.5),
-(33,'ru',1005,0.2211,65),
-(33,'ru',1025,0.2789,67.6667),
-(33,'ru',1241,0.3238,83),
-(33,'ru',1317,0.2211,66),
-(33,'ru',1318,0.2211,116),
-(33,'ru',1344,0.2211,63),
-(33,'ru',1377,0.2211,151),
-(33,'ru',1385,0.2211,89),
-(33,'ru',1397,0.1395,1),
-(33,'ru',1398,0.2211,67),
-(33,'ru',1399,0.2211,77),
-(33,'ru',1400,0.2211,92),
-(33,'ru',1401,0.2211,108),
-(33,'ru',1402,0.2211,110),
-(33,'ru',1403,0.2211,111),
-(33,'ru',1404,0.2211,112),
-(33,'ru',1405,0.2211,118),
-(33,'ru',1406,0.2211,139),
-(33,'ru',1407,0.2211,142),
-(33,'ru',1408,0.2211,150),
-(33,'ru',1409,0.2211,152),
-(33,'ru',1410,0.2211,154),
-(33,'ru',1411,0.2211,155),
-(33,'ru',1412,0.2211,164),
-(33,'ru',1413,0.2211,166),
-(33,'ru',1414,0.2211,169),
-(33,'ru',1415,0.2211,170),
-(34,'ru',9,0.223,111.5),
-(34,'ru',37,0.1407,1),
-(34,'ru',42,0.1407,2),
-(34,'ru',47,0.3636,81.8),
-(34,'ru',74,0.1407,179),
-(34,'ru',136,0.1407,80),
-(34,'ru',141,0.1407,92),
-(34,'ru',143,0.1407,121),
-(34,'ru',149,0.1407,35),
-(34,'ru',168,0.1407,12),
-(34,'ru',183,0.1407,37),
-(34,'ru',195,0.1407,8),
-(34,'ru',206,0.3266,64.75),
-(34,'ru',207,0.4459,64.75),
-(34,'ru',215,0.1407,7),
-(34,'ru',217,0.1407,116),
-(34,'ru',223,0.2814,31.6667),
-(34,'ru',261,0.1407,11),
-(34,'ru',273,0.1407,13),
-(34,'ru',274,0.1407,138),
-(34,'ru',296,0.3266,72.75),
-(34,'ru',297,0.3949,81.6667),
-(34,'ru',298,0.3266,72.75),
-(34,'ru',309,0.1407,129),
-(34,'ru',334,0.1407,122),
-(34,'ru',337,0.3636,40.2),
-(34,'ru',468,0.2814,101.333),
-(34,'ru',498,0.1407,153),
-(34,'ru',521,0.1407,58),
-(34,'ru',522,0.1407,190),
-(34,'ru',551,0.1407,21),
-(34,'ru',566,0.1407,178),
-(34,'ru',621,0.1407,106),
-(34,'ru',669,0.1407,91),
-(34,'ru',709,0.1407,9),
-(34,'ru',747,0.1407,144),
-(34,'ru',758,0.223,66),
-(34,'ru',768,0.1407,171),
-(34,'ru',769,0.1407,163),
-(34,'ru',792,0.1407,128),
-(34,'ru',801,0.223,152.5),
-(34,'ru',850,0.1407,162),
-(34,'ru',857,0.1407,90),
-(34,'ru',999,0.1407,65),
-(34,'ru',1001,0.2814,53),
-(34,'ru',1047,0.1407,113),
-(34,'ru',1052,0.1407,187),
-(34,'ru',1193,0.1407,148),
-(34,'ru',1209,0.2814,73),
-(34,'ru',1267,0.1407,186),
-(34,'ru',1334,0.1407,147),
-(34,'ru',1416,0.223,13.5),
-(34,'ru',1417,0.1407,10),
-(34,'ru',1418,0.223,21),
-(34,'ru',1419,0.1407,17),
-(34,'ru',1420,0.1407,20),
-(34,'ru',1421,0.1407,26),
-(34,'ru',1422,0.1407,27),
-(34,'ru',1423,0.223,38),
-(34,'ru',1424,0.1407,36),
-(34,'ru',1425,0.1407,38),
-(34,'ru',1426,0.1407,39),
-(34,'ru',1427,0.1407,40),
-(34,'ru',1428,0.1407,43),
-(34,'ru',1429,0.1407,57),
-(34,'ru',1430,0.1407,59),
-(34,'ru',1431,0.223,82.5),
-(34,'ru',1432,0.1407,72),
-(34,'ru',1433,0.1407,74),
-(34,'ru',1434,0.223,90.5),
-(34,'ru',1435,0.1407,78),
-(34,'ru',1436,0.1407,81),
-(34,'ru',1437,0.1407,84),
-(34,'ru',1438,0.1407,85),
-(34,'ru',1439,0.223,85),
-(34,'ru',1440,0.1407,86),
-(34,'ru',1441,0.1407,87),
-(34,'ru',1442,0.1407,96),
-(34,'ru',1443,0.223,104.5),
-(34,'ru',1444,0.1407,105),
-(34,'ru',1445,0.1407,108),
-(34,'ru',1446,0.1407,115),
-(34,'ru',1447,0.1407,137),
-(34,'ru',1448,0.1407,146),
-(34,'ru',1449,0.1407,155),
-(34,'ru',1450,0.1407,169),
-(34,'ru',1451,0.1407,170),
-(34,'ru',1452,0.1407,177),
-(34,'ru',1453,0.1407,180),
-(34,'ru',1454,0.1407,188),
-(34,'ru',1455,0.1407,189),
-(35,'ru',42,0.1722,1),
-(35,'ru',74,0.1722,49),
-(35,'ru',115,0.3444,18.6667),
-(35,'ru',144,0.1722,21),
-(35,'ru',161,0.3444,19.6667),
-(35,'ru',162,0.4834,19.6667),
-(35,'ru',167,0.1722,14),
-(35,'ru',192,0.1722,26),
-(35,'ru',233,0.2729,19),
-(35,'ru',252,0.1722,24),
-(35,'ru',261,0.1722,9),
-(35,'ru',273,0.1722,10),
-(35,'ru',468,0.2729,37.5),
-(35,'ru',522,0.1722,48),
-(35,'ru',566,0.1722,81),
-(35,'ru',660,0.2729,38),
-(35,'ru',673,0.3444,17),
-(35,'ru',709,0.1722,7),
-(35,'ru',747,0.1722,62),
-(35,'ru',768,0.1722,74),
-(35,'ru',792,0.1722,44),
-(35,'ru',884,0.1722,22),
-(35,'ru',999,0.1722,32),
-(35,'ru',1052,0.1722,37),
-(35,'ru',1067,0.1722,38),
-(35,'ru',1193,0.1722,66),
-(35,'ru',1267,0.1722,56),
-(35,'ru',1334,0.1722,65),
-(35,'ru',1417,0.1722,8),
-(35,'ru',1418,0.1722,11),
-(35,'ru',1448,0.1722,64),
-(35,'ru',1450,0.1722,72),
-(35,'ru',1452,0.1722,80),
-(35,'ru',1453,0.1722,50),
-(35,'ru',1455,0.1722,47),
-(35,'ru',1456,0.1722,18),
-(35,'ru',1457,0.1722,19),
-(35,'ru',1458,0.1722,20),
-(35,'ru',1459,0.1722,23),
-(35,'ru',1460,0.1722,25),
-(35,'ru',1461,0.1722,45),
-(35,'ru',1462,0.1722,73),
-(36,'ru',39,0.1746,46),
-(36,'ru',42,0.1746,1),
-(36,'ru',44,0.1746,6),
-(36,'ru',47,0.3492,29.3333),
-(36,'ru',74,0.1746,54),
-(36,'ru',92,0.2767,25.5),
-(36,'ru',132,0.1746,43),
-(36,'ru',159,0.1746,42),
-(36,'ru',178,0.2767,26.5),
-(36,'ru',223,0.2767,35),
-(36,'ru',273,0.1746,7),
-(36,'ru',350,0.1746,22),
-(36,'ru',468,0.3492,31),
-(36,'ru',522,0.1746,53),
-(36,'ru',540,0.2767,23.5),
-(36,'ru',551,0.1746,12),
-(36,'ru',660,0.2767,41),
-(36,'ru',709,0.1746,4),
-(36,'ru',747,0.1746,67),
-(36,'ru',768,0.1746,80),
-(36,'ru',792,0.1746,49),
-(36,'ru',827,0.1746,23),
-(36,'ru',857,0.1746,40),
-(36,'ru',915,0.1746,48),
-(36,'ru',999,0.1746,38),
-(36,'ru',1067,0.1746,41),
-(36,'ru',1193,0.1746,71),
-(36,'ru',1246,0.1746,39),
-(36,'ru',1267,0.1746,61),
-(36,'ru',1334,0.1746,70),
-(36,'ru',1416,0.2767,8),
-(36,'ru',1417,0.1746,5),
-(36,'ru',1418,0.1746,8),
-(36,'ru',1448,0.1746,69),
-(36,'ru',1450,0.1746,77),
-(36,'ru',1452,0.1746,78),
-(36,'ru',1453,0.1746,55),
-(36,'ru',1455,0.1746,52),
-(36,'ru',1461,0.1746,50),
-(36,'ru',1463,0.1746,3),
-(36,'ru',1464,0.1746,26),
-(36,'ru',1465,0.1746,28),
-(36,'ru',1466,0.1746,79),
 (37,'ru',9,0.1982,49),
 (37,'ru',42,0.1982,34),
 (37,'ru',47,0.1982,4),
@@ -49955,12 +49631,6 @@ INSERT INTO `b_search_content_text` VALUES
 (28,'da1f66499efacd659dcf24c5c7f6fcb2','ЛИЗИНГ\r\nНАШ БАНК ОКАЗЫВАЕТ ВЕСЬ СПЕКТР УСЛУГ ПО ФИНАНСОВОЙ АРЕНДЕ (ЛИЗИНГУ) ОТЕЧЕСТВЕННОГО И ИМПОРТНОГО ОБОРУДОВАНИЯ, ТРАНСПОРТА И НЕДВИЖИМОСТИ.\rЛИЗИНГ ОБОРУДОВАНИЯ И ТРАНСПОРТА\rОСНОВНЫЕ УСЛОВИЯ:\rСРОК ФИНАНСИРОВАНИЯ:\nОБОРУДОВАНИЕ И ТРАНСПОРТ - ДО 5 ЛЕТ\rЖ/Д ПОДВИЖНОЙ СОСТАВ - ДО 10 ЛЕТ\rВАЛЮТА ФИНАНСИРОВАНИЯ: РУБЛИ, ДОЛЛАРЫ США, ЕВРО\rМИНИМАЛЬНАЯ СУММА ФИНАНСИРОВАНИЯ: ОТ 4,5 МЛН.РУБ.\rАВАНС: ОТ 0%\rУДОРОЖАНИЕ: ОТ 9%\rСРОК ПРИНЯТИЯ РЕШЕНИЯ: ОТ 14 ДНЕЙ\rФИНАНСИРОВАНИЕ ИМПОРТНЫХ ПОСТАВОК\rМЫ ПРЕДОСТАВЛЯЕМ ПРЕДПРИЯТИЯМ ДОСТУП К ЛЬГОТНОМУ ФИНАНСИРОВАНИЮ ИМПОРТНЫХ ПОСТАВОК ОБОРУДОВАНИЯ И ТРАНСПОРТА С ИСПОЛЬЗОВАНИЕМ МЕХАНИЗМА ЛИЗИНГА ПРИ УЧАСТИИ ЭКСПОРТНЫХ КРЕДИТНЫХ АГЕНТСТВ.\rОСНОВНЫЕ УСЛОВИЯ:\rСРОК ФИНАНСИРОВАНИЯ: ДО 7 ЛЕТ\rВАЛЮТА ФИНАНСИРОВАНИЯ: РУБЛИ, ДОЛЛАРЫ США, ЕВРО\rМИНИМАЛЬНАЯ СУММА ФИНАНСИРОВАНИЯ: ОТ 15 МЛН.РУБ. \rАВАНС: ОТ 15% (БЕЗ УЧЕТА ТАМОЖЕННЫХ ПОШЛИН) \rУДОРОЖАНИЕ: ОТ 5%\rСРОК ПРИНЯТИЯ РЕШЕНИЯ: ОТ 14 ДНЕЙ\rЛИЗИНГ КОММЕРЧЕСКОЙ НЕДВИЖИМОСТИ\rПОЗВОЛЯЕТ ПРЕДПРИЯТИЯМ ПРИОБРЕСТИ ОБЪЕКТЫ КОММЕРЧЕСКОЙ НЕДВИЖИМОСТИ БЕЗ ЕДИНОВРЕМЕННОГО ОТВЛЕЧЕНИЯ ЗНАЧИТЕЛЬНЫХ СРЕДСТВ.\rВ КАЧЕСТВЕ ПРЕДМЕТА ЛИЗИНГА МОГУТ ВЫСТУПАТЬ:\rОФИСНЫЕ ЗДАНИЯ;\rТОРГОВЫЕ, СКЛАДСКИЕ И ПРОИЗВОДСТВЕННЫЕ ПОМЕЩЕНИЯ;\rДРУГИЕ ОБЪЕКТЫ КОММЕРЧЕСКОЙ НЕДВИЖИМОСТИ.\rОСНОВНЫЕ УСЛОВИЯ:\rСРОК ФИНАНСИРОВАНИЯ: ОТ 5 ЛЕТ\rВАЛЮТА ФИНАНСИРОВАНИЯ: РУБЛИ, ДОЛЛАРЫ США, ЕВРО\rМИНИМАЛЬНАЯ СУММА ФИНАНСИРОВАНИЯ: ОТ 50 МЛН.РУБ.* \rАВАНС: ОТ 0%\rУДОРОЖАНИЕ: ОТ 7%\rСРОК ПРИНЯТИЯ РЕШЕНИЯ: ОТ 14 ДНЕЙ\r* РАЗМЕР СУММЫ ФИНАНСИРОВАНИЯ ЗАВИСИТ ОТ РЕГИОНА, В КОТОРОМ НАХОДИТСЯ ОБЪЕКТ НЕДВИЖИМОСТИ.\rОСНОВНЫМ ТРЕБОВАНИЕМ, ПРЕДЪЯВЛЯЕМЫМ НАШИМ БАНКОМ ДЛЯ РАССМОТРЕНИЯ ЗАЯВКИ НА ЛИЗИНГ КОММЕРЧЕСКОЙ НЕДВИЖИМОСТИ, ЯВЛЯЕТСЯ НАЛИЧИЕ ПОЛНОГО КОМПЛЕКТА ПРАВОУСТАНАВЛИВАЮЩИХ ДОКУМЕНТОВ НА НЕДВИЖИМОСТЬ И НАЛИЧИЕ ОТЧЕТА НЕЗАВИСИМОГО ОЦЕНЩИКА.\r\n'),
 (29,'344cad3205bd5c2e8cffcf29a17ae499','КРЕДИТОВАНИЕ\r\nКРЕДИТОВАНИЕ МАЛОГО И СРЕДНЕГО БИЗНЕСА ЯВЛЯЕТСЯ ОДНИМ ИЗ СТРАТЕГИЧЕСКИХ НАПРАВЛЕНИЙ БАНКА.\rДАННОЕ НАПРАВЛЕНИЕ ВКЛЮЧАЕТ В СЕБЯ:\nКРЕДИТОВАНИЕ ЮРИДИЧЕСКИХ ЛИЦ\rКРЕДИТОВАНИЕ ИНДИВИДУАЛЬНЫХ ПРЕДПРИНИМАТЕЛЕЙ\rВ ЗАВИСИМОСТИ ОТ ПОЖЕЛАНИЙ КЛИЕНТА КРЕДИТЫ ДЛЯ БИЗНЕСА ПРЕДОСТАВЛЯЮТСЯ В РАЗНЫХ ВАЛЮТАХ: В РУБЛЯХ РФ, ДОЛЛАРАХ США И ЕВРО. \nПРЕИМУЩЕСТВА ПОЛУЧЕНИЯ КРЕДИТА В НАШЕМ БАНКЕ:\rСРОК РАССМОТРЕНИЯ КРЕДИТНОЙ ЗАЯВКИ ОТ 2-Х РАБОЧИХ ДНЕЙ; \rОТСУТСТВИЕ ЕЖЕМЕСЯЧНОЙ ПЛАТЫ ЗА ВЕДЕНИЕ ССУДНОГО СЧЕТА;\rОТСУТСТВИЕ ТРЕБОВАНИЙ ПО ПРЕДОСТАВЛЕНИЮ БИЗНЕС-ПЛАНА;\rПРИНИМАЕТСЯ К РАССМОТРЕНИЮ УПРАВЛЕНЧЕСКАЯ ОТЧЕТНОСТЬ;\rВ КАЧЕСТВЕ ЗАЛОГА РАССМАТРИВАЮТСЯ ТОВАРЫ В ОБОРОТЕ, АВТОТРАНСПОРТ, ОБОРУДОВАНИЕ, НЕДВИЖИМОСТЬ И ДРУГОЕ ЛИКВИДНОЕ ИМУЩЕСТВО; \rГИБКИЕ УСЛОВИЯ ПОГАШЕНИЯ КРЕДИТА. \rДЛЯ ПОЛУЧЕНИЯ КРЕДИТА:\rПОЗВОНИТЕ НАМ ПО ТЕЛЕФОНУ +7 (495) 757-57-57, ОБРАТИТЕСЬ В БЛИЖАЙШЕЕ К ВАМ ОТДЕЛЕНИЕ БАНКА ИЛИ ЗАПОЛНИТЕ ON-LINE ЗАЯВКУ. \rНАШИ СПЕЦИАЛИСТЫ ПОМОГУТ ВАМ ВЫБРАТЬ УДОБНЫЕ УСЛОВИЯ КРЕДИТОВАНИЯ И ОТВЕТЯТ НА ИНТЕРЕСУЮЩИЕ ВАС ВОПРОСЫ.\rПОДГОТОВЬТЕ НЕОБХОДИМЫЕ ДЛЯ РАССМОТРЕНИЯ КРЕДИТНОЙ ЗАЯВКИ ДОКУМЕНТЫ И ДОГОВОРИТЕСЬ О ВСТРЕЧЕ С КРЕДИТНЫМ ЭКСПЕРТОМ БАНКА.\rПОКАЖИТЕ КРЕДИТНОМУ ЭКСПЕРТУ ВАШЕ ПРЕДПРИЯТИЕ И ИМУЩЕСТВО, ПРЕДЛАГАЕМОЕ В ЗАЛОГ.\rПОЛУЧИТЕ КРЕДИТ НА РАЗВИТИЕ ВАШЕГО БИЗНЕСА! \nПРОГРАММЫ КРЕДИТОВАНИЯ МАЛОГО И СРЕДНЕГО БИЗНЕСА:\rПРОГРАММА\nСУММА КРЕДИТА\nПРОЦЕНТНАЯ СТАВКА\nСРОК КРЕДИТА\n«ОВЕРДРАФТ»\rОТ 300 000\nДО 5 000 000 РУБЛЕЙ\nОТ 18% ГОДОВЫХ\nДО 12 МЕСЯЦЕВ\n«МИНИКРЕДИТ»\rОТ 150 000\nДО 1 000 000 РУБЛЕЙ\nОТ 24% ГОДОВЫХ\nДО 36 МЕСЯЦЕВ\n«РАЗВИТИЕ»\nОТ 1 000 000\nДО 15 000 000 РУБЛЕЙ\nОТ 17% ГОДОВЫХ\nДО 36 МЕСЯЦЕВ\n«ИНВЕСТ»\nОТ 1 000 000\nДО 30 000 000 РУБЛЕЙ\nОТ 15% ГОДОВЫХ\nДО 72 МЕСЯЦЕВ\r\n'),
 (30,'3e30b6e27a290bc4818f2de6a938fdf3','ДЕПОЗИТЫ\r\nНАШ БАНК ПРЕДЛАГАЕТ ВАМ ЭФФЕКТИВНО РАЗМЕСТИТЬ СВОБОДНЫЕ ДЕНЬГИ НА БАНКОВСКОМ ДЕПОЗИТЕ И ПОЛУЧИТЬ ДОПОЛНИТЕЛЬНУЮ ПРИБЫЛЬ.\rДЕПОЗИТНЫЕ ПРОДУКТЫ\r \rДОСРОЧНОЕ РАСТОРЖЕНИЕ\rПОПОЛНЕНИЕ\rЧАСТИЧНОЕ ИЗЪЯТИЕ\rВЫПЛАТА ПРОЦЕНТОВ\rДЕПОЗИТ С ВЫПЛАТОЙ ПРОЦЕНТОВ В КОНЦЕ СРОКА\rНЕ ПРЕДУСМОТРЕНО.\rНЕ ПРЕДУСМОТРЕНО.\rНЕ ПРЕДУСМОТРЕНО.\rВ КОНЦЕ СРОКА.\rДЕПОЗИТ С ВЫПЛАТОЙ ПРОЦЕНТОВ ЕЖЕМЕСЯЧНО\rНЕ ПРЕДУСМОТРЕНО.\rНЕ ПРЕДУСМОТРЕНО.\rНЕ ПРЕДУСМОТРЕНО.\rЕЖЕМЕСЯЧНО.\rДЕПОЗИТ С ВОЗМОЖНОСТЬЮ ПОПОЛНЕНИЯ\rНЕ ПРЕДУСМОТРЕНО.\rПРЕКРАЩАЕТСЯ ЗА 2 МЕСЯЦА ДО ОКОНЧАНИЯ СРОКА ДЕЙСТВИЯ ДЕПОЗИТА. \rНЕ ПРЕДУСМОТРЕНО \rВ КОНЦЕ СРОКА. \rДЕПОЗИТ С ВОЗМОЖНОСТЬЮ ПОПОЛНЕНИЯ И ИЗЪЯТИЯ\rНЕ ПРЕДУСМОТРЕНО.\rПРЕКРАЩАЕТСЯ ЗА 2 МЕСЯЦА ДО ОКОНЧАНИЯ СРОКА ДЕЙСТВИЯ ДЕПОЗИТА.\rНЕ БОЛЕЕ 40% ОТ ПЕРВОНАЧАЛЬНОЙ СУММЫ ВКЛАДА ЗА ВЕСЬ СРОК ДЕПОЗИТА \rВ КОНЦЕ СРОКА. \rДЕПОЗИТ С ВОЗМОЖНОСТЬЮ ДОСРОЧНОГО РАСТОРЖЕНИЯ \rВОЗМОЖНО ПРИ РАЗМЕЩЕНИИ НА 12 МЕСЯЦЕВ, НО НЕ РАНЕЕ ЧЕМ ЧЕРЕЗ 6 МЕСЯЦЕВ.\rНЕ ПРЕДУСМОТРЕНО.\rНЕ ПРЕДУСМОТРЕНО. \rВ КОНЦЕ СРОКА.\r\n'),
-(31,'9dfab91b86ab4a11b04df5f40578198c','БАНК ПЕРЕНОСИТ ДАТУ ВСТУПЛЕНИЯ В ДЕЙСТВИЕ ТАРИФОВ НА УСЛУГИ В ИНОСТРАННОЙ ВАЛЮТЕ\r\nУВАЖАЕМЫЕ КЛИЕНТЫ,\rСООБЩАЕМ ВАМ, ЧТО БАНК ПЕРЕНОСИТ ДАТУ ВСТУПЛЕНИЯ В ДЕЙСТВИЕ ТАРИФОВ НА УСЛУГИ ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ И ИНДИВИДУАЛЬНЫХ ПРЕДПРИНИМАТЕЛЕЙ В ИНОСТРАННОЙ ВАЛЮТЕ. В СВЯЗИ С ЭТИМ ДО ДАТЫ ВВЕДЕНИЯ В ДЕЙСТВИЕ НОВОЙ РЕДАКЦИИ ТАРИФОВ, УСЛУГИ ЮРИДИЧЕСКИМ ЛИЦАМ И ИНДИВИДУАЛЬНЫМ ПРЕДПРИНИМАТЕЛЯМ БУДУТ ОКАЗЫВАТЬСЯ В РАМКАХ ДЕЙСТВУЮЩИХ ТАРИФОВ. \rИНФОРМАЦИЯ О ДАТЕ ВВЕДЕНИЯ НОВОЙ РЕДАКЦИИ ТАРИФОВ БУДЕТ СООБЩЕНА ДОПОЛНИТЕЛЬНО.\r\nУВАЖАЕМЫЕ КЛИЕНТЫ,\rСООБЩАЕМ ВАМ, ЧТО БАНК ПЕРЕНОСИТ ДАТУ ВСТУПЛЕНИЯ В ДЕЙСТВИЕ ТАРИФОВ НА УСЛУГИ ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ И ИНДИВИДУАЛЬНЫХ ПРЕДПРИНИМАТЕЛЕЙ В ИНОСТРАННОЙ ВАЛЮТЕ. В СВЯЗИ С ЭТИМ ДО ДАТЫ ВВЕДЕНИЯ В ДЕЙСТВИЕ НОВОЙ РЕДАКЦИИ ТАРИФОВ, УСЛУГИ ЮРИДИЧЕСКИМ ЛИЦАМ И ИНДИВИДУАЛЬНЫМ ПРЕДПРИНИМАТЕЛЯМ БУДУТ ОКАЗЫВАТЬСЯ В РАМКАХ ДЕЙСТВУЮЩИХ ТАРИФОВ. \rИНФОРМАЦИЯ О ДАТЕ ВВЕДЕНИЯ НОВОЙ РЕДАКЦИИ ТАРИФОВ БУДЕТ СООБЩЕНА ДОПОЛНИТЕЛЬНО.\r\n'),
-(32,'437ea50fe03f56e33342d948ce95e9f8','НАЧАТЬ РАБОТАТЬ С СИСТЕМОЙ «ИНТЕРНЕТ-КЛИЕНТ» СТАЛО ЕЩЕ ПРОЩЕ\r\nНАШ БАНК ПРЕДЛАГАЕТ СВОИМ КЛИЕНТАМ МАСТЕР УСТАНОВКИ «ИНТЕРНЕТ-КЛИЕНТ», КОТОРЫЙ СУЩЕСТВЕННО УПРОСТИТ НАЧАЛО РАБОТЫ С СИСТЕМОЙ. ТЕПЕРЬ ДОСТАТОЧНО СКАЧАТЬ И ЗАПУСТИТЬ МАСТЕР УСТАНОВКИ, И ВСЕ НАСТРОЙКИ БУДУТ ПРОИЗВЕДЕНЫ АВТОМАТИЧЕСКИ. ВАМ БОЛЬШЕ НЕ НУЖНО ТРАТИТЬ ВРЕМЯ НА ИЗУЧЕНИЕ ОБЪЕМНЫХ ИНСТРУКЦИЙ, ИЛИ ЗВОНИТЬ В СЛУЖБУ ТЕХПОДДЕРЖКИ, ЧТОБЫ НАЧАТЬ РАБОТАТЬ С СИСТЕМОЙ.\r\nНАШ БАНК ПРЕДЛАГАЕТ СВОИМ КЛИЕНТАМ МАСТЕР УСТАНОВКИ «ИНТЕРНЕТ-КЛИЕНТ», КОТОРЫЙ СУЩЕСТВЕННО УПРОСТИТ НАЧАЛО РАБОТЫ С СИСТЕМОЙ. ТЕПЕРЬ ДОСТАТОЧНО СКАЧАТЬ И ЗАПУСТИТЬ МАСТЕР УСТАНОВКИ, И ВСЕ НАСТРОЙКИ БУДУТ ПРОИЗВЕДЕНЫ АВТОМАТИЧЕСКИ. ВАМ БОЛЬШЕ НЕ НУЖНО ТРАТИТЬ ВРЕМЯ НА ИЗУЧЕНИЕ ОБЪЕМНЫХ ИНСТРУКЦИЙ, ИЛИ ЗВОНИТЬ В СЛУЖБУ ТЕХПОДДЕРЖКИ, ЧТОБЫ НАЧАТЬ РАБОТАТЬ С СИСТЕМОЙ.\r\n'),
-(33,'e9a9009de370e84b759e3b542f854458','РЕОРГАНИЗАЦИЯ СЕТИ ОТДЕЛЕНИЙ БАНКА\r\nВ БЛИЖАЙШЕЕ ВРЕМЯ БУДЕТ ЗНАЧИТЕЛЬНО РАСШИРЕН ПРОДУКТОВЫЙ РЯД И ПЕРЕЧЕНЬ ПРЕДОСТАВЛЯЕМЫХ БАНКОВСКИХ УСЛУГ, КОТОРЫЕ БАНК СМОЖЕТ ПРЕДЛАГАТЬ ВО ВСЕХ СВОИХ ДОПОЛНИТЕЛЬНЫХ ОФИСАХ. ТЕПЕРЬ НАШИ КЛИЕНТЫ СМОГУТ ПОЛУЧИТЬ ПОЛНЫЙ ПЕРЕЧЕНЬ УСЛУГ В ЛЮБОМ ИЗ ОТДЕЛЕНИЙ БАНКА. \rБЫЛО ПРОВЕДЕНО КОМПЛЕКСНОЕ ВСЕСТОРОННЕЕ ИССЛЕДОВАНИЕ ФУНКЦИОНИРОВАНИЯ РЕГИОНАЛЬНЫХ ОФИСОВ НА ПРЕДМЕТ СООТВЕТСТВИЯ ВОЗРОСШИМ ТРЕБОВАНИЯМ. В РЕЗУЛЬТАТЕ, ПРИНЯТО РЕШЕНИЕ О ВРЕМЕННОМ ЗАКРЫТИИ ОФИСОВ, НЕ СООТВЕТСТВУЮЩИХ ВЫСОКИМ СТАНДАРТАМ И НЕ ПРИСПОСОБЛЕННЫХ К ТРЕБОВАНИЯМ РАСТУЩЕГО БИЗНЕСА. ОФИСЫ ПОСТЕПЕННО БУДУТ ОТРЕМОНТИРОВАНЫ И ПЕРЕОБОРУДОВАНЫ, СТАНУТ СОВРЕМЕННЫМИ И УДОБНЫМИ. \rПРИНОСИМ СВОИ ИЗВИНЕНИЯ ЗА ВРЕМЕННО ДОСТАВЛЕННЫЕ НЕУДОБСТВА. \r\nВ БЛИЖАЙШЕЕ ВРЕМЯ БУДЕТ ЗНАЧИТЕЛЬНО РАСШИРЕН ПРОДУКТОВЫЙ РЯД И ПЕРЕЧЕНЬ ПРЕДОСТАВЛЯЕМЫХ БАНКОВСКИХ УСЛУГ, КОТОРЫЕ БАНК СМОЖЕТ ПРЕДЛАГАТЬ ВО ВСЕХ СВОИХ ДОПОЛНИТЕЛЬНЫХ ОФИСАХ. ТЕПЕРЬ НАШИ КЛИЕНТЫ СМОГУТ ПОЛУЧИТЬ ПОЛНЫЙ ПЕРЕЧЕНЬ УСЛУГ В ЛЮБОМ ИЗ ОТДЕЛЕНИЙ БАНКА. \rБЫЛО ПРОВЕДЕНО КОМПЛЕКСНОЕ ВСЕСТОРОННЕЕ ИССЛЕДОВАНИЕ ФУНКЦИОНИРОВАНИЯ РЕГИОНАЛЬНЫХ ОФИСОВ НА ПРЕДМЕТ СООТВЕТСТВИЯ ВОЗРОСШИМ ТРЕБОВАНИЯМ. В РЕЗУЛЬТАТЕ, ПРИНЯТО РЕШЕНИЕ О ВРЕМЕННОМ ЗАКРЫТИИ ОФИСОВ, НЕ СООТВЕТСТВУЮЩИХ ВЫСОКИМ СТАНДАРТАМ И НЕ ПРИСПОСОБЛЕННЫХ К ТРЕБОВАНИЯМ РАСТУЩЕГО БИЗНЕСА. ОФИСЫ ПОСТЕПЕННО БУДУТ ОТРЕМОНТИРОВАНЫ И ПЕРЕОБОРУДОВАНЫ, СТАНУТ СОВРЕМЕННЫМИ И УДОБНЫМИ. \rПРИНОСИМ СВОИ ИЗВИНЕНИЯ ЗА ВРЕМЕННО ДОСТАВЛЕННЫЕ НЕУДОБСТВА.\r\n'),
-(34,'a0b07dac40b2192e3759747f41ea1edc','ГЛАВНЫЙ СПЕЦИАЛИСТ ОТДЕЛА АНАЛИЗА КРЕДИТНЫХ ПРОЕКТОВ РЕГИОНАЛЬНОЙ СЕТИ\r\nТРЕБОВАНИЯ\rВЫСШЕЕ ЭКОНОМИЧЕСКОЕ/ФИНАНСОВОЕ ОБРАЗОВАНИЕ, ОПЫТ В БАНКАХ ТОП-100 НЕ МЕНЕЕ 3-Х ЛЕТ В КРЕДИТНОМ ОТДЕЛЕ (АНАЛИЗ ЗАЕМЩИКОВ), ЖЕЛАТЕЛЕН ОПЫТ РАБОТЫ С КРЕДИТНЫМИ ЗАЯВКАМИ ФИЛИАЛОВ, ЗНАНИЕ ТЕХНОЛОГИЙ АФХД ПРЕДПРИЯТИЙ, НАВЫКИ НАПИСАНИЯ ЭКСПЕРТНОГО ЗАКЛЮЧЕНИЯ, ЗНАНИЕ ЗАКОНОДАТЕЛЬСТВА (В Т.Ч. ПОЛОЖЕНИЕ ЦБ № 254-П).\rОБЯЗАННОСТИ\rАНАЛИЗ КРЕДИТНЫХ ПРОЕКТОВ ФИЛИАЛОВ БАНКА, ПОДГОТОВКА ПРЕДЛОЖЕНИЙ ПО СТРУКТУРИРОВАНИЮ КРЕДИТНЫХ ПРОЕКТОВ, ОЦЕНКА ПОЛНОТЫ И КАЧЕСТВА ФОРМИРУЕМЫХ ФИЛИАЛАМИ ЗАКЛЮЧЕНИЙ, ВЫЯВЛЕНИЕ СТОП-ФАКТОРОВ, ДОРАБОТКА ЗАЯВОК ФИЛИАЛОВ В СООТВЕТСТВИИ СО СТАНДАРТАМИ БАНКА, ПОДГОТОВКА ЗАКЛЮЧЕНИЯ (РЕКОМЕНДАЦИЙ) НА КК ПО ЗАЯВКАМ ФИЛИАЛОВ В ЧАСТИ ОЦЕНКИ ФИНАНСОВО-ЭКОНОМИЧЕСКОГО СОСТОЯНИЯ ЗАЕМЩИКА, ЗАЩИТА ПРОЕКТОВ НА КК БАНКА, КОНСУЛЬТИРОВАНИЕ И МЕТОДОЛОГИЧЕСКАЯ ПОМОЩЬ ФИЛИАЛАМ БАНКА В ЧАСТИ КОРПОРАТИВНОГО КРЕДИТОВАНИЯ.\rУСЛОВИЯ\rМЕСТО РАБОТЫ: М.ПАРК КУЛЬТУРЫ. ГРАФИКИ РАБОТЫ: ПЯТИДНЕВНАЯ РАБОЧАЯ НЕДЕЛЯ, С 9:00 ДО 18:00, ПТ. ДО 16:45. ЗАРПЛАТА: 50000 РУБ. ОКЛАД + ПРЕМИИ, ПОЛНЫЙ СОЦ. ПАКЕТ,ОФОРМЛЕНИЕ СОГЛАСНО ТК РФ\r\n'),
-(35,'c2f74d9d9478f621cc944462301f0298','СПЕЦИАЛИСТ ПО ПРОДАЖАМ РОЗНИЧНЫХ БАНКОВСКИХ ПРОДУКТОВ\r\nТРЕБОВАНИЯ\rВЫСШЕЕ ЭКОНОМИЧЕСКОГО ОБРАЗОВАНИЯ ‚ ОПЫТ РАБОТЫ В СФЕРЕ ПРОДАЖ БАНКОВСКИХ ПРОДУКТОВ‚ ОПЫТНЫЙ ПОЛЬЗОВАТЕЛЬ ПК‚ ЭТИКА ДЕЛОВОГО ОБЩЕНИЯ‚ ОТВЕТСТВЕННОСТЬ‚ ИНИЦИАТИВНОСТЬ‚ АКТИВНОСТЬ.\rОБЯЗАННОСТИ\rПРОДАЖА РОЗНИЧНЫХ БАНКОВСКИХ ПРОДУКТОВ, ОФОРМЛЕНИЕ ДОКУМЕНТОВ.\rУСЛОВИЯ\rТРУДОУСТРОЙСТВО ПО ТК РФ‚ ПОЛНЫЙ СОЦ. ПАКЕТ. ГРАФИК РАБОТЫ: ПЯТИДНЕВНАЯ РАБОЧАЯ НЕДЕЛЯ. ЗАРПЛАТА: 20000 РУБ. ОКЛАД + ПРЕМИИ\r\n'),
-(36,'f80f82e8603db0db02c1d3a241b0db0c','СПЕЦИАЛИСТ ОТДЕЛА АНДЕРРАЙТИНГА\r\nТРЕБОВАНИЯ\rВЫСШЕЕ ПРОФЕССИОНАЛЬНОЕ ОБРАЗОВАНИЕ, ОПЫТ РАБОТЫ ОТ 2 ЛЕТ В ОТДЕЛЕ ПО РАБОТЕ С ФИЗИЧЕСКИМИ И ЮРИДИЧЕСКИМИ ЛИЦАМИ БАНКОВ, СВЯЗАННЫХ С АНАЛИЗОМ ПЛАТЁЖЕСПОСОБНОСТИ И КРЕДИТОСПОСОБНОСТИ ФИЗИЧЕСКИХ И ЮРИДИЧЕСКИХ ЛИЦ.\rОБЯЗАННОСТИ\rПРОВЕРКА СООТВЕТСТВИЯ ДОКУМЕНТОВ, ПРЕДОСТАВЛЕННЫХ КЛИЕНТАМИ БАНКА, АНАЛИЗ ИНФОРМАЦИИ О РИСКЕ\rУСЛОВИЯ\rТРУДОУСТРОЙСТВО ПО ТК РФ‚ ПОЛНЫЙ СОЦ. ПАКЕТ. ГРАФИК РАБОТЫ: ПЯТИДНЕВНАЯ РАБОЧАЯ НЕДЕЛЯ. ЗАРПЛАТА: ОКЛАД 25000 РУБ.\r\n'),
 (37,'0f4f524c1538967b6c7ac149d4721943','АЛЬФА-БАНК\r\nКРУПНЫЙ ЧАСТНЫЙ БАНК: ОФИСЫ ПО ВСЕЙ СТРАНЕ И ЦИФРОВЫЕ СЕРВИСЫ ДЛЯ МИЛЛИОНОВ КЛИЕНТОВ.\r\nАЛЬФА-БАНК РАЗВИВАЕТ РОЗНИЧНЫЕ И КОРПОРАТИВНЫЕ ПРОДУКТЫ. В КОМАНДАХ НУЖНЫ СПЕЦИАЛИСТЫ ПОДДЕРЖКИ, ПРОДАЖ И РАЗРАБОТКИ. ОФИСЫ ЕСТЬ В КРУПНЫХ ГОРОДАХ, ЧАСТЬ ЗАДАЧ МОЖНО ЗАКРЫВАТЬ УДАЛЁННО.\r\n'),
 (38,'ab0204223072db03d2036e0487b3bf41','ЯНДЕКС\r\nТЕХНОЛОГИЧЕСКАЯ КОМПАНИЯ: ПОИСК, ДОСТАВКА, ОБЛАКО И СЕРВИСЫ, КОТОРЫМИ ПОЛЬЗУЮТСЯ КАЖДЫЙ ДЕНЬ.\r\nВ ЯНДЕКСЕ СОБИРАЮТ ПРОДУКТЫ ДЛЯ МИЛЛИОНОВ ЛЮДЕЙ. КОМАНДЫ ИЩУТ ИНЖЕНЕРОВ, АНАЛИТИКОВ И СПЕЦИАЛИСТОВ ПОДДЕРЖКИ В МОСКВЕ И САНКТ-ПЕТЕРБУРГЕ.\r\n'),
 (39,'507dc1737e1499a4c158b780f2566524','МАГНИТ\r\nСЕТЬ МАГАЗИНОВ У ДОМА. НУЖНЫ ПРОДАВЦЫ, ВОДИТЕЛИ И СОТРУДНИКИ РАСПРЕДЕЛИТЕЛЬНЫХ ЦЕНТРОВ.\r\n«МАГНИТ» — ОДНА ИЗ КРУПНЕЙШИХ РОЗНИЧНЫХ СЕТЕЙ. ВАКАНСИИ ОТКРЫТЫ В МАГАЗИНАХ, НА СКЛАДАХ И В ЛОГИСТИКЕ. ГРАФИК И РАЙОН ПОДБИРАЮТ НА СОБЕСЕДОВАНИИ.\r\n'),
@@ -50061,46 +49731,6 @@ INSERT INTO `b_search_content_title` VALUES
 (28,'s1',0,'ЛИЗИНГ'),
 (29,'s1',0,'КРЕДИТОВАНИЕ'),
 (30,'s1',0,'ДЕПОЗИТЫ'),
-(31,'s1',0,'БАНК'),
-(31,'s1',20,'В'),
-(31,'s1',74,'ВАЛЮТЕ'),
-(31,'s1',20,'ВСТУПЛЕНИЯ'),
-(31,'s1',15,'ДАТУ'),
-(31,'s1',33,'ДЕЙСТВИЕ'),
-(31,'s1',62,'ИНОСТРАННОЙ'),
-(31,'s1',50,'НА'),
-(31,'s1',5,'ПЕРЕНОСИТ'),
-(31,'s1',42,'ТАРИФОВ'),
-(31,'s1',53,'УСЛУГИ'),
-(32,'s1',51,'ЕЩЕ'),
-(32,'s1',28,'ИНТЕРНЕТ-КЛИЕНТ'),
-(32,'s1',0,'НАЧАТЬ'),
-(32,'s1',55,'ПРОЩЕ'),
-(32,'s1',7,'РАБОТАТЬ'),
-(32,'s1',16,'С'),
-(32,'s1',18,'СИСТЕМОЙ'),
-(32,'s1',45,'СТАЛО'),
-(33,'s1',29,'БАНКА'),
-(33,'s1',19,'ОТДЕЛЕНИЙ'),
-(33,'s1',0,'РЕОРГАНИЗАЦИЯ'),
-(33,'s1',14,'СЕТИ'),
-(34,'s1',26,'АНАЛИЗА'),
-(34,'s1',0,'ГЛАВНЫЙ'),
-(34,'s1',34,'КРЕДИТНЫХ'),
-(34,'s1',19,'ОТДЕЛА'),
-(34,'s1',44,'ПРОЕКТОВ'),
-(34,'s1',53,'РЕГИОНАЛЬНОЙ'),
-(34,'s1',66,'СЕТИ'),
-(34,'s1',8,'СПЕЦИАЛИСТ'),
-(35,'s1',33,'БАНКОВСКИХ'),
-(35,'s1',11,'ПО'),
-(35,'s1',14,'ПРОДАЖАМ'),
-(35,'s1',44,'ПРОДУКТОВ'),
-(35,'s1',23,'РОЗНИЧНЫХ'),
-(35,'s1',0,'СПЕЦИАЛИСТ'),
-(36,'s1',18,'АНДЕРРАЙТИНГА'),
-(36,'s1',11,'ОТДЕЛА'),
-(36,'s1',0,'СПЕЦИАЛИСТ'),
 (37,'s1',0,'АЛЬФА-БАНК'),
 (38,'s1',0,'ЯНДЕКС'),
 (39,'s1',0,'МАГНИТ'),
@@ -50212,7 +49842,7 @@ CREATE TABLE `b_search_stem` (
   `STEM` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `UX_B_SEARCH_STEM` (`STEM`)
-) ENGINE=InnoDB AUTO_INCREMENT=1633 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1642 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50251,6 +49881,7 @@ INSERT INTO `b_search_stem` VALUES
 (1074,'1600'),
 (1353,'17'),
 (94,'175089'),
+(1634,'1791923263'),
 (498,'18'),
 (781,'180'),
 (481,'1985'),
@@ -50486,6 +50117,7 @@ INSERT INTO `b_search_stem` VALUES
 (56,'БУД'),
 (1005,'БУДЕТ'),
 (1377,'БУДУТ'),
+(1641,'БУКЕТ'),
 (517,'БУМАГ'),
 (1068,'БУМАЖН'),
 (480,'БУХГАЛТЕР'),
@@ -50973,6 +50605,7 @@ INSERT INTO `b_search_stem` VALUES
 (773,'МЕСЯЦ'),
 (941,'МЕСЯЦЕВ'),
 (1446,'МЕТОДОЛОГИЧЕСК'),
+(1636,'МЕТРИК'),
 (1312,'МЕХАНИЗМ'),
 (1470,'МИЛЛИОН'),
 (1469,'МИЛЛИОНОВ'),
@@ -51080,6 +50713,7 @@ INSERT INTO `b_search_stem` VALUES
 (539,'ОБЛАСТ'),
 (1040,'ОБЛИГАЦ'),
 (1066,'ОБМ'),
+(1637,'ОБНОВЛЕН'),
 (1338,'ОБОРОТ'),
 (744,'ОБОРУДОВА'),
 (1305,'ОБОРУДОВАН'),
@@ -51275,6 +50909,7 @@ INSERT INTO `b_search_stem` VALUES
 (1301,'ПОКУПА'),
 (1549,'ПОКУПАТЕЛ'),
 (672,'ПОКУПК'),
+(1638,'ПОЛЕВ'),
 (1302,'ПОЛЕЗН'),
 (890,'ПОЛИТИК'),
 (1553,'ПОЛК'),
@@ -51506,6 +51141,7 @@ INSERT INTO `b_search_stem` VALUES
 (233,'РОЗНИЧН'),
 (1527,'РОЛ'),
 (460,'РОМА'),
+(1633,'РОМАШК'),
 (95,'РОСС'),
 (154,'РОССИЙСК'),
 (597,'РОСТ'),
@@ -51668,6 +51304,7 @@ INSERT INTO `b_search_stem` VALUES
 (1107,'СХЕМ'),
 (102,'СЧЕТ'),
 (688,'СЧЕТОВ'),
+(1635,'СЧИТА'),
 (927,'США'),
 (262,'ТАКЖ'),
 (1132,'ТАМОЖЕН'),
@@ -51787,6 +51424,7 @@ INSERT INTO `b_search_stem` VALUES
 (328,'ФИНАНСИРОВАН'),
 (168,'ФИНАНСОВ'),
 (1444,'ФИНАНСОВО-ЭКОНОМИЧЕСК'),
+(1640,'ФЛОРИСТ'),
 (1036,'ФОНДОВ'),
 (632,'ФОРМ'),
 (1563,'ФОРМАТ'),
@@ -51804,6 +51442,7 @@ INSERT INTO `b_search_stem` VALUES
 (464,'ХРАМОВ'),
 (813,'ХРАНЕН'),
 (521,'ЦБ'),
+(1639,'ЦВЕТ'),
 (158,'ЦЕЛ'),
 (516,'ЦЕН'),
 (351,'ЦЕННОСТ'),
@@ -55009,7 +54648,7 @@ CREATE TABLE `b_user` (
   KEY `ix_user_date_register` (`DATE_REGISTER`),
   KEY `ix_b_user_external_auth_id_active` (`EXTERNAL_AUTH_ID`,`ACTIVE`),
   KEY `ix_b_user_personal_birthdate` (`PERSONAL_BIRTHDATE`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55020,9 +54659,10 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_user` WRITE;
 /*!40000 ALTER TABLE `b_user` DISABLE KEYS */;
 INSERT INTO `b_user` VALUES
-(1,NULL,'admin','$6$lx3pl8d3oGvoqP0q$FGvsYh7buMiQ5/YwXOORIFqn8bgxmpXihRo/orExX/KzIrE093P2/stqv8mo07GItJwiNGeLdxU.PwIb1NGXY/','$6$wQhUgUd4B0U6YYNG$roKxnq9EBM.T.RZ2knu4cGKoUeGV/h0vHZFe00QHQZALHtGONdHt2k89X460FfVp/jONQkPM3RVpzAS68Ew6s1','Y','Константин','Волков','admin@mail.ru','2026-10-13 21:33:20','2026-10-13 17:46:54',NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-13 17:46:54',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N'),
-(5,NULL,'guest','$6$aXzY0bEXvaTlm2bs$NfbpaJ0kkmiD7Bk9.CdJZNw9Yagf2Oe8ClY3RWNdzRgJ9WdTJwoAfsRBmNdkKrV9XCnpjoEE2uYYr/cpnnPK61','$6$VopjCVfb18IRxW1d$qS6uI96LIahiGAEbIDwHjbC32owCmbDGODSAMeuH3.Z46PedPfPJJEjQyDreP/6CXTrVUL3BfYTgbW/nfE9NL/','Y','Иван','Захаров','guest@mail.ru','2026-10-13 21:50:57','2026-10-13 21:49:48','s1',NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-13 21:49:48',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N'),
-(6,NULL,'company','$6$EtP74DynyelyGgKK$DfG0qdCUVboVywseKmo0qfUtMg5zavw97ftzSZn520LKlQHWVOPMD3L4nBVW2kbraGsnIhMVLrirSsr25gqbK.','$6$F2gD0vUMF6UCIknf$rmDU1iiIyse0WglQ6Hq7WDsvciolzEnTr7RJZJRnV19jpTM4ERGvbDz4v0BWMTqd.3ZgHQ1InkVvudbx7txIP1','Y','Работодатель',NULL,'company@mail.ru','2026-10-13 21:51:07','2026-10-13 21:49:48','s1',NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-13 21:49:48',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N');
+(1,NULL,'admin','$6$lx3pl8d3oGvoqP0q$FGvsYh7buMiQ5/YwXOORIFqn8bgxmpXihRo/orExX/KzIrE093P2/stqv8mo07GItJwiNGeLdxU.PwIb1NGXY/','$6$wQhUgUd4B0U6YYNG$roKxnq9EBM.T.RZ2knu4cGKoUeGV/h0vHZFe00QHQZALHtGONdHt2k89X460FfVp/jONQkPM3RVpzAS68Ew6s1','Y','Константин','Волков','admin@mail.ru','2026-10-13 23:55:05','2026-10-13 17:46:54',NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-13 17:46:54',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N'),
+(5,NULL,'guest','$6$aXzY0bEXvaTlm2bs$NfbpaJ0kkmiD7Bk9.CdJZNw9Yagf2Oe8ClY3RWNdzRgJ9WdTJwoAfsRBmNdkKrV9XCnpjoEE2uYYr/cpnnPK61','$6$VopjCVfb18IRxW1d$qS6uI96LIahiGAEbIDwHjbC32owCmbDGODSAMeuH3.Z46PedPfPJJEjQyDreP/6CXTrVUL3BfYTgbW/nfE9NL/','Y','Иван','Захаров','guest@mail.ru','2026-10-13 22:58:25','2026-10-13 21:49:48','s1',NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-13 21:49:48',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N'),
+(6,NULL,'company','$6$EtP74DynyelyGgKK$DfG0qdCUVboVywseKmo0qfUtMg5zavw97ftzSZn520LKlQHWVOPMD3L4nBVW2kbraGsnIhMVLrirSsr25gqbK.','$6$F2gD0vUMF6UCIknf$rmDU1iiIyse0WglQ6Hq7WDsvciolzEnTr7RJZJRnV19jpTM4ERGvbDz4v0BWMTqd.3ZgHQ1InkVvudbx7txIP1','Y','Работодатель',NULL,'company@mail.ru','2026-10-13 23:34:22','2026-10-13 21:49:48','s1',NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-13 21:49:48',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N'),
+(10,NULL,'support','$6$e9NXUz2SxN6nJpZZ$WumsdWeDXWoIRbCeETn/JgLfXOP3zAfEKVv7IM1wtZ9tWMn./gpHmuYUrIzhPNFPRKL3Xi7I.pEiwIxoDZcuS.','$6$vKi1RJXU1ecsx5MB$3/wG/7sFz2EBabe.PV5fO6XrxO1xzvpG2KXyVUD.sPOQMrGSehDXQFx68EM5zWjiild6ggeB52Fx4XqZh3xvS1','Y','Георгий','Кравиц','support@mail.ru','2026-10-13 23:59:01','2026-10-13 23:55:05',NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-13 23:55:05','Константинов',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N');
 /*!40000 ALTER TABLE `b_user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55045,7 +54685,7 @@ CREATE TABLE `b_user_access` (
   KEY `ix_ua_user_provider` (`USER_ID`,`PROVIDER_ID`),
   KEY `ix_ua_provider` (`PROVIDER_ID`),
   KEY `ix_b_user_access_access_code_user_id` (`ACCESS_CODE`,`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55061,7 +54701,22 @@ INSERT INTO `b_user_access` VALUES
 (3,1,'group','G3'),
 (4,1,'group','G4'),
 (5,1,'group','G2'),
-(9,1,'user','U1');
+(9,1,'user','U1'),
+(26,5,'group','G3'),
+(27,5,'group','G4'),
+(28,5,'group','G6'),
+(29,5,'group','G2'),
+(33,5,'user','U5'),
+(34,6,'group','G3'),
+(35,6,'group','G4'),
+(36,6,'group','G7'),
+(37,6,'group','G2'),
+(41,6,'user','U6'),
+(66,10,'group','G3'),
+(67,10,'group','G4'),
+(68,10,'group','G8'),
+(69,10,'group','G2'),
+(73,10,'user','U10');
 /*!40000 ALTER TABLE `b_user_access` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55089,11 +54744,6 @@ CREATE TABLE `b_user_access_check` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_user_access_check` WRITE;
 /*!40000 ALTER TABLE `b_user_access_check` DISABLE KEYS */;
-INSERT INTO `b_user_access_check` VALUES
-(5,'group','1974-12-07 00:00:00'),
-(5,'user','1974-12-07 00:00:00'),
-(6,'group','1974-12-07 00:00:00'),
-(6,'user','1974-12-07 00:00:00');
 /*!40000 ALTER TABLE `b_user_access_check` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55116,7 +54766,7 @@ CREATE TABLE `b_user_auth_action` (
   PRIMARY KEY (`ID`),
   KEY `ix_auth_action_user` (`USER_ID`,`PRIORITY`),
   KEY `ix_auth_action_date` (`ACTION_DATE`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55135,7 +54785,14 @@ INSERT INTO `b_user_auth_action` VALUES
 (6,3,100,'logout','2026-10-13 21:49:48',NULL),
 (7,2,100,'logout','2026-10-13 21:49:48',NULL),
 (8,5,200,'update','2026-10-13 21:49:48',NULL),
-(9,6,200,'update','2026-10-13 21:49:48',NULL);
+(9,6,200,'update','2026-10-13 21:49:48',NULL),
+(10,7,200,'update','2026-10-13 23:27:43',NULL),
+(11,8,200,'update','2026-10-13 23:27:44',NULL),
+(12,9,200,'update','2026-10-13 23:29:34',NULL),
+(13,8,100,'logout','2026-10-13 23:33:03',NULL),
+(14,7,100,'logout','2026-10-13 23:33:21',NULL),
+(15,9,100,'logout','2026-10-13 23:33:21',NULL),
+(16,10,200,'update','2026-10-13 23:55:05',NULL);
 /*!40000 ALTER TABLE `b_user_auth_action` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55330,7 +54987,7 @@ CREATE TABLE `b_user_field` (
   `SETTINGS` text DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ux_user_type_entity` (`ENTITY_ID`,`FIELD_NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55344,7 +55001,9 @@ INSERT INTO `b_user_field` VALUES
 (1,'HLBLOCK_1','UF_VACANCY','iblock_element','UF_VACANCY',100,'N','Y','I','Y','N','N','a:5:{s:7:\"DISPLAY\";s:4:\"LIST\";s:11:\"LIST_HEIGHT\";i:8;s:9:\"IBLOCK_ID\";i:5;s:13:\"DEFAULT_VALUE\";s:0:\"\";s:13:\"ACTIVE_FILTER\";s:1:\"Y\";}'),
 (2,'HLBLOCK_1','UF_USER','workhub_user','UF_USER',200,'N','Y','I','Y','N','N','a:4:{s:4:\"SIZE\";i:20;s:9:\"MIN_VALUE\";i:1;s:9:\"MAX_VALUE\";i:0;s:13:\"DEFAULT_VALUE\";N;}'),
 (3,'HLBLOCK_2','UF_VACANCY','iblock_element','UF_VACANCY',100,'N','Y','I','Y','N','N','a:5:{s:7:\"DISPLAY\";s:4:\"LIST\";s:11:\"LIST_HEIGHT\";i:8;s:9:\"IBLOCK_ID\";i:5;s:13:\"DEFAULT_VALUE\";s:0:\"\";s:13:\"ACTIVE_FILTER\";s:1:\"Y\";}'),
-(4,'HLBLOCK_2','UF_USER','workhub_user','UF_USER',200,'N','Y','I','Y','N','N','a:4:{s:4:\"SIZE\";i:20;s:9:\"MIN_VALUE\";i:1;s:9:\"MAX_VALUE\";i:0;s:13:\"DEFAULT_VALUE\";N;}');
+(4,'HLBLOCK_2','UF_USER','workhub_user','UF_USER',200,'N','Y','I','Y','N','N','a:4:{s:4:\"SIZE\";i:20;s:9:\"MIN_VALUE\";i:1;s:9:\"MAX_VALUE\";i:0;s:13:\"DEFAULT_VALUE\";N;}'),
+(5,'HLBLOCK_3','UF_RESUME','iblock_element','UF_RESUME',100,'N','Y','I','Y','N','N','a:5:{s:7:\"DISPLAY\";s:4:\"LIST\";s:11:\"LIST_HEIGHT\";i:8;s:9:\"IBLOCK_ID\";i:7;s:13:\"DEFAULT_VALUE\";s:0:\"\";s:13:\"ACTIVE_FILTER\";s:1:\"Y\";}'),
+(6,'HLBLOCK_3','UF_USER','workhub_user','UF_USER',200,'N','Y','I','Y','N','N','a:4:{s:4:\"SIZE\";i:20;s:9:\"MIN_VALUE\";i:1;s:9:\"MAX_VALUE\";i:0;s:13:\"DEFAULT_VALUE\";N;}');
 /*!40000 ALTER TABLE `b_user_field` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55447,7 +55106,11 @@ INSERT INTO `b_user_field_lang` VALUES
 (3,'en','Vacancy','Vacancy','Vacancy',NULL,NULL),
 (3,'ru','Вакансия','Вакансия','Вакансия',NULL,NULL),
 (4,'en','User','User','User',NULL,NULL),
-(4,'ru','Пользователь','Пользователь','Пользователь',NULL,NULL);
+(4,'ru','Пользователь','Пользователь','Пользователь',NULL,NULL),
+(5,'en','Resume','Resume','Resume',NULL,NULL),
+(5,'ru','Резюме','Резюме','Резюме',NULL,NULL),
+(6,'en','User','User','User',NULL,NULL),
+(6,'ru','Пользователь','Пользователь','Пользователь',NULL,NULL);
 /*!40000 ALTER TABLE `b_user_field_lang` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55519,7 +55182,10 @@ INSERT INTO `b_user_group` VALUES
 (5,6,NULL,NULL),
 (6,3,NULL,NULL),
 (6,4,NULL,NULL),
-(6,7,NULL,NULL);
+(6,7,NULL,NULL),
+(10,3,NULL,NULL),
+(10,4,NULL,NULL),
+(10,8,NULL,NULL);
 /*!40000 ALTER TABLE `b_user_group` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55593,7 +55259,8 @@ LOCK TABLES `b_user_index` WRITE;
 INSERT INTO `b_user_index` VALUES
 (1,'001 Константин Волков ','','001 Константин Волков nqzva znvy nqzva@znvy.eh','Константин','Волков','','',''),
 (5,'005 Иван Захаров ','','005 Иван Захаров thrfg znvy thrfg@znvy.eh','Иван','Захаров','','',''),
-(6,'006 Работодатель ','','006 Работодатель pbzcnal znvy pbzcnal@znvy.eh','Работодатель','','','','');
+(6,'006 Работодатель ','','006 Работодатель pbzcnal znvy pbzcnal@znvy.eh','Работодатель','','','',''),
+(10,'010 Георгий Кравиц ','','010 Георгий Константинов Кравиц fhccbeg znvy fhccbeg@znvy.eh','Георгий','Кравиц','Константинов','','');
 /*!40000 ALTER TABLE `b_user_index` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55616,7 +55283,7 @@ CREATE TABLE `b_user_option` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ux_user_category_name` (`USER_ID`,`CATEGORY`,`NAME`),
   KEY `ix_b_user_option_category_name` (`CATEGORY`,`NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55631,7 +55298,7 @@ INSERT INTO `b_user_option` VALUES
 (2,0,'main.interface','global','a:1:{s:5:\"theme\";s:5:\"green\";}','Y'),
 (3,1,'admin_panel','settings','a:1:{s:4:\"edit\";s:3:\"off\";}','N'),
 (4,1,'favorite','favorite_menu','a:1:{s:5:\"stick\";s:1:\"N\";}','N'),
-(6,1,'admin_menu','pos','a:1:{s:8:\"sections\";s:39:\"menu_iblock_%2Fvacancies%2F2,menu_users\";}','N'),
+(6,1,'admin_menu','pos','a:1:{s:8:\"sections\";s:122:\"menu_iblock_%2Fvacancies%2F2,menu_users,menu_iblock_/vacancies,menu_iblock_/workhub,menu_highloadblock,menu_iblock_/system\";}','N'),
 (9,1,'main.ui.filter','tbl_iblock_6faacc0f142012c4f876d4bd15e05533','a:6:{s:14:\"use_pin_preset\";b:1;s:15:\"deleted_presets\";a:0:{}s:15:\"default_presets\";a:0:{}s:7:\"default\";s:14:\"default_filter\";s:6:\"filter\";s:14:\"default_filter\";s:7:\"filters\";a:0:{}}','N'),
 (10,1,'main.interface.grid','tbl_iblock_6faacc0f142012c4f876d4bd15e05533','a:3:{s:5:\"views\";a:1:{s:7:\"default\";a:3:{s:7:\"columns\";s:0:\"\";s:13:\"columns_sizes\";a:2:{s:6:\"expand\";i:1;s:7:\"columns\";a:0:{}}s:15:\"sticked_columns\";a:0:{}}}s:7:\"filters\";a:0:{}s:12:\"current_view\";s:7:\"default\";}','N'),
 (19,1,'filter','tbl_favourites_filter_id','a:1:{s:4:\"rows\";s:1:\"0\";}','N'),
@@ -55639,7 +55306,13 @@ INSERT INTO `b_user_option` VALUES
 (23,1,'main.ui.filter','tbl_user','a:6:{s:14:\"use_pin_preset\";b:1;s:15:\"deleted_presets\";a:0:{}s:15:\"default_presets\";a:0:{}s:7:\"default\";s:14:\"default_filter\";s:6:\"filter\";s:14:\"default_filter\";s:7:\"filters\";a:0:{}}','N'),
 (24,1,'main.interface.grid','tbl_user','a:3:{s:5:\"views\";a:1:{s:7:\"default\";a:3:{s:7:\"columns\";s:0:\"\";s:13:\"columns_sizes\";a:2:{s:6:\"expand\";i:1;s:7:\"columns\";a:0:{}}s:15:\"sticked_columns\";a:0:{}}}s:7:\"filters\";a:0:{}s:12:\"current_view\";s:7:\"default\";}','N'),
 (30,1,'main.ui.filter','tbl_iblock_element_1f23d195658d0794a21eac0ab7ae7f68','a:6:{s:14:\"use_pin_preset\";b:1;s:15:\"deleted_presets\";a:0:{}s:15:\"default_presets\";a:0:{}s:7:\"default\";s:14:\"default_filter\";s:6:\"filter\";s:14:\"default_filter\";s:7:\"filters\";a:0:{}}','N'),
-(31,1,'main.interface.grid','tbl_iblock_element_1f23d195658d0794a21eac0ab7ae7f68','a:3:{s:5:\"views\";a:1:{s:7:\"default\";a:3:{s:7:\"columns\";s:0:\"\";s:13:\"columns_sizes\";a:2:{s:6:\"expand\";i:1;s:7:\"columns\";a:0:{}}s:15:\"sticked_columns\";a:0:{}}}s:7:\"filters\";a:0:{}s:12:\"current_view\";s:7:\"default\";}','N');
+(31,1,'main.interface.grid','tbl_iblock_element_1f23d195658d0794a21eac0ab7ae7f68','a:3:{s:5:\"views\";a:1:{s:7:\"default\";a:3:{s:7:\"columns\";s:0:\"\";s:13:\"columns_sizes\";a:2:{s:6:\"expand\";i:1;s:7:\"columns\";a:0:{}}s:15:\"sticked_columns\";a:0:{}}}s:7:\"filters\";a:0:{}s:12:\"current_view\";s:7:\"default\";}','N'),
+(44,1,'main.ui.filter','tbl_iblock_element_126c4dc60c074e76ab4941492195c5fa','a:6:{s:14:\"use_pin_preset\";b:1;s:15:\"deleted_presets\";a:0:{}s:15:\"default_presets\";a:0:{}s:7:\"default\";s:14:\"default_filter\";s:6:\"filter\";s:14:\"default_filter\";s:7:\"filters\";a:1:{s:14:\"default_filter\";a:0:{}}}','N'),
+(46,1,'main.interface.grid','tbl_iblock_element_126c4dc60c074e76ab4941492195c5fa','a:3:{s:5:\"views\";a:1:{s:7:\"default\";a:3:{s:7:\"columns\";s:0:\"\";s:13:\"columns_sizes\";a:2:{s:6:\"expand\";i:1;s:7:\"columns\";a:0:{}}s:15:\"sticked_columns\";a:0:{}}}s:7:\"filters\";a:0:{}s:12:\"current_view\";s:7:\"default\";}','N'),
+(49,1,'main.ui.filter','tbl_iblock_element_f9d391f326f8e98f6f150252727ca516','a:6:{s:14:\"use_pin_preset\";b:1;s:15:\"deleted_presets\";a:0:{}s:15:\"default_presets\";a:0:{}s:7:\"default\";s:14:\"default_filter\";s:6:\"filter\";s:14:\"default_filter\";s:7:\"filters\";a:0:{}}','N'),
+(50,1,'main.interface.grid','tbl_iblock_element_f9d391f326f8e98f6f150252727ca516','a:3:{s:5:\"views\";a:1:{s:7:\"default\";a:3:{s:7:\"columns\";s:0:\"\";s:13:\"columns_sizes\";a:2:{s:6:\"expand\";i:1;s:7:\"columns\";a:0:{}}s:15:\"sticked_columns\";a:0:{}}}s:7:\"filters\";a:0:{}s:12:\"current_view\";s:7:\"default\";}','N'),
+(64,1,'main.ui.filter','tbl_iblock_element_99c4dec4dbedda3b1885e7e3cb03c6c0','a:6:{s:14:\"use_pin_preset\";b:1;s:15:\"deleted_presets\";a:0:{}s:15:\"default_presets\";a:0:{}s:7:\"default\";s:14:\"default_filter\";s:6:\"filter\";s:14:\"default_filter\";s:7:\"filters\";a:0:{}}','N'),
+(65,1,'main.interface.grid','tbl_iblock_element_99c4dec4dbedda3b1885e7e3cb03c6c0','a:3:{s:5:\"views\";a:1:{s:7:\"default\";a:3:{s:7:\"columns\";s:0:\"\";s:13:\"columns_sizes\";a:2:{s:6:\"expand\";i:1;s:7:\"columns\";a:0:{}}s:15:\"sticked_columns\";a:0:{}}}s:7:\"filters\";a:0:{}s:12:\"current_view\";s:7:\"default\";}','N');
 /*!40000 ALTER TABLE `b_user_option` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55659,7 +55332,7 @@ CREATE TABLE `b_user_password` (
   `DATE_CHANGE` datetime NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ix_user_password_user_date` (`USER_ID`,`DATE_CHANGE`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55672,7 +55345,8 @@ LOCK TABLES `b_user_password` WRITE;
 INSERT INTO `b_user_password` VALUES
 (1,1,'$6$lx3pl8d3oGvoqP0q$FGvsYh7buMiQ5/YwXOORIFqn8bgxmpXihRo/orExX/KzIrE093P2/stqv8mo07GItJwiNGeLdxU.PwIb1NGXY/','2026-10-13 17:46:54'),
 (5,5,'$6$eLM8y68urGCf2Ld0$y8vyLbtRdLvlm1vgo/woHk9yrZKwP03PgL0bFljwHc2bZI1hwSb3Ok2bcH1td2PK0eXpU7SXSZt3q7bvaLkZX1','2026-10-13 21:49:48'),
-(6,6,'$6$Z06ayvEQvuNepFU5$CVjG4Q6boCvaqjIOBAi4R7vQz0HgBAJZ9jSSRaFpbUBEdITJVspoo/uevVx2AD9l0ICoDY6uXKTG7XRl4eL8x1','2026-10-13 21:49:48');
+(6,6,'$6$Z06ayvEQvuNepFU5$CVjG4Q6boCvaqjIOBAi4R7vQz0HgBAJZ9jSSRaFpbUBEdITJVspoo/uevVx2AD9l0ICoDY6uXKTG7XRl4eL8x1','2026-10-13 21:49:48'),
+(10,10,'$6$e9NXUz2SxN6nJpZZ$WumsdWeDXWoIRbCeETn/JgLfXOP3zAfEKVv7IM1wtZ9tWMn./gpHmuYUrIzhPNFPRKL3Xi7I.pEiwIxoDZcuS.','2026-10-13 23:55:05');
 /*!40000 ALTER TABLE `b_user_password` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -55817,7 +55491,7 @@ CREATE TABLE `b_user_stored_auth` (
   `IP_ADDR` int(10) unsigned NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ux_user_hash` (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55831,7 +55505,13 @@ INSERT INTO `b_user_stored_auth` VALUES
 (1,1,'2026-10-13 17:46:54','2026-10-13 17:46:54','pmTn4BpqLnal2bmpNj2WdnHADOvmJ9mV','N',3232252161),
 (7,5,'2026-10-13 21:50:57','2026-10-13 21:50:57','lgJxvzqDp4m4JxngQ2n98oXYA5JSc2e6','N',2130706433),
 (8,6,'2026-10-13 21:50:57','2026-10-13 21:50:57','8RYMDk2lDTwO67JshckJw0mdaJsxTSqV','N',2130706433),
-(9,6,'2026-10-13 21:51:07','2026-10-13 21:51:07','hvzwKa0Tqyz3hUaPXiC3UI9rgjHDLLex','N',2130706433);
+(9,6,'2026-10-13 21:51:07','2026-10-13 21:51:07','hvzwKa0Tqyz3hUaPXiC3UI9rgjHDLLex','N',2130706433),
+(10,5,'2026-10-13 22:29:10','2026-10-13 22:29:10','kQ09Mzu2yF12zKjmJv2tm1tOZA7lVfit','N',3232268292),
+(15,6,'2026-10-13 23:34:19','2026-10-13 23:34:19','sR4NGtgsrs2bdbEJqlcRIs6x3SKx5NHP','N',3232268292),
+(16,6,'2026-10-13 23:34:22','2026-10-13 23:34:22','OS9elgOKelZ5xcN3kX4sGj440ZvRF6Ag','N',3232268292),
+(17,10,'2026-10-13 23:56:46','2026-10-13 23:56:46','xDX7d6J2pTJAlY1DVV3kKvGYD4FZ5gtd','N',3232252161),
+(18,10,'2026-10-13 23:57:08','2026-10-13 23:57:08','922FuSS6U0L2kxlY0mLW43JjRKwhaE1k','N',0),
+(19,10,'2026-10-13 23:57:31','2026-10-13 23:57:31','N7gBQQAAMxTxbLbZhzILlbwEXvAvmjr2','N',2130706433);
 /*!40000 ALTER TABLE `b_user_stored_auth` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -56048,7 +55728,7 @@ CREATE TABLE `favourites` (
   `UF_USER` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `favourites_user_vacancy` (`UF_USER`,`UF_VACANCY`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56076,7 +55756,7 @@ CREATE TABLE `responses` (
   `UF_USER` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `responses_user_vacancy` (`UF_USER`,`UF_VACANCY`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56086,7 +55766,37 @@ CREATE TABLE `responses` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `responses` WRITE;
 /*!40000 ALTER TABLE `responses` DISABLE KEYS */;
+INSERT INTO `responses` VALUES
+(3,20,5);
 /*!40000 ALTER TABLE `responses` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
+
+--
+-- Table structure for table `resume_favourites`
+--
+
+DROP TABLE IF EXISTS `resume_favourites`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `resume_favourites` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `UF_RESUME` int(11) DEFAULT NULL,
+  `UF_USER` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `resume_favourites_user_resume` (`UF_USER`,`UF_RESUME`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resume_favourites`
+--
+
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
+LOCK TABLES `resume_favourites` WRITE;
+/*!40000 ALTER TABLE `resume_favourites` DISABLE KEYS */;
+/*!40000 ALTER TABLE `resume_favourites` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
@@ -56106,7 +55816,7 @@ CREATE TABLE `sprint_migration_versions` (
   `meta` longtext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `version` (`version`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56119,7 +55829,10 @@ LOCK TABLES `sprint_migration_versions` WRITE;
 INSERT INTO `sprint_migration_versions` VALUES
 (1,'Version20261013193000','b666db26fb6229fc639774674902254f','','a:2:{s:10:\"created_by\";s:5:\"admin\";s:10:\"created_at\";s:19:\"2026-10-13 18:51:42\";}'),
 (2,'Version20261013210000','f3d24039449fd1df8b9022f476620e31','','a:2:{s:10:\"created_by\";s:5:\"admin\";s:10:\"created_at\";s:19:\"2026-10-13 19:25:07\";}'),
-(3,'Version20261013223000','13d892d5cc7bddcd0859ba31f0671c8a','','a:2:{s:10:\"created_by\";s:5:\"admin\";s:10:\"created_at\";s:19:\"2026-10-13 20:21:43\";}');
+(3,'Version20261013223000','13d892d5cc7bddcd0859ba31f0671c8a','','a:2:{s:10:\"created_by\";s:5:\"admin\";s:10:\"created_at\";s:19:\"2026-10-13 20:21:43\";}'),
+(4,'Version20261013235000','e3b79e391815e79d7874980719e913b6','','a:2:{s:10:\"created_by\";s:5:\"admin\";s:10:\"created_at\";s:19:\"2026-10-13 22:56:28\";}'),
+(5,'Version20261014001000','72ad659e619978dba0af7e0330c79151','','a:2:{s:10:\"created_by\";s:5:\"admin\";s:10:\"created_at\";s:19:\"2026-10-13 23:26:52\";}'),
+(6,'Version20261014030000','b7a8ce2613c1a8fd04efe8ad12727fe1','','a:2:{s:10:\"created_by\";s:5:\"admin\";s:10:\"created_at\";s:19:\"2026-10-13 23:55:05\";}');
 /*!40000 ALTER TABLE `sprint_migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -56164,4 +55877,4 @@ USE `sitemanager`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-10-13 19:05:11
+-- Dump completed on 2026-10-13 21:02:24

@@ -70,12 +70,32 @@ export function postLogout(sessid) {
   return request('/api/logout/', { method: 'POST', body: {}, sessid })
 }
 
+export function loadMyVacancies() {
+  return request('/api/my-vacancies/')
+}
+
+export function loadMyVacancy(id) {
+  return request(`/api/my-vacancies/?id=${encodeURIComponent(id)}`)
+}
+
+export function saveVacancy(body, sessid) {
+  return request('/api/my-vacancies/', { method: 'POST', body, sessid })
+}
+
 export function loadFavourites() {
   return request('/api/favourites/')
 }
 
 export function postFavourite(body, sessid) {
   return request('/api/favourites/', { method: 'POST', body, sessid })
+}
+
+export function loadResumeFavourites() {
+  return request('/api/resume-favourites/')
+}
+
+export function postResumeFavourite(body, sessid) {
+  return request('/api/resume-favourites/', { method: 'POST', body, sessid })
 }
 
 export function loadResponses() {
@@ -96,4 +116,25 @@ export function loadResume(id) {
 
 export function saveResume(body, sessid) {
   return request('/api/resumes/', { method: 'POST', body, sessid })
+}
+
+export async function postRequest({ email, subject, message, files }, sessid) {
+  const body = new FormData()
+  body.append('email', email)
+  body.append('subject', subject)
+  body.append('message', message)
+  body.append('sessid', sessid)
+  for (const file of files) body.append('files[]', file)
+
+  const response = await fetch('/api/requests/', {
+    method: 'POST',
+    headers: { 'X-Bitrix-Csrf-Token': sessid },
+    body,
+  })
+  const payload = await response.json().catch(() => ({}))
+  if (!response.ok) {
+    throw new Error(payload.error || 'Не удалось отправить заявку')
+  }
+
+  return payload
 }

@@ -13,25 +13,33 @@ class Link
     /** @var array<string, class-string> */
     private static array $classes = [];
 
-    public function __construct(private string $name)
-    {
+    public function __construct(
+        private string $name,
+        private string $field = 'UF_VACANCY',
+    ) {
     }
 
     /** @return list<int> */
     public function vacancyIds(int $userId): array
     {
+        return $this->ids($userId);
+    }
+
+    /** @return list<int> */
+    public function ids(int $userId): array
+    {
         $ids = [];
         foreach ($this->rows($userId) as $row) {
-            $ids[] = $row['vacancyId'];
+            $ids[] = $row['targetId'];
         }
 
         return $ids;
     }
 
-    public function find(int $userId, int $vacancyId): ?int
+    public function find(int $userId, int $targetId): ?int
     {
         foreach ($this->rows($userId) as $row) {
-            if ($row['vacancyId'] === $vacancyId) {
+            if ($row['targetId'] === $targetId) {
                 return $row['id'];
             }
         }
@@ -39,27 +47,27 @@ class Link
         return null;
     }
 
-    public function add(int $userId, int $vacancyId): void
+    public function add(int $userId, int $targetId): void
     {
-        if ($this->find($userId, $vacancyId) !== null) {
+        if ($this->find($userId, $targetId) !== null) {
             return;
         }
 
         $class = $this->dataClass();
         $result = $class::add([
             'UF_USER' => $userId,
-            'UF_VACANCY' => $vacancyId,
+            $this->field => $targetId,
         ]);
-        if ($result->isSuccess() || $this->find($userId, $vacancyId) !== null) {
+        if ($result->isSuccess() || $this->find($userId, $targetId) !== null) {
             return;
         }
 
         throw new RuntimeException(implode(' ', $result->getErrorMessages()));
     }
 
-    public function remove(int $userId, int $vacancyId): void
+    public function remove(int $userId, int $targetId): void
     {
-        $id = $this->find($userId, $vacancyId);
+        $id = $this->find($userId, $targetId);
         if ($id === null) {
             return;
         }
@@ -71,20 +79,20 @@ class Link
         }
     }
 
-    /** @return list<array{id: int, vacancyId: int}> */
+    /** @return list<array{id: int, targetId: int}> */
     private function rows(int $userId): array
     {
         $class = $this->dataClass();
         $rows = [];
         $result = $class::getList([
             'filter' => ['=UF_USER' => $userId],
-            'select' => ['ID', 'UF_VACANCY'],
+            'select' => ['ID', $this->field],
             'order' => ['ID' => 'DESC'],
         ]);
         while ($row = $result->fetch()) {
             $rows[] = [
                 'id' => (int)$row['ID'],
-                'vacancyId' => (int)$row['UF_VACANCY'],
+                'targetId' => (int)$row[$this->field],
             ];
         }
 

@@ -17,3 +17,5 @@ vendor
 /bitrix/upload/*
 /bitrix/ws/*
 /bitrix/ws/*
+
+/upload/resize_cache/*

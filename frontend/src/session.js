@@ -6,6 +6,7 @@ import {
   postLogout,
   postRegister,
   postResponse,
+  postResumeFavourite,
 } from './api'
 
 export const session = reactive({
@@ -14,6 +15,7 @@ export const session = reactive({
   sessid: '',
   favouriteIds: [],
   responseIds: [],
+  resumeFavouriteIds: [],
 })
 
 export function applySession(payload) {
@@ -22,6 +24,7 @@ export function applySession(payload) {
   session.sessid = payload.sessid || ''
   session.favouriteIds = payload.favouriteIds || []
   session.responseIds = payload.responseIds || []
+  session.resumeFavouriteIds = payload.resumeFavouriteIds || []
 }
 
 export async function refreshSession() {
@@ -51,6 +54,18 @@ export async function toggleFavourite(vacancyId) {
     if (!session.favouriteIds.includes(id)) session.favouriteIds.push(id)
   } else {
     session.favouriteIds = session.favouriteIds.filter((item) => item !== id)
+  }
+
+  return payload
+}
+
+export async function toggleResumeFavourite(resumeId) {
+  const payload = await postResumeFavourite({ resumeId }, session.sessid)
+  const id = payload.resumeId
+  if (payload.favourite) {
+    if (!session.resumeFavouriteIds.includes(id)) session.resumeFavouriteIds.push(id)
+  } else {
+    session.resumeFavouriteIds = session.resumeFavouriteIds.filter((item) => item !== id)
   }
 
   return payload

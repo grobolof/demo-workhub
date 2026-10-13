@@ -1,18 +1,6 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { logout, session } from '../session'
-
-const router = useRouter()
-
-async function onLogout() {
-  try {
-    await logout()
-  } catch {
-    session.user = null
-  }
-  router.push('/')
-}
+import { session } from '../session'
 
 const props = defineProps({
   cities: { type: Array, default: () => [] },
@@ -108,11 +96,7 @@ onUnmounted(() => {
         </div>
         </div>
 
-        <template v-if="session.ready && session.user">
-          <span class="who">{{ session.user.email }}</span>
-          <router-link class="menu-button solid" to="/account">Кабинет</router-link>
-          <button class="menu-button ghost" type="button" @click="onLogout">Выйти</button>
-        </template>
+        <router-link v-if="session.ready && session.user" class="menu-button solid" to="/account">Кабинет</router-link>
         <router-link v-else-if="session.ready" class="menu-login" to="/login">Войти</router-link>
       </div>
     </div>

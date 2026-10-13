@@ -302,7 +302,7 @@ class VacancyIndex
     {
         foreach (['vacancies', 'positions'] as $code) {
             $row = CIBlock::GetList([], [
-                'TYPE' => 'workhub',
+                'TYPE' => 'employers',
                 'CODE' => $code,
                 'CHECK_PERMISSIONS' => 'N',
             ])->Fetch();

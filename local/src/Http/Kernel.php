@@ -10,15 +10,20 @@ use App\Controller\BannerController;
 use App\Controller\CityController;
 use App\Controller\CompanyController;
 use App\Controller\FavouriteController;
+use App\Controller\RequestController;
 use App\Controller\ResumeController;
+use App\Controller\ResumeFavouriteController;
 use App\Controller\ResponseController;
 use App\Controller\VacancyController;
 use App\Exception\ApiException;
 use App\Service\AuthService;
 use App\Service\FavouriteService;
 use App\Service\JobBoardService;
+use App\Service\RequestService;
 use App\Service\ResponseService;
+use App\Service\ResumeFavouriteService;
 use App\Service\ResumeService;
+use App\Service\VacancyManageService;
 use RuntimeException;
 use Throwable;
 
@@ -54,6 +59,7 @@ final class Kernel
         $response = $this->response;
         $jobBoard = new JobBoardService();
         $auth = new AuthService();
+        $resumes = new ResumeService($auth);
 
         return match ($class) {
             AuthController::class => new AuthController($request, $response, $auth),
@@ -61,9 +67,15 @@ final class Kernel
             CityController::class => new CityController($request, $response, $jobBoard),
             CompanyController::class => new CompanyController($request, $response, $jobBoard),
             FavouriteController::class => new FavouriteController($request, $response, new FavouriteService($auth, $jobBoard)),
-            ResumeController::class => new ResumeController($request, $response, new ResumeService($auth)),
+            RequestController::class => new RequestController($request, $response, new RequestService()),
+            ResumeController::class => new ResumeController($request, $response, $resumes),
+            ResumeFavouriteController::class => new ResumeFavouriteController(
+                $request,
+                $response,
+                new ResumeFavouriteService($auth, $resumes),
+            ),
             ResponseController::class => new ResponseController($request, $response, new ResponseService($auth, $jobBoard)),
-            VacancyController::class => new VacancyController($request, $response, $jobBoard),
+            VacancyController::class => new VacancyController($request, $response, $jobBoard, new VacancyManageService($auth)),
             default => throw new RuntimeException('Неизвестный контроллер'),
         };
     }

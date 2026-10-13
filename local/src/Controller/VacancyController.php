@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Http\JsonResponse;
 use App\Http\Request;
 use App\Service\JobBoardService;
+use App\Service\VacancyManageService;
 
 final class VacancyController extends AbstractController
 {
@@ -14,6 +15,7 @@ final class VacancyController extends AbstractController
         Request $request,
         JsonResponse $response,
         private readonly JobBoardService $jobBoard,
+        private readonly VacancyManageService $managed,
     ) {
         parent::__construct($request, $response);
     }
@@ -35,5 +37,41 @@ final class VacancyController extends AbstractController
         }
 
         $this->response->send(['vacancy' => $vacancy]);
+    }
+
+    public function account(): void
+    {
+        if ($this->request->isPost()) {
+            $body = $this->request->requirePost();
+            $action = (string)($body['action'] ?? 'create');
+            if ($action === 'update') {
+                $this->response->send($this->managed->update(
+                    (int)($body['id'] ?? 0),
+                    (string)($body['title'] ?? ''),
+                    (string)($body['description'] ?? ''),
+                    $body['salary'] ?? '',
+                    (string)($body['workplace'] ?? ''),
+                    (string)($body['schedule'] ?? ''),
+                ));
+            }
+            if ($action === 'delete') {
+                $this->response->send($this->managed->delete((int)($body['id'] ?? 0)));
+            }
+
+            $this->response->send($this->managed->create(
+                (string)($body['title'] ?? ''),
+                (string)($body['description'] ?? ''),
+                $body['salary'] ?? '',
+                (string)($body['workplace'] ?? ''),
+                (string)($body['schedule'] ?? ''),
+            ));
+        }
+
+        $id = $this->request->queryInt('id');
+        if ($id > 0) {
+            $this->response->send($this->managed->one($id));
+        }
+
+        $this->response->send($this->managed->list());
     }
 }

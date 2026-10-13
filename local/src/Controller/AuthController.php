@@ -41,6 +41,11 @@ final class AuthController extends AbstractController
             (string)($body['password'] ?? ''),
             (string)($body['passwordConfirm'] ?? ''),
             (string)($body['role'] ?? ''),
+            (string)($body['firstName'] ?? ''),
+            (string)($body['lastName'] ?? ''),
+            (string)($body['middleName'] ?? ''),
+            (string)($body['companyName'] ?? ''),
+            (string)($body['inn'] ?? ''),
         ));
     }
 

@@ -23,9 +23,13 @@ class AuthService
         $user = $this->current();
         $favouriteIds = [];
         $responseIds = [];
+        $resumeFavouriteIds = [];
         if ($user !== null && $user['role'] === self::SEEKER) {
             $favouriteIds = (new Link(FavouriteService::BLOCK))->vacancyIds($user['id']);
             $responseIds = (new Link(ResponseService::BLOCK))->vacancyIds($user['id']);
+        }
+        if ($user !== null && $user['role'] === self::EMPLOYER) {
+            $resumeFavouriteIds = (new Link(ResumeFavouriteService::BLOCK, 'UF_RESUME'))->ids($user['id']);
         }
 
         return [
@@ -33,16 +37,34 @@ class AuthService
             'user' => $user,
             'favouriteIds' => $favouriteIds,
             'responseIds' => $responseIds,
+            'resumeFavouriteIds' => $resumeFavouriteIds,
         ];
     }
 
-    public function register(string $email, string $password, string $confirm, string $role): array
-    {
+    public function register(
+        string $email,
+        string $password,
+        string $confirm,
+        string $role,
+        string $firstName,
+        string $lastName,
+        string $middleName,
+        string $companyName,
+        string $inn,
+    ): array {
         $email = $this->email($email);
         $this->assertRole($role);
         $this->assertPassword($password);
         if ($password !== $confirm) {
             throw new ApiException('Пароли не совпадают');
+        }
+        $firstName = $this->personName($firstName, 'Имя', true);
+        $lastName = $this->personName($lastName, 'Фамилия', true);
+        $middleName = $this->personName($middleName, 'Отчество', false);
+        if ($role === self::EMPLOYER) {
+            $companyName = $this->companyName($companyName);
+            $inn = $this->inn($inn);
+            (new CompanyService())->assertInnAvailable($inn);
         }
         if ($this->emailTaken($email)) {
             throw new ApiException('Пользователь с такой почтой уже зарегистрирован', 409);
@@ -52,7 +74,9 @@ class AuthService
         $id = $user->Add([
             'LOGIN' => $email,
             'EMAIL' => $email,
-            'NAME' => $role === self::SEEKER ? 'Соискатель' : 'Работодатель',
+            'NAME' => $firstName,
+            'LAST_NAME' => $lastName,
+            'SECOND_NAME' => $middleName,
             'PASSWORD' => $password,
             'CONFIRM_PASSWORD' => $password,
             'ACTIVE' => 'Y',
@@ -61,6 +85,15 @@ class AuthService
         ]);
         if (!$id) {
             throw new ApiException(ApiException::plain((string)$user->LAST_ERROR));
+        }
+
+        if ($role === self::EMPLOYER) {
+            try {
+                (new CompanyService())->create((int)$id, $companyName, $inn);
+            } catch (ApiException $exception) {
+                CUser::Delete((int)$id);
+                throw $exception;
+            }
         }
 
         global $USER;
@@ -104,7 +137,7 @@ class AuthService
         return $this->payload();
     }
 
-    /** @return array{id: int, email: string, role: string}|null */
+    /** @return array{id: int, email: string, role: string, firstName: string, lastName: string, middleName: string, company: array{id: int, name: string, inn: string}|null}|null */
     public function current(): ?array
     {
         global $USER;
@@ -118,10 +151,19 @@ class AuthService
             return null;
         }
 
+        $row = UserTable::getRow([
+            'filter' => ['=ID' => $id],
+            'select' => ['EMAIL', 'NAME', 'LAST_NAME', 'SECOND_NAME'],
+        ]);
+
         return [
             'id' => $id,
-            'email' => (string)$USER->GetEmail(),
+            'email' => (string)($row['EMAIL'] ?? $USER->GetEmail()),
             'role' => $role,
+            'firstName' => trim((string)($row['NAME'] ?? '')),
+            'lastName' => trim((string)($row['LAST_NAME'] ?? '')),
+            'middleName' => trim((string)($row['SECOND_NAME'] ?? '')),
+            'company' => $role === self::EMPLOYER ? (new CompanyService())->findByUser($id) : null,
         ];
     }
 
@@ -135,6 +177,22 @@ class AuthService
 
         $user = $this->current();
         if ($user === null || $user['role'] !== self::SEEKER) {
+            throw new ApiException($message, 403);
+        }
+
+        return $user;
+    }
+
+    /** @return array{id: int, email: string, role: string} */
+    public function requireEmployer(string $message): array
+    {
+        global $USER;
+        if (!$USER instanceof CUser || !$USER->IsAuthorized()) {
+            throw new ApiException($message, 401);
+        }
+
+        $user = $this->current();
+        if ($user === null || $user['role'] !== self::EMPLOYER) {
             throw new ApiException($message, 403);
         }
 
@@ -163,6 +221,46 @@ class AuthService
         if (!preg_match('/^[A-Za-z0-9]{6,20}$/', $password)) {
             throw new ApiException('Пароль должен состоять из латинских букв и цифр и быть длиной от 6 до 20 символов');
         }
+    }
+
+    private function personName(string $value, string $title, bool $required): string
+    {
+        $value = trim(preg_replace('/\s+/u', ' ', $value) ?? '');
+        if ($value === '') {
+            if ($required) {
+                throw new ApiException('Укажите поле «' . $title . '»');
+            }
+
+            return '';
+        }
+        if (mb_strlen($value) > 50 || !preg_match('/^[\p{L}][\p{L}\s\-]*$/u', $value)) {
+            throw new ApiException('Поле «' . $title . '» может содержать только буквы, пробел и дефис');
+        }
+
+        return $value;
+    }
+
+    private function companyName(string $value): string
+    {
+        $value = trim(preg_replace('/\s+/u', ' ', $value) ?? '');
+        if ($value === '') {
+            throw new ApiException('Укажите название компании');
+        }
+        if (mb_strlen($value) > 255) {
+            throw new ApiException('Название компании не должно быть длиннее 255 символов');
+        }
+
+        return $value;
+    }
+
+    private function inn(string $value): string
+    {
+        $value = trim($value);
+        if (!preg_match('/^\d{10}(\d{2})?$/', $value)) {
+            throw new ApiException('Укажите ИНН из 10 или 12 цифр');
+        }
+
+        return $value;
     }
 
     private function loginName(string $email): string

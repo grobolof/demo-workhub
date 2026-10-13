@@ -71,7 +71,9 @@ watch(() => route.params.id, (id) => load(id), { immediate: true })
         </span>
       </router-link>
 
-      <ul v-if="vacancy.cities?.length" class="places">
+      <ul v-if="vacancy.workplace || vacancy.schedule || vacancy.cities?.length" class="places">
+        <li v-if="vacancy.workplace">{{ vacancy.workplace }}</li>
+        <li v-if="vacancy.schedule">{{ vacancy.schedule }}</li>
         <li v-for="place in vacancy.cities" :key="place.code">{{ place.name }}</li>
       </ul>
 

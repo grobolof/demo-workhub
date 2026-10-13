@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Exception\ApiException;
+use Bitrix\Main\UserTable;
 use CIBlock;
 use CIBlockElement;
 
@@ -100,9 +101,45 @@ class ResumeService
         return ['deleted' => $id];
     }
 
+    public function findPublic(int $id): ?array
+    {
+        $items = $this->publicByIds([$id]);
+
+        return $items[0] ?? null;
+    }
+
+    /** @param list<int> $ids
+     *  @return list<array<string, mixed>>
+     */
+    public function publicByIds(array $ids): array
+    {
+        $ids = array_values(array_unique(array_filter(
+            array_map(static fn (mixed $id): int => (int)$id, $ids),
+            static fn (int $id): bool => $id > 0
+        )));
+        if ($ids === []) {
+            return [];
+        }
+
+        $items = $this->publicList([
+            'IBLOCK_ID' => $this->iblockId(),
+            'ID' => $ids,
+            'ACTIVE' => 'Y',
+            'CHECK_PERMISSIONS' => 'N',
+        ], false);
+        $order = array_flip($ids);
+        usort($items, static function (array $left, array $right) use ($order): int {
+            return ($order[$left['id']] ?? 0) <=> ($order[$right['id']] ?? 0);
+        });
+
+        return $items;
+    }
+
     /** @return array{resumes: list<array<string, mixed>>} */
     public function browse(string $query): array
     {
+        $this->auth->requireEmployer('Поиск резюме доступен только работодателям');
+
         $filter = [
             'IBLOCK_ID' => $this->iblockId(),
             'ACTIVE' => 'Y',
@@ -113,19 +150,28 @@ class ResumeService
             $filter['%NAME'] = $query;
         }
 
+        return ['resumes' => $this->publicList($filter, true)];
+    }
+
+    /**
+     * @param array<string, mixed> $filter
+     * @return list<array<string, mixed>>
+     */
+    private function publicList(array $filter, bool $preview): array
+    {
         $items = [];
         $rows = CIBlockElement::GetList(
             ['ID' => 'DESC'],
             $filter,
             false,
-            ['nTopCount' => 100],
-            ['ID', 'NAME', 'DETAIL_TEXT']
+            false,
+            ['ID', 'IBLOCK_ID', 'NAME', 'DETAIL_TEXT']
         );
         while ($element = $rows->GetNextElement(false)) {
             $fields = $element->GetFields();
             $props = $element->GetProperties();
             $description = trim((string)($fields['DETAIL_TEXT'] ?? ''));
-            if (mb_strlen($description) > 220) {
+            if ($preview && mb_strlen($description) > 220) {
                 $description = rtrim(mb_substr($description, 0, 220)) . '…';
             }
             $items[] = [
@@ -133,10 +179,48 @@ class ResumeService
                 'title' => (string)$fields['NAME'],
                 'description' => $description,
                 'salary' => (int)($props['SALARY']['VALUE'] ?? 0),
+                'userId' => (int)($props['USER']['VALUE'] ?? 0),
             ];
         }
 
-        return ['resumes' => $items];
+        $authors = $this->authors(array_column($items, 'userId'));
+        foreach ($items as &$item) {
+            $item['author'] = $authors[$item['userId']] ?? '';
+            unset($item['userId']);
+        }
+        unset($item);
+
+        return $items;
+    }
+
+    /** @param list<int> $userIds
+     *  @return array<int, string>
+     */
+    private function authors(array $userIds): array
+    {
+        $userIds = array_values(array_unique(array_filter(
+            array_map(static fn (mixed $id): int => (int)$id, $userIds),
+            static fn (int $id): bool => $id > 0
+        )));
+        if ($userIds === []) {
+            return [];
+        }
+
+        $names = [];
+        $rows = UserTable::getList([
+            'filter' => ['@ID' => $userIds],
+            'select' => ['ID', 'NAME', 'LAST_NAME', 'SECOND_NAME'],
+        ]);
+        while ($row = $rows->fetch()) {
+            $parts = array_values(array_filter([
+                trim((string)$row['LAST_NAME']),
+                trim((string)$row['NAME']),
+                trim((string)$row['SECOND_NAME']),
+            ], static fn (string $part): bool => $part !== ''));
+            $names[(int)$row['ID']] = implode(' ', $parts);
+        }
+
+        return $names;
     }
 
     /** @return array{title: string, description: string, salary: int} */
@@ -226,7 +310,7 @@ class ResumeService
         }
 
         $row = CIBlock::GetList([], [
-            'TYPE' => 'workhub',
+            'TYPE' => 'seekers',
             'CODE' => 'resumes',
             'CHECK_PERMISSIONS' => 'N',
         ])->Fetch();

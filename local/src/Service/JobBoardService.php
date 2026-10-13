@@ -235,7 +235,12 @@ class JobBoardService
         ], $companies, $cities, false);
 
         $groups = [];
+        $unassigned = [];
         foreach ($vacancies as $vacancy) {
+            if ($vacancy['cities'] === []) {
+                $unassigned[] = $vacancy;
+                continue;
+            }
             foreach ($vacancy['cities'] as $city) {
                 $cityId = (int)$city['id'];
                 if (!isset($groups[$cityId])) {
@@ -249,6 +254,16 @@ class JobBoardService
                 }
                 $groups[$cityId]['vacancies'][] = $vacancy;
             }
+        }
+
+        if ($unassigned !== []) {
+            $groups[0] = [
+                'id' => 0,
+                'name' => 'Город не указан',
+                'code' => 'unspecified',
+                'sort' => 100000,
+                'vacancies' => $unassigned,
+            ];
         }
 
         $groups = array_values($groups);
@@ -270,7 +285,7 @@ class JobBoardService
         $codes = $code === 'vacancies' ? ['vacancies', 'positions'] : [$code];
         foreach ($codes as $item) {
             $row = \CIBlock::GetList([], [
-                'TYPE' => 'workhub',
+                'TYPE' => $item === 'banners' ? 'system' : 'employers',
                 'CODE' => $item,
                 'CHECK_PERMISSIONS' => 'N',
             ])->Fetch();
@@ -347,6 +362,8 @@ class JobBoardService
                 'preview' => trim((string)$fields['PREVIEW_TEXT']),
                 'salaryFrom' => self::money($props['SALARY_FROM']['VALUE'] ?? null),
                 'salaryTo' => self::money($props['SALARY_TO']['VALUE'] ?? null),
+                'workplace' => self::label($props['WORKPLACE']['VALUE'] ?? null),
+                'schedule' => self::label($props['SCHEDULE']['VALUE'] ?? null),
                 'company' => $companies[$companyId] ?? null,
                 'cities' => $vacancyCities,
             ];
@@ -430,6 +447,18 @@ class JobBoardService
         }
 
         return $companies;
+    }
+
+    private static function label(mixed $value): string
+    {
+        if (is_array($value)) {
+            $value = $value['VALUE'] ?? '';
+        }
+        if (!is_string($value) && !is_numeric($value)) {
+            return '';
+        }
+
+        return trim((string)$value);
     }
 
     private static function money(mixed $value): ?int

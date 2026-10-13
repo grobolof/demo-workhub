@@ -10,12 +10,25 @@ import FavouritesPage from './pages/FavouritesPage.vue'
 import ResumesPage from './pages/ResumesPage.vue'
 import ResumeFormPage from './pages/ResumeFormPage.vue'
 import ResponsesPage from './pages/ResponsesPage.vue'
+import VacanciesPage from './pages/VacanciesPage.vue'
+import VacancyFormPage from './pages/VacancyFormPage.vue'
 import CompaniesPage from './pages/CompaniesPage.vue'
 import ResumeSearchPage from './pages/ResumeSearchPage.vue'
 import HelpPage from './pages/HelpPage.vue'
 import TermsPage from './pages/TermsPage.vue'
-import { refreshSession } from './session'
+import NotFoundPage from './pages/NotFoundPage.vue'
+import { refreshSession, session } from './session'
 import './styles.css'
+
+function asSeeker() {
+  if (!session.user || session.user.role !== 'employer') return true
+  return '/account/vacancies'
+}
+
+function asEmployer() {
+  if (!session.user || session.user.role === 'employer') return true
+  return '/account/favourites'
+}
 
 const router = createRouter({
   history: createWebHistory(),
@@ -36,14 +49,18 @@ const router = createRouter({
       path: '/account',
       component: AccountPage,
       children: [
-        { path: '', redirect: '/account/favourites' },
-        { path: 'favourites', component: FavouritesPage },
+        { path: '', redirect: () => (session.user?.role === 'employer' ? '/account/vacancies' : '/account/favourites') },
+        { path: 'favourites', component: FavouritesPage, beforeEnter: asSeeker },
         { path: 'resumes', component: ResumesPage },
-        { path: 'resumes/new', component: ResumeFormPage },
-        { path: 'resumes/:id', component: ResumeFormPage },
-        { path: 'responses', component: ResponsesPage },
+        { path: 'resumes/new', component: ResumeFormPage, beforeEnter: asSeeker },
+        { path: 'resumes/:id', component: ResumeFormPage, beforeEnter: asSeeker },
+        { path: 'responses', component: ResponsesPage, beforeEnter: asSeeker },
+        { path: 'vacancies', component: VacanciesPage, beforeEnter: asEmployer },
+        { path: 'vacancies/new', component: VacancyFormPage, beforeEnter: asEmployer },
+        { path: 'vacancies/:id', component: VacancyFormPage, beforeEnter: asEmployer },
       ],
     },
+    { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],
 })
 
