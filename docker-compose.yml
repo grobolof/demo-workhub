@@ -33,29 +33,3 @@ services:
         chown mysql:mysql /etc/mysql/conf.d/bx.cnf &&
         exec /usr/local/bin/docker-entrypoint.sh mariadbd
       "
-
-  # database:
-  #   image: mysql:8.0
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-  #     MYSQL_DATABASE: ${DB_DATABASE}
-  #     MYSQL_USER: ${DB_USER}
-  #     MYSQL_PASSWORD: ${DB_PASSWORD}
-  #   ports:
-  #     - "3306:3306"
-  #   volumes:
-  #     - ./docker/mysql/bx.cnf:/etc/mysql/conf.d/bx.cnf
-  #     - ./docker/mysql/db.sql:/docker-entrypoint-initdb.d/db.sql
-  #   command: >
-  #     bash -c "
-  #       chmod 644 /etc/mysql/conf.d/bx.cnf &&
-  #       chown mysql:mysql /etc/mysql/conf.d/bx.cnf &&
-  #       exec /usr/local/bin/docker-entrypoint.sh mysqld
-  #     "
-
-  mailpit:
-    image: axllent/mailpit
-    hostname: mailpit
-    ports:
-      - "8025:8025"
-      - "1025:1025"
