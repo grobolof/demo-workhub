@@ -2,34 +2,31 @@
 
 declare(strict_types=1);
 
-namespace App\Api;
+namespace App\Service;
 
 use App\Search\VacancyIndex;
 use CIBlockElement;
 use CFile;
 use RuntimeException;
 
-class JobBoard
+class JobBoardService
 {
     public const PAGE_SIZE = 10;
 
     /** @return list<array{id: int, name: string, code: string}> */
-    public static function cities(): array
+    public function cities(): array
     {
-        $helper = new self();
-
-        return array_values($helper->loadCities($helper->iblockId('cities')));
+        return array_values($this->loadCities($this->iblockId('cities')));
     }
 
     /** @return list<array{id: int, name: string, image: string}> */
-    public static function banners(): array
+    public function banners(): array
     {
-        $helper = new self();
         $banners = [];
         $rows = CIBlockElement::GetList(
             ['SORT' => 'ASC', 'ID' => 'ASC'],
             [
-                'IBLOCK_ID' => $helper->iblockId('banners'),
+                'IBLOCK_ID' => $this->iblockId('banners'),
                 'ACTIVE' => 'Y',
                 'CHECK_PERMISSIONS' => 'N',
             ],
@@ -56,35 +53,30 @@ class JobBoard
     }
 
     /** @return array{resumes: int, vacancies: int, companies: int} */
-    public static function stats(): array
+    public function stats(): array
     {
-        $helper = new self();
-
         return [
-            'resumes' => $helper->countActive('resumes'),
-            'vacancies' => $helper->countActive('vacancies'),
-            'companies' => $helper->countActive('companies'),
+            'resumes' => $this->countActive('resumes'),
+            'vacancies' => $this->countActive('vacancies'),
+            'companies' => $this->countActive('companies'),
         ];
     }
 
     /** @return list<array{id: int, name: string, code: string, logo: string|null}> */
-    public static function companyCatalog(): array
+    public function companyCatalog(): array
     {
-        $helper = new self();
-
-        return array_values($helper->companies($helper->iblockId('companies')));
+        return array_values($this->companies($this->iblockId('companies')));
     }
 
-    public static function search(string $query, string $cityCode, int $page = 1): array
+    public function search(string $query, string $cityCode, int $page = 1): array
     {
         $page = max(1, $page);
         $limit = self::PAGE_SIZE;
-        $helper = new self();
-        $companies = $helper->companies($helper->iblockId('companies'));
-        $cities = $helper->loadCities($helper->iblockId('cities'));
+        $companies = $this->companies($this->iblockId('companies'));
+        $cities = $this->loadCities($this->iblockId('cities'));
         $cityCode = trim($cityCode);
         $query = trim($query);
-        $cityId = $helper->cityId($cities, $cityCode);
+        $cityId = $this->cityId($cities, $cityCode);
         $empty = [
             'cities' => array_values($cities),
             'vacancies' => [],
@@ -98,7 +90,7 @@ class JobBoard
         }
 
         $filter = [
-            'IBLOCK_ID' => $helper->iblockId('vacancies'),
+            'IBLOCK_ID' => $this->iblockId('vacancies'),
             'ACTIVE' => 'Y',
             'CHECK_PERMISSIONS' => 'N',
         ];
@@ -125,7 +117,7 @@ class JobBoard
         if ($orderedIds !== null) {
             $total = count($orderedIds);
         } else {
-            $total = $helper->countFiltered($filter);
+            $total = $this->countFiltered($filter);
             $offset = ($page - 1) * $limit;
             if ($offset >= $total) {
                 $empty['total'] = $total;
@@ -134,7 +126,7 @@ class JobBoard
             $nav = ['nTopCount' => $limit, 'nOffset' => $offset];
         }
 
-        $vacancies = $helper->collect($filter, $companies, $cities, false, $nav);
+        $vacancies = $this->collect($filter, $companies, $cities, false, $nav);
         if ($orderedIds !== null) {
             $order = array_flip($orderedIds);
             usort($vacancies, static function (array $left, array $right) use ($order): int {
@@ -151,17 +143,16 @@ class JobBoard
         ];
     }
 
-    public static function vacancy(int $id): ?array
+    public function vacancy(int $id): ?array
     {
         if ($id <= 0) {
             return null;
         }
 
-        $helper = new self();
-        $companies = $helper->companies($helper->iblockId('companies'));
-        $cities = $helper->loadCities($helper->iblockId('cities'));
-        $vacancies = $helper->collect([
-            'IBLOCK_ID' => $helper->iblockId('vacancies'),
+        $companies = $this->companies($this->iblockId('companies'));
+        $cities = $this->loadCities($this->iblockId('cities'));
+        $vacancies = $this->collect([
+            'IBLOCK_ID' => $this->iblockId('vacancies'),
             'ID' => $id,
             'ACTIVE' => 'Y',
             'CHECK_PERMISSIONS' => 'N',
@@ -173,7 +164,7 @@ class JobBoard
     /** @param list<int> $ids
      *  @return list<array<string, mixed>>
      */
-    public static function byIds(array $ids): array
+    public function byIds(array $ids): array
     {
         $ids = array_values(array_unique(array_filter(
             array_map(static fn (mixed $id): int => (int)$id, $ids),
@@ -183,11 +174,10 @@ class JobBoard
             return [];
         }
 
-        $helper = new self();
-        $companies = $helper->companies($helper->iblockId('companies'));
-        $cities = $helper->loadCities($helper->iblockId('cities'));
-        $vacancies = $helper->collect([
-            'IBLOCK_ID' => $helper->iblockId('vacancies'),
+        $companies = $this->companies($this->iblockId('companies'));
+        $cities = $this->loadCities($this->iblockId('cities'));
+        $vacancies = $this->collect([
+            'IBLOCK_ID' => $this->iblockId('vacancies'),
             'ID' => $ids,
             'ACTIVE' => 'Y',
             'CHECK_PERMISSIONS' => 'N',
@@ -201,14 +191,13 @@ class JobBoard
         return $vacancies;
     }
 
-    public static function company(int $id): ?array
+    public function company(int $id): ?array
     {
         if ($id <= 0) {
             return null;
         }
 
-        $helper = new self();
-        $companiesId = $helper->iblockId('companies');
+        $companiesId = $this->iblockId('companies');
         $row = CIBlockElement::GetList(
             [],
             [
@@ -236,10 +225,10 @@ class JobBoard
             'detail' => trim((string)$row['DETAIL_TEXT']),
         ];
 
-        $companies = $helper->companies($companiesId);
-        $cities = $helper->loadCities($helper->iblockId('cities'));
-        $vacancies = $helper->collect([
-            'IBLOCK_ID' => $helper->iblockId('vacancies'),
+        $companies = $this->companies($companiesId);
+        $cities = $this->loadCities($this->iblockId('cities'));
+        $vacancies = $this->collect([
+            'IBLOCK_ID' => $this->iblockId('vacancies'),
             'ACTIVE' => 'Y',
             'CHECK_PERMISSIONS' => 'N',
             'PROPERTY_COMPANY' => $id,

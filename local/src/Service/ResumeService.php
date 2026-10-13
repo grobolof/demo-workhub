@@ -2,46 +2,53 @@
 
 declare(strict_types=1);
 
-namespace App\Api;
+namespace App\Service;
 
+use App\Exception\ApiException;
 use CIBlock;
 use CIBlockElement;
 
-class Resumes
+class ResumeService
 {
     public const LIMIT = 10;
 
-    /** @return array{resumes: list<array<string, mixed>>, limit: int} */
-    public static function list(): array
+    private int $iblock = 0;
+
+    public function __construct(private readonly AuthService $auth)
     {
-        $user = Auth::requireSeeker('Резюме доступны только соискателю');
+    }
+
+    /** @return array{resumes: list<array<string, mixed>>, limit: int} */
+    public function list(): array
+    {
+        $user = $this->auth->requireSeeker('Резюме доступны только соискателю');
 
         return [
-            'resumes' => self::collect($user['id']),
+            'resumes' => $this->collect($user['id']),
             'limit' => self::LIMIT,
         ];
     }
 
     /** @return array{resume: array<string, mixed>} */
-    public static function one(int $id): array
+    public function one(int $id): array
     {
-        $user = Auth::requireSeeker('Резюме доступны только соискателю');
+        $user = $this->auth->requireSeeker('Резюме доступны только соискателю');
 
-        return ['resume' => self::owned($user['id'], $id)];
+        return ['resume' => $this->owned($user['id'], $id)];
     }
 
     /** @return array{resume: array<string, mixed>} */
-    public static function create(string $title, mixed $salary, string $description): array
+    public function create(string $title, mixed $salary, string $description): array
     {
-        $user = Auth::requireSeeker('Добавлять резюме могут только соискатели');
-        $values = self::values($title, $salary, $description);
-        if (count(self::collect($user['id'])) >= self::LIMIT) {
+        $user = $this->auth->requireSeeker('Добавлять резюме могут только соискатели');
+        $values = $this->values($title, $salary, $description);
+        if (count($this->collect($user['id'])) >= self::LIMIT) {
             throw new ApiException('Можно добавить не больше 10 резюме', 409);
         }
 
         $element = new CIBlockElement();
         $id = $element->Add([
-            'IBLOCK_ID' => self::iblockId(),
+            'IBLOCK_ID' => $this->iblockId(),
             'NAME' => $values['title'],
             'ACTIVE' => 'Y',
             'DETAIL_TEXT' => $values['description'],
@@ -55,15 +62,15 @@ class Resumes
             throw new ApiException(ApiException::plain((string)$element->LAST_ERROR));
         }
 
-        return ['resume' => self::owned($user['id'], (int)$id)];
+        return ['resume' => $this->owned($user['id'], (int)$id)];
     }
 
     /** @return array{resume: array<string, mixed>} */
-    public static function update(int $id, string $title, mixed $salary, string $description): array
+    public function update(int $id, string $title, mixed $salary, string $description): array
     {
-        $user = Auth::requireSeeker('Изменять резюме могут только соискатели');
-        self::owned($user['id'], $id);
-        $values = self::values($title, $salary, $description);
+        $user = $this->auth->requireSeeker('Изменять резюме могут только соискатели');
+        $this->owned($user['id'], $id);
+        $values = $this->values($title, $salary, $description);
 
         $element = new CIBlockElement();
         $saved = $element->Update($id, [
@@ -75,17 +82,17 @@ class Resumes
             throw new ApiException(ApiException::plain((string)$element->LAST_ERROR));
         }
 
-        CIBlockElement::SetPropertyValuesEx($id, self::iblockId(), [
+        CIBlockElement::SetPropertyValuesEx($id, $this->iblockId(), [
             'SALARY' => $values['salary'],
         ]);
 
-        return ['resume' => self::owned($user['id'], $id)];
+        return ['resume' => $this->owned($user['id'], $id)];
     }
 
-    public static function delete(int $id): array
+    public function delete(int $id): array
     {
-        $user = Auth::requireSeeker('Удалять резюме могут только соискатели');
-        self::owned($user['id'], $id);
+        $user = $this->auth->requireSeeker('Удалять резюме могут только соискатели');
+        $this->owned($user['id'], $id);
         if (!CIBlockElement::Delete($id)) {
             throw new ApiException('Не удалось удалить резюме');
         }
@@ -94,10 +101,10 @@ class Resumes
     }
 
     /** @return array{resumes: list<array<string, mixed>>} */
-    public static function browse(string $query): array
+    public function browse(string $query): array
     {
         $filter = [
-            'IBLOCK_ID' => self::iblockId(),
+            'IBLOCK_ID' => $this->iblockId(),
             'ACTIVE' => 'Y',
             'CHECK_PERMISSIONS' => 'N',
         ];
@@ -133,7 +140,7 @@ class Resumes
     }
 
     /** @return array{title: string, description: string, salary: int} */
-    private static function values(string $title, mixed $salary, string $description): array
+    private function values(string $title, mixed $salary, string $description): array
     {
         $title = trim($title);
         $description = trim($description);
@@ -164,13 +171,13 @@ class Resumes
     }
 
     /** @return array<string, mixed> */
-    private static function owned(int $userId, int $id): array
+    private function owned(int $userId, int $id): array
     {
         if ($id <= 0) {
             throw new ApiException('Резюме не найдено', 404);
         }
 
-        $items = self::collect($userId, $id);
+        $items = $this->collect($userId, $id);
         if ($items === []) {
             throw new ApiException('Резюме не найдено', 404);
         }
@@ -179,10 +186,10 @@ class Resumes
     }
 
     /** @return list<array<string, mixed>> */
-    private static function collect(int $userId, int $id = 0): array
+    private function collect(int $userId, int $id = 0): array
     {
         $filter = [
-            'IBLOCK_ID' => self::iblockId(),
+            'IBLOCK_ID' => $this->iblockId(),
             'PROPERTY_USER' => $userId,
             'CHECK_PERMISSIONS' => 'N',
         ];
@@ -212,11 +219,10 @@ class Resumes
         return $items;
     }
 
-    private static function iblockId(): int
+    private function iblockId(): int
     {
-        static $id = 0;
-        if ($id > 0) {
-            return $id;
+        if ($this->iblock > 0) {
+            return $this->iblock;
         }
 
         $row = CIBlock::GetList([], [
@@ -228,8 +234,8 @@ class Resumes
             throw new ApiException('Инфоблок «Резюме» ещё не создан. Выполните миграции.', 500);
         }
 
-        $id = (int)$row['ID'];
+        $this->iblock = (int)$row['ID'];
 
-        return $id;
+        return $this->iblock;
     }
 }

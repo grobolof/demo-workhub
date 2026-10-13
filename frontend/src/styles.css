@@ -20,6 +20,12 @@ body {
   min-width: 320px;
 }
 
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 button, input, textarea { font: inherit; }
 
 .sr-only {
@@ -184,30 +190,10 @@ button, input, textarea { font: inherit; }
 .banner-fade-enter-from,
 .banner-fade-leave-to { opacity: 0; }
 
-.banner-nav,
 .banner-dots button {
   border: 0;
   cursor: pointer;
 }
-
-.banner-nav {
-  position: absolute;
-  top: 42%;
-  z-index: 2;
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--ink);
-  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.18);
-}
-
-.banner-nav svg { width: 20px; height: 20px; }
-.banner-nav.prev { left: 16px; }
-.banner-nav.next { right: 16px; }
-.banner-nav:hover { background: #fff; }
 
 .banner-dots {
   position: absolute;
@@ -300,6 +286,7 @@ button, input, textarea { font: inherit; }
 }
 
 .site-footer {
+  margin-top: auto;
   background: #fff;
   border-top: 1px solid var(--line);
 }
@@ -740,9 +727,10 @@ button, input, textarea { font: inherit; }
 .heart svg {
   width: 22px;
   height: 22px;
-  fill: transparent;
-  stroke: #98a2b3;
-  stroke-width: 1.8;
+  fill: none;
+  stroke: #111;
+  stroke-width: 2;
+  stroke-linecap: round;
   stroke-linejoin: round;
 }
 

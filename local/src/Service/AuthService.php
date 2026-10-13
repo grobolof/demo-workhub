@@ -2,25 +2,30 @@
 
 declare(strict_types=1);
 
-namespace App\Api;
+namespace App\Service;
 
+use App\Exception\ApiException;
+use App\Highload\Link;
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\UserTable;
 use CUser;
 
-class Auth
+class AuthService
 {
     public const SEEKER = 'seeker';
     public const EMPLOYER = 'employer';
 
-    public static function payload(): array
+    /** @var array<string, int> */
+    private array $groups = [];
+
+    public function payload(): array
     {
-        $user = self::current();
+        $user = $this->current();
         $favouriteIds = [];
         $responseIds = [];
         if ($user !== null && $user['role'] === self::SEEKER) {
-            $favouriteIds = Favourites::ids($user['id']);
-            $responseIds = Responses::ids($user['id']);
+            $favouriteIds = (new Link(FavouriteService::BLOCK))->vacancyIds($user['id']);
+            $responseIds = (new Link(ResponseService::BLOCK))->vacancyIds($user['id']);
         }
 
         return [
@@ -31,15 +36,15 @@ class Auth
         ];
     }
 
-    public static function register(string $email, string $password, string $confirm, string $role): array
+    public function register(string $email, string $password, string $confirm, string $role): array
     {
-        $email = self::email($email);
-        self::assertRole($role);
-        self::assertPassword($password);
+        $email = $this->email($email);
+        $this->assertRole($role);
+        $this->assertPassword($password);
         if ($password !== $confirm) {
             throw new ApiException('Пароли не совпадают');
         }
-        if (self::emailTaken($email)) {
+        if ($this->emailTaken($email)) {
             throw new ApiException('Пользователь с такой почтой уже зарегистрирован', 409);
         }
 
@@ -52,7 +57,7 @@ class Auth
             'CONFIRM_PASSWORD' => $password,
             'ACTIVE' => 'Y',
             'LID' => 's1',
-            'GROUP_ID' => [2, self::groupId($role)],
+            'GROUP_ID' => [2, $this->groupId($role)],
         ]);
         if (!$id) {
             throw new ApiException(ApiException::plain((string)$user->LAST_ERROR));
@@ -61,24 +66,24 @@ class Auth
         global $USER;
         $USER->Authorize((int)$id, true);
 
-        return self::payload();
+        return $this->payload();
     }
 
-    public static function login(string $email, string $password, string $role): array
+    public function login(string $email, string $password, string $role): array
     {
-        $email = self::email($email);
-        self::assertRole($role);
+        $email = $this->email($email);
+        $this->assertRole($role);
         if ($password === '') {
             throw new ApiException('Введите пароль');
         }
 
         global $USER;
-        $result = $USER->Login($email, $password, 'Y');
+        $result = $USER->Login($this->loginName($email), $password, 'Y');
         if ($result !== true) {
             throw new ApiException('Неверная почта или пароль', 401);
         }
 
-        $actual = self::role((int)$USER->GetID());
+        $actual = $this->role((int)$USER->GetID());
         if ($actual !== $role) {
             $USER->Logout();
             if ($actual === null) {
@@ -88,19 +93,19 @@ class Auth
             throw new ApiException('Этот аккаунт зарегистрирован как ' . $name, 403);
         }
 
-        return self::payload();
+        return $this->payload();
     }
 
-    public static function logout(): array
+    public function logout(): array
     {
         global $USER;
         $USER->Logout();
 
-        return self::payload();
+        return $this->payload();
     }
 
     /** @return array{id: int, email: string, role: string}|null */
-    public static function current(): ?array
+    public function current(): ?array
     {
         global $USER;
         if (!$USER instanceof CUser || !$USER->IsAuthorized()) {
@@ -108,7 +113,7 @@ class Auth
         }
 
         $id = (int)$USER->GetID();
-        $role = self::role($id);
+        $role = $this->role($id);
         if ($role === null) {
             return null;
         }
@@ -121,14 +126,14 @@ class Auth
     }
 
     /** @return array{id: int, email: string, role: string} */
-    public static function requireSeeker(string $message): array
+    public function requireSeeker(string $message): array
     {
         global $USER;
         if (!$USER instanceof CUser || !$USER->IsAuthorized()) {
             throw new ApiException('Войдите как соискатель', 401);
         }
 
-        $user = self::current();
+        $user = $this->current();
         if ($user === null || $user['role'] !== self::SEEKER) {
             throw new ApiException($message, 403);
         }
@@ -136,7 +141,7 @@ class Auth
         return $user;
     }
 
-    private static function email(string $email): string
+    private function email(string $email): string
     {
         $email = mb_strtolower(trim($email));
         if (!check_email($email, true)) {
@@ -146,21 +151,37 @@ class Auth
         return $email;
     }
 
-    private static function assertRole(string $role): void
+    private function assertRole(string $role): void
     {
         if (!in_array($role, [self::SEEKER, self::EMPLOYER], true)) {
             throw new ApiException('Выберите роль: соискатель или работодатель');
         }
     }
 
-    private static function assertPassword(string $password): void
+    private function assertPassword(string $password): void
     {
         if (!preg_match('/^[A-Za-z0-9]{6,20}$/', $password)) {
             throw new ApiException('Пароль должен состоять из латинских букв и цифр и быть длиной от 6 до 20 символов');
         }
     }
 
-    private static function emailTaken(string $email): bool
+    private function loginName(string $email): string
+    {
+        $row = UserTable::getRow([
+            'filter' => [
+                [
+                    'LOGIC' => 'OR',
+                    ['=EMAIL' => $email],
+                    ['=LOGIN' => $email],
+                ],
+            ],
+            'select' => ['LOGIN'],
+        ]);
+
+        return $row ? (string)$row['LOGIN'] : $email;
+    }
+
+    private function emailTaken(string $email): bool
     {
         $row = UserTable::getRow([
             'filter' => [
@@ -176,11 +197,11 @@ class Auth
         return (bool)$row;
     }
 
-    private static function role(int $userId): ?string
+    private function role(int $userId): ?string
     {
         $groups = array_map('intval', CUser::GetUserGroup($userId));
-        $seeker = in_array(self::groupId(self::SEEKER), $groups, true);
-        $employer = in_array(self::groupId(self::EMPLOYER), $groups, true);
+        $seeker = in_array($this->groupId(self::SEEKER), $groups, true);
+        $employer = in_array($this->groupId(self::EMPLOYER), $groups, true);
         if ($seeker && !$employer) {
             return self::SEEKER;
         }
@@ -191,10 +212,9 @@ class Auth
         return null;
     }
 
-    private static function groupId(string $code): int
+    private function groupId(string $code): int
     {
-        static $cache = [];
-        if (!isset($cache[$code])) {
+        if (!isset($this->groups[$code])) {
             $row = GroupTable::getRow([
                 'filter' => ['=STRING_ID' => $code],
                 'select' => ['ID'],
@@ -202,9 +222,9 @@ class Auth
             if (!$row) {
                 throw new ApiException('Группы пользователей ещё не созданы. Выполните миграции.', 500);
             }
-            $cache[$code] = (int)$row['ID'];
+            $this->groups[$code] = (int)$row['ID'];
         }
 
-        return $cache[$code];
+        return $this->groups[$code];
     }
 }

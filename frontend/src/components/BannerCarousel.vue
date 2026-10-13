@@ -28,11 +28,6 @@ function show(next) {
   index.value = (next + props.banners.length) % props.banners.length
 }
 
-function step(direction) {
-  show(index.value + direction)
-  start()
-}
-
 function start() {
   stop()
   if (reduceMotion || props.banners.length < 2) return
@@ -84,16 +79,6 @@ onUnmounted(stop)
     </div>
 
     <template v-if="several">
-      <button class="banner-nav prev" type="button" aria-label="Предыдущий баннер" @click="step(-1)">
-        <svg viewBox="0 0 20 20" aria-hidden="true">
-          <path fill="currentColor" d="M12.7 4.3 7 10l5.7 5.7 1.2-1.2L9.4 10l4.5-4.5-1.2-1.2Z" />
-        </svg>
-      </button>
-      <button class="banner-nav next" type="button" aria-label="Следующий баннер" @click="step(1)">
-        <svg viewBox="0 0 20 20" aria-hidden="true">
-          <path fill="currentColor" d="M7.3 4.3 13 10l-5.7 5.7-1.2-1.2L10.6 10 6.1 5.5l1.2-1.2Z" />
-        </svg>
-      </button>
       <div class="banner-dots">
         <button
           v-for="(banner, dot) in banners"
