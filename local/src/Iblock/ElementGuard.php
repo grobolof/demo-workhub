@@ -56,7 +56,7 @@ class ElementGuard
             return false;
         }
 
-        if ($meta['code'] === 'positions' && !self::assertSalary($fields, $iblockId)) {
+        if (in_array($meta['code'], ['vacancies', 'positions'], true) && !self::assertSalary($fields, $iblockId)) {
             return false;
         }
 

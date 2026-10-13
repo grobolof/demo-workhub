@@ -45,10 +45,10 @@ onUnmounted(() => {
 <template>
   <header class="header">
     <div class="header-inner">
-      <a class="brand" href="/" aria-label="WorkHub, на главную">
+      <router-link class="brand" to="/" aria-label="WorkHub, на главную">
         <img src="/logo.svg" alt="" width="36" height="36" />
         <span>WorkHub</span>
-      </a>
+      </router-link>
 
       <div ref="root" class="city">
         <button

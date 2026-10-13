@@ -6,7 +6,7 @@ use CFile;
 
 class Version20261013193000 extends Version
 {
-    protected $description = 'WorkHub: инфоблоки компаний, городов и должностей';
+    protected $description = 'WorkHub: инфоблоки компаний, городов и вакансий';
 
     protected $author = 'workhub';
 
@@ -87,20 +87,20 @@ class Version20261013193000 extends Version
             ],
         ]);
 
-        $positionsId = $helper->Iblock()->saveIblock([
+        $vacanciesId = $helper->Iblock()->saveIblock([
             'IBLOCK_TYPE_ID' => 'workhub',
             'LID' => ['s1'],
-            'CODE' => 'positions',
-            'NAME' => 'Должности',
+            'CODE' => 'vacancies',
+            'NAME' => 'Вакансии',
             'SORT' => 300,
             'INDEX_ELEMENT' => 'Y',
             'INDEX_SECTION' => 'N',
         ]);
-        $helper->Iblock()->saveIblockFields($positionsId, [
+        $helper->Iblock()->saveIblockFields($vacanciesId, [
             'PREVIEW_TEXT' => ['IS_REQUIRED' => 'Y'],
             'DETAIL_TEXT' => ['IS_REQUIRED' => 'Y'],
         ]);
-        $helper->Iblock()->saveProperty($positionsId, [
+        $helper->Iblock()->saveProperty($vacanciesId, [
             'NAME' => 'Компания',
             'CODE' => 'COMPANY',
             'PROPERTY_TYPE' => 'E',
@@ -109,7 +109,7 @@ class Version20261013193000 extends Version
             'MULTIPLE' => 'N',
             'SORT' => 100,
         ]);
-        $helper->Iblock()->saveProperty($positionsId, [
+        $helper->Iblock()->saveProperty($vacanciesId, [
             'NAME' => 'Город',
             'CODE' => 'CITY',
             'PROPERTY_TYPE' => 'E',
@@ -118,7 +118,7 @@ class Version20261013193000 extends Version
             'MULTIPLE' => 'Y',
             'SORT' => 200,
         ]);
-        $helper->Iblock()->saveProperty($positionsId, [
+        $helper->Iblock()->saveProperty($vacanciesId, [
             'NAME' => 'Зарплата (от)',
             'CODE' => 'SALARY_FROM',
             'PROPERTY_TYPE' => 'N',
@@ -126,7 +126,7 @@ class Version20261013193000 extends Version
             'MULTIPLE' => 'N',
             'SORT' => 300,
         ]);
-        $helper->Iblock()->saveProperty($positionsId, [
+        $helper->Iblock()->saveProperty($vacanciesId, [
             'NAME' => 'Зарплата (до)',
             'CODE' => 'SALARY_TO',
             'PROPERTY_TYPE' => 'N',
@@ -175,7 +175,7 @@ class Version20261013193000 extends Version
                 $props['SALARY_TO'] = $position['salaryTo'];
             }
 
-            $helper->Iblock()->saveElement($positionsId, [
+            $helper->Iblock()->saveElement($vacanciesId, [
                 'NAME' => $position['name'],
                 'CODE' => $position['code'],
                 'ACTIVE' => 'Y',
@@ -191,6 +191,7 @@ class Version20261013193000 extends Version
     public function down()
     {
         $helper = $this->getHelperManager();
+        $helper->Iblock()->deleteIblockIfExists('vacancies', 'workhub');
         $helper->Iblock()->deleteIblockIfExists('positions', 'workhub');
         $helper->Iblock()->deleteIblockIfExists('companies', 'workhub');
         $helper->Iblock()->deleteIblockIfExists('cities', 'workhub');
