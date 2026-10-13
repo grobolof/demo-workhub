@@ -7,3 +7,12 @@ node_modules
 *.log
 *.pid
 */dist/*
+
+/bitrix/cache/*
+/bitrix/managed_cache/*
+/bitrix/stack_cache/*
+/bitrix/temp/*
+/bitrix/ts/*
+/bitrix/upload/*
+/bitrix/ws/*
+/bitrix/ws/*
