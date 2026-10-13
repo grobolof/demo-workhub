@@ -1,5 +1,8 @@
 <?php
-return array (
+
+include_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
+
+return array (
   'cache_flags' => 
   array (
     'value' => 
@@ -21,7 +24,7 @@
   array (
     'value' => 
     array (
-      'debug' => false,
+      'debug' => (bool)$_ENV["APP_DEBUG"],
       'handled_errors_types' => 4437,
       'exception_errors_types' => 4437,
       'ignore_silence' => false,
@@ -37,10 +40,10 @@
     array (
       'default' => 
       array (
-        'host' => 'database',
-        'database' => 'sitemanager',
-        'login' => 'login',
-        'password' => 'pass',
+        'host' => $_ENV["DB_HOST"],
+        'database' => $_ENV["DB_DATABASE"],
+        'login' => $_ENV["DB_USER"],
+        'password' => $_ENV["DB_PASSWORD"],
         'options' => 2.0,
         'className' => '\\Bitrix\\Main\\DB\\MysqliConnection',
       ),
