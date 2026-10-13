@@ -1,0 +1,20 @@
+{
+    "require": {
+        "andreyryabin/sprint.migration": "^5.15"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "local/src/"
+        }
+    },
+    "extra": {
+    "installer-paths": {
+      "local/modules/{$name}/": ["type:bitrix-module"]
+    }
+  },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}
