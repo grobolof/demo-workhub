@@ -26,12 +26,24 @@ export function loadBanners() {
   return request('/api/banners/')
 }
 
-export function loadVacancies({ q = '', city = '' } = {}) {
+export function loadVacancies({ q = '', city = '', page = 1 } = {}) {
   const params = new URLSearchParams()
   if (q) params.set('q', q)
   if (city) params.set('city', city)
+  params.set('page', String(page))
 
   return request(`/api/vacancies/?${params.toString()}`)
+}
+
+export function loadCompanies() {
+  return request('/api/companies/')
+}
+
+export function searchResumes(q = '') {
+  const params = new URLSearchParams()
+  if (q) params.set('q', q)
+
+  return request(`/api/resume-search/?${params.toString()}`)
 }
 
 export function loadVacancy(id) {

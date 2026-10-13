@@ -93,6 +93,45 @@ class Resumes
         return ['deleted' => $id];
     }
 
+    /** @return array{resumes: list<array<string, mixed>>} */
+    public static function browse(string $query): array
+    {
+        $filter = [
+            'IBLOCK_ID' => self::iblockId(),
+            'ACTIVE' => 'Y',
+            'CHECK_PERMISSIONS' => 'N',
+        ];
+        $query = trim($query);
+        if ($query !== '') {
+            $filter['%NAME'] = $query;
+        }
+
+        $items = [];
+        $rows = CIBlockElement::GetList(
+            ['ID' => 'DESC'],
+            $filter,
+            false,
+            ['nTopCount' => 100],
+            ['ID', 'NAME', 'DETAIL_TEXT']
+        );
+        while ($element = $rows->GetNextElement(false)) {
+            $fields = $element->GetFields();
+            $props = $element->GetProperties();
+            $description = trim((string)($fields['DETAIL_TEXT'] ?? ''));
+            if (mb_strlen($description) > 220) {
+                $description = rtrim(mb_substr($description, 0, 220)) . '…';
+            }
+            $items[] = [
+                'id' => (int)$fields['ID'],
+                'title' => (string)$fields['NAME'],
+                'description' => $description,
+                'salary' => (int)($props['SALARY']['VALUE'] ?? 0),
+            ];
+        }
+
+        return ['resumes' => $items];
+    }
+
     /** @return array{title: string, description: string, salary: int} */
     private static function values(string $title, mixed $salary, string $description): array
     {

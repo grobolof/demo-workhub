@@ -64,13 +64,6 @@ onUnmounted(() => {
       </router-link>
 
       <div class="header-tools">
-        <template v-if="session.ready && session.user">
-          <span class="who">{{ session.user.email }}</span>
-          <router-link class="menu-button solid" to="/account">Кабинет</router-link>
-          <button class="menu-button ghost" type="button" @click="onLogout">Выйти</button>
-        </template>
-        <router-link v-else-if="session.ready" class="menu-login" to="/login">Войти</router-link>
-
         <div ref="root" class="city">
         <button
           class="city-button"
@@ -113,8 +106,15 @@ onUnmounted(() => {
             {{ item.name }}
           </button>
         </div>
+        </div>
+
+        <template v-if="session.ready && session.user">
+          <span class="who">{{ session.user.email }}</span>
+          <router-link class="menu-button solid" to="/account">Кабинет</router-link>
+          <button class="menu-button ghost" type="button" @click="onLogout">Выйти</button>
+        </template>
+        <router-link v-else-if="session.ready" class="menu-login" to="/login">Войти</router-link>
       </div>
-    </div>
     </div>
   </header>
 </template>

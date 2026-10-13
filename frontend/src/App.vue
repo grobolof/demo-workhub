@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, provide, ref, watch } from 'vue'
 import SiteHeader from './components/SiteHeader.vue'
+import SiteFooter from './components/SiteFooter.vue'
+import CookieNotice from './components/CookieNotice.vue'
 import { loadCities } from './api'
 import { refreshSession } from './session'
 
@@ -36,4 +38,6 @@ onMounted(async () => {
 <template>
   <SiteHeader :cities="cities" :city="cityCode" @update:city="onCity" />
   <router-view />
+  <SiteFooter />
+  <CookieNotice />
 </template>

@@ -24,10 +24,23 @@ export function formatSalary(from, to) {
   return 'з/п не указана'
 }
 
+export function labeledCount(count, forms) {
+  const value = Math.abs(Number(count) || 0)
+  const mod10 = value % 10
+  const mod100 = value % 100
+  let word = forms[2]
+  if (mod100 < 11 || mod100 > 14) {
+    if (mod10 === 1) word = forms[0]
+    else if (mod10 >= 2 && mod10 <= 4) word = forms[1]
+  }
+
+  return {
+    value: new Intl.NumberFormat('ru-RU').format(value),
+    word,
+  }
+}
+
 export function vacancyCount(count) {
-  const mod10 = count % 10
-  const mod100 = count % 100
-  if (mod10 === 1 && mod100 !== 11) return `${count} вакансия`
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return `${count} вакансии`
-  return `${count} вакансий`
+  const label = labeledCount(count, ['вакансия', 'вакансии', 'вакансий'])
+  return `${label.value} ${label.word}`
 }

@@ -1,9 +1,11 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { labeledCount } from '../format'
 
 const props = defineProps({
   banners: { type: Array, default: () => [] },
   loading: { type: Boolean, default: false },
+  stats: { type: Object, default: null },
 })
 
 const index = ref(0)
@@ -12,6 +14,14 @@ let reduceMotion = false
 
 const current = computed(() => props.banners[index.value] || null)
 const several = computed(() => props.banners.length > 1)
+const statItems = computed(() => {
+  if (!props.stats) return []
+  return [
+    labeledCount(props.stats.resumes, ['резюме', 'резюме', 'резюме']),
+    labeledCount(props.stats.vacancies, ['вакансия', 'вакансии', 'вакансий']),
+    labeledCount(props.stats.companies, ['компания', 'компании', 'компаний']),
+  ]
+})
 
 function show(next) {
   if (!props.banners.length) return
@@ -65,6 +75,13 @@ onUnmounted(stop)
     <Transition name="banner-fade">
       <img v-if="current" :key="current.id" :src="current.image" :alt="current.name" />
     </Transition>
+
+    <div v-if="statItems.length" class="banner-stats">
+      <p v-for="item in statItems" :key="item.word">
+        <strong>{{ item.value }}</strong>
+        <span>{{ item.word }}</span>
+      </p>
+    </div>
 
     <template v-if="several">
       <button class="banner-nav prev" type="button" aria-label="Предыдущий баннер" @click="step(-1)">

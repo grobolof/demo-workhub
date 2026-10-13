@@ -10,6 +10,10 @@ import FavouritesPage from './pages/FavouritesPage.vue'
 import ResumesPage from './pages/ResumesPage.vue'
 import ResumeFormPage from './pages/ResumeFormPage.vue'
 import ResponsesPage from './pages/ResponsesPage.vue'
+import CompaniesPage from './pages/CompaniesPage.vue'
+import ResumeSearchPage from './pages/ResumeSearchPage.vue'
+import HelpPage from './pages/HelpPage.vue'
+import TermsPage from './pages/TermsPage.vue'
 import { refreshSession } from './session'
 import './styles.css'
 
@@ -20,6 +24,10 @@ const router = createRouter({
   },
   routes: [
     { path: '/', component: HomePage },
+    { path: '/companies', component: CompaniesPage },
+    { path: '/resume-search', component: ResumeSearchPage },
+    { path: '/help', component: HelpPage },
+    { path: '/terms', component: TermsPage },
     { path: '/vacancy/:id', component: VacancyPage },
     { path: '/company/:id', component: CompanyPage },
     { path: '/login', component: AuthPage, props: { mode: 'login' } },

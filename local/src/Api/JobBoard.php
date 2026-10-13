@@ -11,6 +11,8 @@ use RuntimeException;
 
 class JobBoard
 {
+    public const PAGE_SIZE = 10;
+
     /** @return list<array{id: int, name: string, code: string}> */
     public static function cities(): array
     {
@@ -53,20 +55,46 @@ class JobBoard
         return $banners;
     }
 
-    public static function search(string $query, string $cityCode): array
+    /** @return array{resumes: int, vacancies: int, companies: int} */
+    public static function stats(): array
     {
+        $helper = new self();
+
+        return [
+            'resumes' => $helper->countActive('resumes'),
+            'vacancies' => $helper->countActive('vacancies'),
+            'companies' => $helper->countActive('companies'),
+        ];
+    }
+
+    /** @return list<array{id: int, name: string, code: string, logo: string|null}> */
+    public static function companyCatalog(): array
+    {
+        $helper = new self();
+
+        return array_values($helper->companies($helper->iblockId('companies')));
+    }
+
+    public static function search(string $query, string $cityCode, int $page = 1): array
+    {
+        $page = max(1, $page);
+        $limit = self::PAGE_SIZE;
         $helper = new self();
         $companies = $helper->companies($helper->iblockId('companies'));
         $cities = $helper->loadCities($helper->iblockId('cities'));
         $cityCode = trim($cityCode);
         $query = trim($query);
         $cityId = $helper->cityId($cities, $cityCode);
+        $empty = [
+            'cities' => array_values($cities),
+            'vacancies' => [],
+            'total' => 0,
+            'page' => $page,
+            'limit' => $limit,
+        ];
 
         if ($cityCode !== '' && $cityId <= 0) {
-            return [
-                'cities' => array_values($cities),
-                'vacancies' => [],
-            ];
+            return $empty;
         }
 
         $filter = [
@@ -79,19 +107,34 @@ class JobBoard
         if ($query !== '') {
             $orderedIds = VacancyIndex::searchIds($query, $cityId > 0 ? $cityId : null);
             if ($orderedIds === []) {
-                return [
-                    'cities' => array_values($cities),
-                    'vacancies' => [],
-                ];
+                return $empty;
             }
-            $filter['ID'] = $orderedIds;
+            $slice = array_slice($orderedIds, ($page - 1) * $limit, $limit);
+            $empty['total'] = count($orderedIds);
+            if ($slice === []) {
+                return $empty;
+            }
+            $filter['ID'] = $slice;
         }
 
         if ($cityId > 0) {
             $filter['PROPERTY_CITY'] = $cityId;
         }
 
-        $vacancies = $helper->collect($filter, $companies, $cities, false);
+        $nav = false;
+        if ($orderedIds !== null) {
+            $total = count($orderedIds);
+        } else {
+            $total = $helper->countFiltered($filter);
+            $offset = ($page - 1) * $limit;
+            if ($offset >= $total) {
+                $empty['total'] = $total;
+                return $empty;
+            }
+            $nav = ['nTopCount' => $limit, 'nOffset' => $offset];
+        }
+
+        $vacancies = $helper->collect($filter, $companies, $cities, false, $nav);
         if ($orderedIds !== null) {
             $order = array_flip($orderedIds);
             usort($vacancies, static function (array $left, array $right) use ($order): int {
@@ -102,6 +145,9 @@ class JobBoard
         return [
             'cities' => array_values($cities),
             'vacancies' => $vacancies,
+            'total' => $total,
+            'page' => $page,
+            'limit' => $limit,
         ];
     }
 
@@ -266,9 +312,10 @@ class JobBoard
      * @param array<string, mixed> $filter
      * @param array<int, array{id: int, name: string, code: string, logo: string|null}> $companies
      * @param array<int, array{id: int, name: string, code: string, sort: int}> $cities
+     * @param array<string, int>|false $nav
      * @return list<array<string, mixed>>
      */
-    private function collect(array $filter, array $companies, array $cities, bool $withDetail): array
+    private function collect(array $filter, array $companies, array $cities, bool $withDetail, array|false $nav = false): array
     {
         $select = ['ID', 'IBLOCK_ID', 'NAME', 'CODE', 'PREVIEW_TEXT', 'SORT'];
         if ($withDetail) {
@@ -280,7 +327,7 @@ class JobBoard
             ['SORT' => 'ASC', 'ID' => 'DESC'],
             $filter,
             false,
-            false,
+            $nav === false ? false : $nav,
             $select
         );
         while ($element = $rows->GetNextElement(false)) {
@@ -344,6 +391,29 @@ class JobBoard
         }
 
         return $cities;
+    }
+
+    /** @param array<string, mixed> $filter */
+    private function countFiltered(array $filter): int
+    {
+        $count = CIBlockElement::GetList([], $filter, []);
+
+        return (int)$count;
+    }
+
+    private function countActive(string $code): int
+    {
+        $count = CIBlockElement::GetList(
+            [],
+            [
+                'IBLOCK_ID' => $this->iblockId($code),
+                'ACTIVE' => 'Y',
+                'CHECK_PERMISSIONS' => 'N',
+            ],
+            []
+        );
+
+        return (int)$count;
     }
 
     /** @return array<int, array{id: int, name: string, code: string, logo: string|null}> */

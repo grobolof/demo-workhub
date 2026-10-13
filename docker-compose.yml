@@ -13,6 +13,7 @@ services:
       - "80:80"
     volumes:
       - ./:${APP_PATH}
+      - ./docker/nginx/4-variables-change.sh:/tmp/scr/4-variables-change.sh:ro
     depends_on:
       - database
       - elasticsearch
