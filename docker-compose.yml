@@ -33,3 +33,21 @@ services:
         chown mysql:mysql /etc/mysql/conf.d/bx.cnf &&
         exec /usr/local/bin/docker-entrypoint.sh mariadbd
       "
+
+  frontend:
+    build:
+      context: ./frontend
+    image: workhub-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - frontend_modules:/app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_TARGET: http://application
+    depends_on:
+      - application
+
+volumes:
+  frontend_modules:

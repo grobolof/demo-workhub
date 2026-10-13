@@ -1,0 +1,26 @@
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+const apiTarget = process.env.VITE_API_TARGET || 'http://application'
+
+export default defineConfig({
+  plugins: [vue()],
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+    strictPort: true,
+    watch: {
+      usePolling: true,
+    },
+    proxy: {
+      '/api': {
+        target: apiTarget,
+        changeOrigin: true,
+      },
+      '/upload': {
+        target: apiTarget,
+        changeOrigin: true,
+      },
+    },
+  },
+})

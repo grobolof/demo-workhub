@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="WorkHub">
+  <defs>
+    <mask id="workhub-left">
+      <rect width="64" height="64" fill="#000"/>
+      <rect width="48" height="48" rx="13" fill="#fff"/>
+      <rect x="16" y="16" width="48" height="48" rx="13" fill="#000"/>
+    </mask>
+    <mask id="workhub-right">
+      <rect width="64" height="64" fill="#000"/>
+      <rect x="16" y="16" width="48" height="48" rx="13" fill="#fff"/>
+      <rect width="48" height="48" rx="13" fill="#000"/>
+    </mask>
+  </defs>
+  <rect width="48" height="48" rx="13" fill="#0E4EF3" mask="url(#workhub-left)"/>
+  <rect x="16" y="16" width="48" height="48" rx="13" fill="#0E4EF3" mask="url(#workhub-right)"/>
+</svg>
