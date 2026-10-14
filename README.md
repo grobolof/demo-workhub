@@ -37,7 +37,7 @@
 
 ## Как открыть
 
-**Сайт** — поиск вакансий на Vue. Публично он открыт на [https://khix.swq.ovh/](https://khix.swq.ovh/). Локально интерфейс слушает порт **5173**: `http://localhost:5173`.
+**Сайт** — поиск вакансий на Vue. Публично он открыт на [https://workhub.ru.tuna.am](https://workhub.ru.tuna.am). Локально интерфейс слушает порт **5173**: `http://localhost`.
 
 **Админка** — Битрикс. Адрес: `http://workhub.docker.local/bitrix/`. Имя берётся из `APP_HOST` в `.env`.
 
