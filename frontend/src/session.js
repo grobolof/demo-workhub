@@ -19,6 +19,7 @@ export const session = reactive({
   favouriteIds: [],
   responseIds: [],
   resumeFavouriteIds: [],
+  adminUrl: '',
 })
 
 export function applySession(payload) {
@@ -28,6 +29,7 @@ export function applySession(payload) {
   session.favouriteIds = payload.favouriteIds || []
   session.responseIds = payload.responseIds || []
   session.resumeFavouriteIds = payload.resumeFavouriteIds || []
+  session.adminUrl = payload.adminUrl || session.adminUrl
 }
 
 export async function refreshSession() {

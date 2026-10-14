@@ -30,6 +30,16 @@ final class Restorer
     /** @var array<string, int> */
     private array $enums = [];
 
+    private mixed $onProgress = null;
+
+    private float $progressStarted = 0.0;
+
+    private int $progressDone = 0;
+
+    private float $progressReportedAt = 0.0;
+
+    private const PROGRESS_STEPS = 15;
+
     public static function userListViewOnly(object $user): bool
     {
         if (!method_exists($user, 'IsAdmin') || $user->IsAdmin()) {
@@ -63,38 +73,90 @@ final class Restorer
         return $groupId > 0 && in_array($groupId, array_map('intval', CUser::GetUserGroup((int)$USER->GetID())), true);
     }
 
-    public function run(): string
+    public function run(?callable $onProgress = null): string
     {
         if (!Loader::includeModule('iblock') || !Loader::includeModule('highloadblock')) {
             throw new RuntimeException('Модули инфоблоков или highloadblock недоступны');
         }
 
-        return $this->asAdmin(function (): string {
-            $this->clearHighload();
-            foreach (['vacancies', 'resumes', 'companies', 'banners', 'requests', 'cities'] as $code) {
-                $this->clearElements($this->iblockId($code));
+        return $this->asAdmin(function () use ($onProgress): string {
+            $this->onProgress = $onProgress;
+            $this->progressStarted = microtime(true);
+            $this->progressDone = 0;
+            $this->progressReportedAt = 0.0;
+
+            try {
+                $this->clearHighload();
+                $this->reportProgress();
+                foreach (['vacancies', 'resumes', 'companies', 'banners', 'requests', 'cities'] as $code) {
+                    $this->clearElements($this->iblockId($code));
+                    $this->reportProgress();
+                }
+                $this->clearUsers();
+                $this->reportProgress();
+                $this->ensureSupport();
+                $this->reportProgress();
+
+                $cities = $this->seedCities();
+                $this->reportProgress();
+                $banners = $this->seedBanners();
+                $this->reportProgress();
+                $companies = $this->seedCompanies();
+                $this->reportProgress();
+                $vacancies = $this->seedVacancies($companies, $cities);
+                $this->reportProgress();
+                $seekers = $this->seedSeekers();
+                $this->reportProgress();
+                $index = $this->rebuildIndex();
+                $this->reportProgress();
+
+                return sprintf(
+                    'Городов: %d, баннеров: %d, компаний: %d, вакансий: %d, соискателей: %d. %s Пароль работодателей и соискателей: %s.',
+                    count($cities),
+                    $banners,
+                    count($companies),
+                    $vacancies,
+                    $seekers,
+                    $index,
+                    self::PASSWORD,
+                );
+            } finally {
+                $this->onProgress = null;
             }
-            $this->clearUsers();
-            $this->ensureSupport();
-
-            $cities = $this->seedCities();
-            $banners = $this->seedBanners();
-            $companies = $this->seedCompanies();
-            $vacancies = $this->seedVacancies($companies, $cities);
-            $seekers = $this->seedSeekers();
-            $index = $this->rebuildIndex();
-
-            return sprintf(
-                'Городов: %d, баннеров: %d, компаний: %d, вакансий: %d, соискателей: %d. %s Пароль работодателей и соискателей: %s.',
-                count($cities),
-                $banners,
-                count($companies),
-                $vacancies,
-                $seekers,
-                $index,
-                self::PASSWORD,
-            );
         });
+    }
+
+    private function reportProgress(): void
+    {
+        $this->advance(1);
+    }
+
+    private function pulse(): void
+    {
+        $this->advance(0);
+    }
+
+    private function advance(int $credit): void
+    {
+        if ($this->onProgress === null) {
+            return;
+        }
+
+        $this->progressDone += $credit;
+        if ($this->progressDone > self::PROGRESS_STEPS) {
+            $this->progressDone = self::PROGRESS_STEPS;
+        }
+
+        $now = microtime(true);
+        if ($credit === 0 && ($this->progressDone === 0 || ($now - $this->progressReportedAt) < 1.0)) {
+            return;
+        }
+
+        $this->progressReportedAt = $now;
+        $left = self::PROGRESS_STEPS - $this->progressDone;
+        $elapsed = $now - $this->progressStarted;
+        $remaining = $left <= 0 ? 0 : (int)ceil($elapsed / $this->progressDone * $left);
+        ($this->onProgress)($remaining);
     }
 
     private function asAdmin(callable $work): string
@@ -135,6 +197,7 @@ final class Restorer
             $rows = $class::getList(['select' => ['ID']]);
             while ($item = $rows->fetch()) {
                 $class::delete((int)$item['ID']);
+                $this->pulse();
             }
         }
     }
@@ -156,6 +219,7 @@ final class Restorer
             if (!CIBlockElement::Delete($id)) {
                 throw new RuntimeException('Не удалось удалить элемент ' . $id);
             }
+            $this->pulse();
         }
     }
 
@@ -178,6 +242,7 @@ final class Restorer
                 $error = is_object($APPLICATION) ? (string)$APPLICATION->GetException() : '';
                 throw new RuntimeException('Не удалось удалить пользователя ' . $id . ($error !== '' ? ': ' . $error : ''));
             }
+            $this->pulse();
         }
     }
 
@@ -223,6 +288,7 @@ final class Restorer
                 'CODE' => $city['code'],
                 'SORT' => ($index + 1) * 100,
             ]);
+            $this->pulse();
         }
 
         return $ids;
@@ -240,6 +306,7 @@ final class Restorer
                 'PREVIEW_PICTURE' => $this->file('banners/' . $banner['file']),
             ]);
             $count++;
+            $this->pulse();
         }
 
         return $count;
@@ -273,6 +340,7 @@ final class Restorer
                     'USER' => $userId,
                 ],
             ]);
+            $this->pulse();
         }
 
         return $ids;
@@ -312,6 +380,7 @@ final class Restorer
             ]);
             $sort += 10;
             $count++;
+            $this->pulse();
         }
 
         return $count;
@@ -339,6 +408,7 @@ final class Restorer
                 ],
             ]);
             $count++;
+            $this->pulse();
         }
 
         return $count;

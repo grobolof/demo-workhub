@@ -15,6 +15,7 @@ use OpenApi\Attributes as OA;
         new OA\Property(property: 'favouriteIds', type: 'array', items: new OA\Items(type: 'integer')),
         new OA\Property(property: 'responseIds', type: 'array', items: new OA\Items(type: 'integer')),
         new OA\Property(property: 'resumeFavouriteIds', type: 'array', items: new OA\Items(type: 'integer')),
+        new OA\Property(property: 'adminUrl', type: 'string', description: 'Абсолютная ссылка входа в админ-панель'),
     ],
 )]
 

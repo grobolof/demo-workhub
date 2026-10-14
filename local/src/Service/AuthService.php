@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Exception\ApiException;
 use App\Highload\Link;
+use App\Http\PublicUrl;
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\UserTable;
 use CFile;
@@ -39,6 +40,7 @@ class AuthService
             'favouriteIds' => $favouriteIds,
             'responseIds' => $responseIds,
             'resumeFavouriteIds' => $resumeFavouriteIds,
+            'adminUrl' => PublicUrl::admin(),
         ];
     }
 

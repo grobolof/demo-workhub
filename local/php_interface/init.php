@@ -84,7 +84,7 @@ $eventManager->addEventHandler('main', 'OnBuildGlobalMenu', static function (arr
     $url = 'workhub_demo_restore.php?lang=' . LANGUAGE_ID;
     $globalMenu['global_menu_workhub_demo'] = [
         'menu_id' => 'workhub_demo',
-        'text' => 'Восстановить демо',
+        'text' => 'Восс. демо',
         'title' => 'Очистить данные и заново загрузить демо-фикстуры',
         'url' => $url,
         'sort' => 600,

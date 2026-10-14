@@ -117,10 +117,22 @@ button, input, textarea { font: inherit; }
   align-items: stretch;
   gap: 8px;
   max-width: 100%;
+  max-height: calc(100vh - 72px);
+  max-height: calc(100dvh - 72px);
+  overflow: auto;
   padding: 12px 16px 16px;
   background: #fff;
   border-bottom: 1px solid var(--line);
   box-shadow: var(--shadow);
+}
+
+.header.is-compact.is-open .city-menu {
+  position: static;
+  width: 100%;
+  max-height: min(240px, 40vh);
+  margin-top: 8px;
+  overflow: auto;
+  box-shadow: none;
 }
 
 .header.is-compact:not(.is-open) .header-tools { display: none; }
@@ -488,7 +500,7 @@ button, input, textarea { font: inherit; }
 .consent .primary,
 .consent .ghost { margin-top: 0; }
 
-.project-fab-bar {
+.mr-project-fab-bar {
   position: fixed;
   left: 0;
   right: 0;
@@ -497,16 +509,14 @@ button, input, textarea { font: inherit; }
   pointer-events: none;
 }
 
-.project-fab-bar.is-raised { bottom: 196px; }
-
-.project-fab-wrap {
+.mr-project-fab-wrap {
   width: min(var(--content), calc(100% - 32px));
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
 }
 
-.project-fab {
+.mr-project-fab {
   pointer-events: auto;
   display: inline-flex;
   align-items: center;
@@ -514,7 +524,7 @@ button, input, textarea { font: inherit; }
   min-height: 34px;
   padding: 0 12px;
   border-radius: 10px;
-  background: rgba(14, 78, 243, 0.62);
+  background: rgba(220, 47, 47, 0.62);
   color: #fff;
   font-size: 13px;
   font-weight: 600;
@@ -523,17 +533,23 @@ button, input, textarea { font: inherit; }
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
 }
 
-.project-fab:hover {
-  background: rgba(14, 78, 243, 0.78);
+.mr-project-fab:hover {
+  background: rgba(220, 47, 47, 0.78);
   color: #fff;
 }
 
-.project-fab:focus-visible {
+.mr-project-fab:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
 
+@media (max-width: 860px) {
+  .mr-project-fab-bar { bottom: 72px; }
+}
+
 .about-page .lead { max-width: 46rem; }
+
+.about-page .lead + .about-block { margin-top: 40px; }
 
 .about-block + .about-block {
   margin-top: 28px;
@@ -602,7 +618,28 @@ button, input, textarea { font: inherit; }
 .about-creds dd {
   margin: 0;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
+
+.about-page,
+.about-block,
+.about-roles,
+.about-roles > section {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.about-roles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 18px;
+}
+
+.about-roles h3 { margin-top: 0; }
+
+.about-block li,
+.about-block p { overflow-wrap: anywhere; }
 
 .company-list { margin-top: 18px; }
 
@@ -1702,6 +1739,10 @@ a.employer:hover strong { color: var(--blue); }
   font-size: 18px;
 }
 
+@media (max-width: 1024px) {
+  .about-roles { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 960px) {
   .footer-nav { grid-template-columns: 1fr 1fr; }
   .results-head { flex-direction: column; align-items: flex-start; }
@@ -1731,7 +1772,8 @@ a.employer:hover strong { color: var(--blue); }
   .vacancy-actions { padding-left: 0; }
   .vacancy .action-note { padding-left: 0; }
   .resume-top { flex-direction: column; gap: 4px; }
-  .vacancy-top { flex-direction: column; gap: 4px; }
+  .vacancy-top { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .salary-row { max-width: 100%; }
   .salary { white-space: normal; }
   .results-head { flex-direction: column; align-items: flex-start; }
   .results-side { margin-left: 0; flex-wrap: wrap; justify-content: flex-start; }
