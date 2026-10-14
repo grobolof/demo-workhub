@@ -70,15 +70,55 @@ $eventManager->addEventHandler('main', 'OnBuildGlobalMenu', static function (arr
         return;
     }
 
-    $moduleMenu[] = [
-        'parent_menu' => 'global_menu_settings',
-        'section' => 'workhub',
-        'sort' => 1000,
+    foreach ($moduleMenu as $index => $item) {
+        if (!is_array($item)) {
+            continue;
+        }
+        $parent = (string)($item['parent_menu'] ?? '');
+        $itemUrl = (string)($item['url'] ?? '');
+        if ($parent === 'global_menu_settings' && str_contains($itemUrl, 'workhub_demo_restore.php')) {
+            unset($moduleMenu[$index]);
+        }
+    }
+
+    $url = 'workhub_demo_restore.php?lang=' . LANGUAGE_ID;
+    $globalMenu['global_menu_workhub_demo'] = [
+        'menu_id' => 'workhub_demo',
         'text' => 'Восстановить демо',
         'title' => 'Очистить данные и заново загрузить демо-фикстуры',
-        'url' => 'workhub_demo_restore.php?lang=' . LANGUAGE_ID,
+        'url' => $url,
+        'sort' => 600,
         'icon' => 'sys_menu_icon',
         'page_icon' => 'sys_menu_icon',
-        'items_id' => 'menu_workhub_demo',
+        'items_id' => 'global_menu_workhub_demo',
+        'items' => [
+            [
+                'text' => 'Восстановить демо',
+                'title' => 'Очистить данные и заново загрузить демо-фикстуры',
+                'url' => $url,
+                'sort' => 100,
+                'icon' => 'sys_menu_icon',
+                'page_icon' => 'sys_menu_icon',
+            ],
+        ],
     ];
+
+    global $APPLICATION;
+    if (!is_object($APPLICATION)) {
+        return;
+    }
+
+    $APPLICATION->AddHeadString(
+        '<style>'
+        . 'a.adm-main-menu-item.adm-workhub_demo .adm-main-menu-item-icon{background-position:center -1582px;height:47px}'
+        . 'a.adm-workhub_demo:hover .adm-main-menu-item-icon,'
+        . 'a.adm-main-menu-item-active.adm-workhub_demo .adm-main-menu-item-icon{background-position:center -1638px;height:47px}'
+        . '</style>'
+        . '<script>document.addEventListener("DOMContentLoaded",function(){'
+        . 'var item=document.getElementById("global_menu_workhub_demo");'
+        . 'if(!item){return;}'
+        . 'item.onclick=function(){window.location.href=item.href;return false;};'
+        . '});</script>',
+        true
+    );
 });

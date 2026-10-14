@@ -15,6 +15,7 @@ import ResumeSearchPage from './pages/ResumeSearchPage.vue'
 import HelpPage from './pages/HelpPage.vue'
 import DocsPage from './pages/DocsPage.vue'
 import TermsPage from './pages/TermsPage.vue'
+import AppDescriptionPage from './pages/AppDescriptionPage.vue'
 import NotFoundPage from './pages/NotFoundPage.vue'
 import { refreshSession, session } from './session'
 import './styles.css'
@@ -45,6 +46,7 @@ const router = createRouter({
     { path: '/help', component: HelpPage },
     { path: '/docs', component: DocsPage },
     { path: '/terms', component: TermsPage },
+    { path: '/app-description', component: AppDescriptionPage },
     { path: '/vacancy/:id', component: VacancyPage },
     { path: '/company/:id', component: CompanyPage },
     { path: '/login', component: AuthPage, props: { mode: 'login' } },

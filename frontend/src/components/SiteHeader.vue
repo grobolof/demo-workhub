@@ -1,5 +1,6 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { session } from '../session'
 
 const props = defineProps({
@@ -9,11 +10,20 @@ const props = defineProps({
 
 const emit = defineEmits(['update:city'])
 
+const route = useRoute()
 const root = ref(null)
+const headerRef = ref(null)
+const innerRef = ref(null)
+const toolsRef = ref(null)
 const open = ref(false)
+const menuOpen = ref(false)
+const compact = ref(typeof window !== 'undefined' && window.matchMedia('(max-width: 430px)').matches)
 
 const current = computed(() => props.cities.find((item) => item.code === props.city) || null)
 const label = computed(() => current.value?.name || 'Все города')
+
+let frame = 0
+let observer
 
 function toggle() {
   open.value = !open.value
@@ -24,34 +34,119 @@ function choose(code) {
   if (code !== props.city) emit('update:city', code)
 }
 
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value
+  if (!menuOpen.value) open.value = false
+}
+
 function onDocumentClick(event) {
   if (!root.value?.contains(event.target)) open.value = false
+  if (!headerRef.value?.contains(event.target)) {
+    menuOpen.value = false
+    open.value = false
+  }
 }
 
 function onKeydown(event) {
-  if (event.key === 'Escape') open.value = false
+  if (event.key === 'Escape') {
+    open.value = false
+    menuOpen.value = false
+  }
 }
+
+function toolsWidth() {
+  const tools = toolsRef.value
+  if (!tools) return 0
+  const clone = tools.cloneNode(true)
+  clone.removeAttribute('id')
+  clone.style.cssText = 'position:fixed;left:0;top:0;transform:translateX(-100%);display:flex;flex-flow:row nowrap;align-items:center;width:max-content;min-width:max-content;max-width:none;gap:10px;visibility:hidden;pointer-events:none;'
+  document.body.appendChild(clone)
+  const width = clone.getBoundingClientRect().width
+  clone.remove()
+  return width
+}
+
+function updateLayout() {
+  const inner = innerRef.value
+  if (!inner) return
+  const brand = inner.querySelector('.brand')
+  const nav = [...inner.children].find((element) => element.tagName === 'NAV')
+  const gap = parseFloat(getComputedStyle(inner).columnGap) || 0
+  const parts = [
+    brand?.getBoundingClientRect().width || 0,
+    nav?.getBoundingClientRect().width || 0,
+    toolsWidth(),
+  ].filter((value) => value > 0)
+  const needed = parts.reduce((sum, value) => sum + value, 0) + gap * Math.max(0, parts.length - 1)
+  if (inner.clientWidth < 48) return
+  const overflow = needed - inner.clientWidth
+  const next = compact.value ? overflow > -8 : overflow > 1
+  if (next === compact.value) return
+  compact.value = next
+  if (!next) {
+    menuOpen.value = false
+    open.value = false
+  }
+}
+
+function scheduleLayout() {
+  if (frame) return
+  frame = requestAnimationFrame(() => {
+    frame = 0
+    updateLayout()
+  })
+}
+
+watch([label, () => session.ready, () => session.user], () => nextTick(scheduleLayout))
+
+watch(() => route.fullPath, () => {
+  menuOpen.value = false
+  open.value = false
+})
 
 onMounted(() => {
   document.addEventListener('click', onDocumentClick)
   document.addEventListener('keydown', onKeydown)
+  observer = new ResizeObserver(scheduleLayout)
+  if (innerRef.value) observer.observe(innerRef.value)
+  document.fonts?.ready?.then(scheduleLayout)
+  scheduleLayout()
 })
 
 onUnmounted(() => {
   document.removeEventListener('click', onDocumentClick)
   document.removeEventListener('keydown', onKeydown)
+  observer?.disconnect()
+  if (frame) cancelAnimationFrame(frame)
 })
 </script>
 
 <template>
-  <header class="header">
-    <div class="header-inner">
+  <header ref="headerRef" class="header" :class="{ 'is-compact': compact, 'is-open': menuOpen }">
+    <div ref="innerRef" class="header-inner">
       <router-link class="brand" to="/" aria-label="WorkHub, на главную">
         <img src="/logo.svg" alt="" width="36" height="36" />
         <span>WorkHub</span>
       </router-link>
 
-      <div class="header-tools">
+      <button
+        v-show="compact"
+        class="burger"
+        type="button"
+        :aria-expanded="menuOpen"
+        aria-controls="header-tools"
+        @click="toggleMenu"
+      >
+        <span class="sr-only">{{ menuOpen ? 'Закрыть меню' : 'Меню' }}</span>
+        <svg v-if="!menuOpen" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M4 7h16v2H4V7Zm0 4h16v2H4v-2Zm0 4h16v2H4v-2Z" />
+        </svg>
+        <svg v-else viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M6.4 5 12 10.6 17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4 6.4 19 5 17.6 10.6 12 5 6.4 6.4 5Z" />
+        </svg>
+      </button>
+
+      <div id="header-tools" ref="toolsRef" class="header-tools">
         <div ref="root" class="city">
         <button
           class="city-button"

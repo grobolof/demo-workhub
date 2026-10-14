@@ -3,6 +3,7 @@ import { onMounted, provide, ref, watch } from 'vue'
 import SiteHeader from './components/SiteHeader.vue'
 import SiteFooter from './components/SiteFooter.vue'
 import CookieNotice from './components/CookieNotice.vue'
+import ProjectFab from './components/ProjectFab.vue'
 import { loadCities } from './api'
 import { refreshSession } from './session'
 
@@ -40,4 +41,5 @@ onMounted(async () => {
   <router-view />
   <SiteFooter />
   <CookieNotice />
+  <ProjectFab />
 </template>
