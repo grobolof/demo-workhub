@@ -18,6 +18,53 @@ $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementUpdate', [VacancyI
 $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementDelete', [VacancyIndex::class, 'onAfterDelete']);
 $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementSetPropertyValuesEx', [VacancyIndex::class, 'onAfterProperties']);
 
+$eventManager->addEventHandler('main', 'OnBeforeProlog', static function (): void {
+    if (!defined('ADMIN_SECTION') || ADMIN_SECTION !== true) {
+        return;
+    }
+
+    $script = (string)($_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '');
+    if (!str_ends_with($script, '/user_edit.php')) {
+        return;
+    }
+
+    global $USER;
+    if (!is_object($USER) || !$USER->IsAuthorized() || $USER->IsAdmin()) {
+        return;
+    }
+    if (!\App\Demo\Restorer::userListViewOnly($USER)) {
+        return;
+    }
+
+    LocalRedirect('/bitrix/admin/user_admin.php?lang=' . LANGUAGE_ID);
+});
+
+$eventManager->addEventHandler('main', 'OnAdminListDisplay', static function ($list): void {
+    if (!is_object($list) || (string)($list->table_id ?? '') !== 'tbl_user') {
+        return;
+    }
+
+    global $USER;
+    if (!is_object($USER) || !\App\Demo\Restorer::userListViewOnly($USER)) {
+        return;
+    }
+
+    foreach ($list->aRows as $row) {
+        $row->aActions = [];
+        $row->link = '';
+        foreach ($row->aFields as $fieldId => $field) {
+            if (($field['view']['type'] ?? '') !== 'html' || !isset($field['view']['value'])) {
+                continue;
+            }
+            $row->aFields[$fieldId]['view']['value'] = preg_replace(
+                '#<a\b[^>]*>(.*?)</a>#is',
+                '$1',
+                (string)$field['view']['value']
+            );
+        }
+    }
+});
+
 $eventManager->addEventHandler('main', 'OnBuildGlobalMenu', static function (array &$globalMenu, array &$moduleMenu): void {
     if (!\App\Demo\Restorer::allowed()) {
         return;

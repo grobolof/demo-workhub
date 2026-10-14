@@ -43,7 +43,7 @@ class Version20261014001000 extends Version
             'NAME' => 'ИНН',
             'CODE' => 'INN',
             'PROPERTY_TYPE' => 'S',
-            'IS_REQUIRED' => 'N',
+            'IS_REQUIRED' => 'Y',
             'MULTIPLE' => 'N',
             'SORT' => 100,
         ]);
@@ -52,7 +52,7 @@ class Version20261014001000 extends Version
             'CODE' => 'USER',
             'PROPERTY_TYPE' => 'N',
             'USER_TYPE' => 'UserID',
-            'IS_REQUIRED' => 'N',
+            'IS_REQUIRED' => 'Y',
             'MULTIPLE' => 'N',
             'SORT' => 200,
         ]);
@@ -62,7 +62,7 @@ class Version20261014001000 extends Version
             'CODE' => 'CITY',
             'PROPERTY_TYPE' => 'E',
             'LINK_IBLOCK_ID' => 'workhub:cities',
-            'IS_REQUIRED' => 'N',
+            'IS_REQUIRED' => 'Y',
             'MULTIPLE' => 'Y',
             'SORT' => 200,
         ]);
@@ -71,7 +71,7 @@ class Version20261014001000 extends Version
             'CODE' => 'WORKPLACE',
             'PROPERTY_TYPE' => 'L',
             'LIST_TYPE' => 'L',
-            'IS_REQUIRED' => 'N',
+            'IS_REQUIRED' => 'Y',
             'MULTIPLE' => 'N',
             'SORT' => 500,
             'VALUES' => [
@@ -85,7 +85,7 @@ class Version20261014001000 extends Version
             'CODE' => 'SCHEDULE',
             'PROPERTY_TYPE' => 'L',
             'LIST_TYPE' => 'L',
-            'IS_REQUIRED' => 'N',
+            'IS_REQUIRED' => 'Y',
             'MULTIPLE' => 'N',
             'SORT' => 600,
             'VALUES' => [

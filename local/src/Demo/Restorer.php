@@ -30,6 +30,24 @@ final class Restorer
     /** @var array<string, int> */
     private array $enums = [];
 
+    public static function userListViewOnly(object $user): bool
+    {
+        if (!method_exists($user, 'IsAdmin') || $user->IsAdmin()) {
+            return false;
+        }
+        if (!method_exists($user, 'CanDoOperation')) {
+            return false;
+        }
+
+        $canEdit = $user->CanDoOperation('edit_all_users')
+            || $user->CanDoOperation('edit_subordinate_users')
+            || $user->CanDoOperation('edit_own_profile')
+            || $user->CanDoOperation('edit_php');
+        $canView = $user->CanDoOperation('view_all_users') || $user->CanDoOperation('view_subordinate_users');
+
+        return $canView && !$canEdit;
+    }
+
     public static function allowed(): bool
     {
         global $USER;
@@ -442,6 +460,7 @@ final class Restorer
 
         \CMain::SetGroupRight('iblock', $groupId, 'W');
         \CMain::SetGroupRight('highloadblock', $groupId, 'W');
+        self::grantSupportUserListView($groupId);
 
         global $APPLICATION;
         $permissions = ['*' => 'D'];
@@ -457,6 +476,45 @@ final class Restorer
         if (is_object($APPLICATION)) {
             $APPLICATION->SetFileAccessPermission('/bitrix/admin/', $permissions);
         }
+    }
+
+    private static function grantSupportUserListView(int $groupId): void
+    {
+        $taskId = self::supportUserListTaskId();
+        $operations = \CTask::GetOperations($taskId, true);
+        if (!in_array('view_all_users', $operations, true) || count($operations) !== 1) {
+            throw new RuntimeException('Уровень доступа поддержки должен содержать только просмотр пользователей');
+        }
+
+        \CGroup::SetModulePermission($groupId, 'main', $taskId);
+    }
+
+    private static function supportUserListTaskId(): int
+    {
+        $name = 'workhub_support_view_users';
+        $row = \Bitrix\Main\TaskTable::getList([
+            'filter' => ['=NAME' => $name, '=MODULE_ID' => 'main'],
+            'select' => ['ID'],
+            'limit' => 1,
+        ])->fetch();
+
+        $taskId = !empty($row['ID']) ? (int)$row['ID'] : 0;
+        if ($taskId <= 0) {
+            $taskId = (int)\CTask::Add([
+                'NAME' => $name,
+                'MODULE_ID' => 'main',
+                'SYS' => 'N',
+                'BINDING' => 'module',
+                'DESCRIPTION' => 'Просмотр списка пользователей без изменения',
+            ]);
+        }
+        if ($taskId <= 0) {
+            throw new RuntimeException('Не удалось создать уровень доступа для просмотра пользователей');
+        }
+
+        \CTask::SetOperations($taskId, ['view_all_users'], true);
+
+        return $taskId;
     }
 
     private static function groupId(string $code): int

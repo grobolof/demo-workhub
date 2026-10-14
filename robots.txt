@@ -1,7 +1,6 @@
 User-agent: *
 Disallow: /bitrix/
 Disallow: /search/
-Allow: /search/map.php
 Disallow: /auth/
 Disallow: /auth.php
 Disallow: /*?print=
