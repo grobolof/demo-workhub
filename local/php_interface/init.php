@@ -66,6 +66,27 @@ $eventManager->addEventHandler('main', 'OnAdminListDisplay', static function ($l
 });
 
 $eventManager->addEventHandler('main', 'OnBuildGlobalMenu', static function (array &$globalMenu, array &$moduleMenu): void {
+    global $USER;
+    if (!is_object($USER) || $USER->CanDoOperation('install_updates')) {
+        return;
+    }
+
+    unset($globalMenu['global_menu_marketplace']);
+    foreach ($moduleMenu as $index => $item) {
+        if (!is_array($item)) {
+            continue;
+        }
+        if (($item['parent_menu'] ?? '') === 'global_menu_marketplace') {
+            unset($moduleMenu[$index]);
+            continue;
+        }
+        if (($item['items_id'] ?? '') === 'menu_iblock' && ($item['text'] ?? '') === 'Инфоблоки') {
+            unset($moduleMenu[$index]);
+        }
+    }
+});
+
+$eventManager->addEventHandler('main', 'OnBuildGlobalMenu', static function (array &$globalMenu, array &$moduleMenu): void {
     if (!\App\Demo\Restorer::allowed()) {
         return;
     }
