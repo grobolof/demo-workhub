@@ -25,6 +25,6 @@ final class ResponseController extends AbstractController
             $this->response->send($this->responses->add((int)($body['vacancyId'] ?? 0)));
         }
 
-        $this->response->send(['vacancies' => $this->responses->list()]);
+        $this->response->send($this->responses->list($this->request->queryInt('page', 1)));
     }
 }

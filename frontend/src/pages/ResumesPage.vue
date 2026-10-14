@@ -68,7 +68,6 @@ onMounted(() => {
     <template v-else>
       <div class="toolbar">
         <p>{{ visibleFavourites.length }} в избранном</p>
-        <router-link class="primary slim" to="/resume-search">Найти резюме</router-link>
       </div>
       <p v-if="visibleFavourites.length === 0" class="state">В избранном пока нет резюме. Отметьте резюме в поиске.</p>
       <div v-else class="list">
@@ -92,9 +91,8 @@ onMounted(() => {
   <p v-else-if="error" class="state error">{{ error }}</p>
   <template v-else>
   <div class="toolbar">
-    <p>{{ resumes.length }} из {{ limit }}</p>
+    <p>{{ resumes.length > 1 ? 'Оставьте одно резюме' : resumes.length === 0 ? 'Можно добавить одно резюме' : 'Ваше резюме' }}</p>
     <router-link v-if="resumes.length < limit" class="primary slim" to="/account/resumes/new">Добавить резюме</router-link>
-    <p v-else class="hint">Можно хранить не больше {{ limit }} резюме.</p>
   </div>
   <p v-if="resumes.length === 0" class="state">Резюме пока нет.</p>
 

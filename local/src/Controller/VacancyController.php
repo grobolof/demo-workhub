@@ -26,6 +26,15 @@ final class VacancyController extends AbstractController
             $this->request->query('q'),
             $this->request->query('city'),
             $this->request->queryInt('page', 1),
+            $this->request->query('sort'),
+        ));
+    }
+
+    public function suggest(): void
+    {
+        $this->response->send($this->jobBoard->suggest(
+            $this->request->query('q'),
+            $this->request->query('city'),
         ));
     }
 
@@ -64,6 +73,14 @@ final class VacancyController extends AbstractController
                 $body['salary'] ?? '',
                 (string)($body['workplace'] ?? ''),
                 (string)($body['schedule'] ?? ''),
+            ));
+        }
+
+        $applicant = $this->request->queryInt('applicant');
+        if ($applicant > 0) {
+            $this->response->send($this->managed->applicant(
+                $this->request->queryInt('vacancy'),
+                $applicant,
             ));
         }
 

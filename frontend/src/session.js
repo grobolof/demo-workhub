@@ -3,7 +3,10 @@ import {
   loadSession,
   postFavourite,
   postLogin,
+  postAvatar,
+  postCompanyLogo,
   postLogout,
+  postProfile,
   postRegister,
   postResponse,
   postResumeFavourite,
@@ -45,6 +48,22 @@ export async function login(body) {
 
 export async function logout() {
   applySession(await postLogout(session.sessid))
+}
+
+export async function updateProfile(body) {
+  applySession(await postProfile(body, session.sessid))
+}
+
+export async function updateAvatar(file) {
+  applySession(await postAvatar(file, session.sessid))
+}
+
+export async function updateCompany(body) {
+  applySession(await postProfile({ scope: 'company', ...body }, session.sessid))
+}
+
+export async function updateCompanyLogo(file) {
+  applySession(await postCompanyLogo(file, session.sessid))
 }
 
 export async function toggleFavourite(vacancyId) {

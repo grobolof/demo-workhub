@@ -8,6 +8,7 @@ use App\Exception\ApiException;
 use App\Highload\Link;
 use Bitrix\Main\GroupTable;
 use Bitrix\Main\UserTable;
+use CFile;
 use CUser;
 
 class AuthService
@@ -137,7 +138,102 @@ class AuthService
         return $this->payload();
     }
 
-    /** @return array{id: int, email: string, role: string, firstName: string, lastName: string, middleName: string, company: array{id: int, name: string, inn: string}|null}|null */
+    public function updateNames(string $lastName, string $firstName, string $middleName): array
+    {
+        $user = $this->current();
+        if ($user === null) {
+            throw new ApiException('Войдите в кабинет', 401);
+        }
+
+        $lastName = $this->personName($lastName, 'Фамилия', true);
+        $firstName = $this->personName($firstName, 'Имя', true);
+        $middleName = $this->personName($middleName, 'Отчество', false);
+
+        $editor = new CUser();
+        if (!$editor->Update($user['id'], [
+            'NAME' => $firstName,
+            'LAST_NAME' => $lastName,
+            'SECOND_NAME' => $middleName,
+        ])) {
+            throw new ApiException(ApiException::plain((string)$editor->LAST_ERROR));
+        }
+
+        return $this->payload();
+    }
+
+    /** @param array{name: string, type: string, tmp_name: string, error: int, size: int} $file */
+    public function saveAvatar(array $file): array
+    {
+        $user = $this->requireSeeker('Аватар доступен только соискателю');
+        $prepared = $this->avatarFile($file);
+        $prepared['MODULE_ID'] = 'main';
+        $prepared['old_file'] = $this->photoId($user['id']);
+
+        $editor = new CUser();
+        if (!$editor->Update($user['id'], ['PERSONAL_PHOTO' => $prepared])) {
+            throw new ApiException(ApiException::plain((string)$editor->LAST_ERROR));
+        }
+
+        return $this->payload();
+    }
+
+    public function removeAvatar(): array
+    {
+        $user = $this->requireSeeker('Аватар доступен только соискателю');
+        $photoId = $this->photoId($user['id']);
+        if ($photoId <= 0) {
+            return $this->payload();
+        }
+
+        $editor = new CUser();
+        if (!$editor->Update($user['id'], [
+            'PERSONAL_PHOTO' => [
+                'del' => 'Y',
+                'old_file' => $photoId,
+            ],
+        ])) {
+            throw new ApiException(ApiException::plain((string)$editor->LAST_ERROR));
+        }
+
+        return $this->payload();
+    }
+
+    public function updateCompany(string $name, string $inn, string $description): array
+    {
+        $user = $this->requireEmployer('Компанию может изменить только работодатель');
+        $name = $this->companyName($name);
+        $inn = $this->inn($inn);
+        $description = trim($description);
+        if ($description === '') {
+            throw new ApiException('Укажите описание компании');
+        }
+        if (mb_strlen($description) > 10000) {
+            throw new ApiException('Описание компании слишком длинное');
+        }
+
+        (new CompanyService())->update($user['id'], $name, $inn, $description);
+
+        return $this->payload();
+    }
+
+    /** @param array{name: string, type: string, tmp_name: string, error: int, size: int} $file */
+    public function saveCompanyLogo(array $file): array
+    {
+        $user = $this->requireEmployer('Картинку компании может загрузить только работодатель');
+        (new CompanyService())->savePicture($user['id'], $this->avatarFile($file));
+
+        return $this->payload();
+    }
+
+    public function removeCompanyLogo(): array
+    {
+        $user = $this->requireEmployer('Картинку компании может удалить только работодатель');
+        (new CompanyService())->removePicture($user['id']);
+
+        return $this->payload();
+    }
+
+    /** @return array{id: int, email: string, role: string, firstName: string, lastName: string, middleName: string, avatar: string|null, company: array{id: int, name: string, inn: string, description: string, logo: string|null}|null}|null */
     public function current(): ?array
     {
         global $USER;
@@ -153,8 +249,10 @@ class AuthService
 
         $row = UserTable::getRow([
             'filter' => ['=ID' => $id],
-            'select' => ['EMAIL', 'NAME', 'LAST_NAME', 'SECOND_NAME'],
+            'select' => ['EMAIL', 'NAME', 'LAST_NAME', 'SECOND_NAME', 'PERSONAL_PHOTO'],
         ]);
+        $photoId = (int)($row['PERSONAL_PHOTO'] ?? 0);
+        $avatar = $photoId > 0 ? (string)CFile::GetPath($photoId) : '';
 
         return [
             'id' => $id,
@@ -163,6 +261,7 @@ class AuthService
             'firstName' => trim((string)($row['NAME'] ?? '')),
             'lastName' => trim((string)($row['LAST_NAME'] ?? '')),
             'middleName' => trim((string)($row['SECOND_NAME'] ?? '')),
+            'avatar' => $avatar !== '' ? $avatar : null,
             'company' => $role === self::EMPLOYER ? (new CompanyService())->findByUser($id) : null,
         ];
     }
@@ -197,6 +296,47 @@ class AuthService
         }
 
         return $user;
+    }
+
+    /** @param array{name: string, type: string, tmp_name: string, error: int, size: int} $file
+     *  @return array{name: string, type: string, tmp_name: string, error: int, size: int}
+     */
+    private function avatarFile(array $file): array
+    {
+        if ($file['error'] === UPLOAD_ERR_NO_FILE || $file['tmp_name'] === '') {
+            throw new ApiException('Выберите изображение');
+        }
+        if ($file['error'] !== UPLOAD_ERR_OK || !is_uploaded_file($file['tmp_name'])) {
+            throw new ApiException('Не удалось загрузить изображение');
+        }
+        if ($file['size'] > 5 * 1024 * 1024) {
+            throw new ApiException('Изображение не должно быть больше 5 МБ');
+        }
+
+        $name = basename(str_replace('\\', '/', $file['name']));
+        $extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+        if (!in_array($extension, ['png', 'jpg', 'jpeg'], true)) {
+            throw new ApiException('Можно загрузить только PNG, JPG или JPEG');
+        }
+
+        $info = @getimagesize($file['tmp_name']);
+        if ($info === false || !in_array($info[2], [IMAGETYPE_JPEG, IMAGETYPE_PNG], true)) {
+            throw new ApiException('Можно загрузить только изображения PNG, JPG или JPEG');
+        }
+
+        $file['name'] = $name;
+
+        return $file;
+    }
+
+    private function photoId(int $userId): int
+    {
+        $row = UserTable::getRow([
+            'filter' => ['=ID' => $userId],
+            'select' => ['PERSONAL_PHOTO'],
+        ]);
+
+        return (int)($row['PERSONAL_PHOTO'] ?? 0);
     }
 
     private function email(string $email): string

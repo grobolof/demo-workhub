@@ -13,6 +13,15 @@ class JobBoardService
 {
     public const PAGE_SIZE = 10;
 
+    private const IBLOCK_TYPES = [
+        'banners' => 'system',
+        'resumes' => 'seekers',
+        'vacancies' => 'employers',
+        'positions' => 'employers',
+        'companies' => 'employers',
+        'cities' => 'employers',
+    ];
+
     /** @return list<array{id: int, name: string, code: string}> */
     public function cities(): array
     {
@@ -56,9 +65,29 @@ class JobBoardService
     public function stats(): array
     {
         return [
-            'resumes' => $this->countActive('resumes'),
-            'vacancies' => $this->countActive('vacancies'),
-            'companies' => $this->countActive('companies'),
+            'resumes' => $this->safeCount('resumes'),
+            'vacancies' => $this->safeCount('vacancies'),
+            'companies' => $this->safeCount('companies'),
+        ];
+    }
+
+    /** @return array{suggestions: list<string>} */
+    public function suggest(string $query, string $cityCode): array
+    {
+        $query = trim($query);
+        $cityCode = trim($cityCode);
+        if (mb_strlen($query) < 2) {
+            return ['suggestions' => []];
+        }
+
+        $cities = $this->loadCities($this->iblockId('cities'));
+        $cityId = $this->cityId($cities, $cityCode);
+        if ($cityCode !== '' && $cityId <= 0) {
+            return ['suggestions' => []];
+        }
+
+        return [
+            'suggestions' => VacancyIndex::suggest($query, $cityId > 0 ? $cityId : null),
         ];
     }
 
@@ -68,10 +97,11 @@ class JobBoardService
         return array_values($this->companies($this->iblockId('companies')));
     }
 
-    public function search(string $query, string $cityCode, int $page = 1): array
+    public function search(string $query, string $cityCode, int $page = 1, string $sort = ''): array
     {
         $page = max(1, $page);
         $limit = self::PAGE_SIZE;
+        $sort = in_array($sort, ['salary_asc', 'salary_desc'], true) ? $sort : '';
         $companies = $this->companies($this->iblockId('companies'));
         $cities = $this->loadCities($this->iblockId('cities'));
         $cityCode = trim($cityCode);
@@ -101,21 +131,33 @@ class JobBoardService
             if ($orderedIds === []) {
                 return $empty;
             }
-            $slice = array_slice($orderedIds, ($page - 1) * $limit, $limit);
-            $empty['total'] = count($orderedIds);
-            if ($slice === []) {
-                return $empty;
-            }
-            $filter['ID'] = $slice;
         }
 
         if ($cityId > 0) {
             $filter['PROPERTY_CITY'] = $cityId;
         }
 
+        if ($orderedIds === null && $sort !== '') {
+            $orderedIds = [];
+            $idRows = CIBlockElement::GetList(['ID' => 'DESC'], $filter, false, false, ['ID']);
+            while ($idRow = $idRows->Fetch()) {
+                $orderedIds[] = (int)$idRow['ID'];
+            }
+        }
+
+        if ($orderedIds !== null && $sort !== '') {
+            $orderedIds = $this->sortBySalary($orderedIds, $sort);
+        }
+
         $nav = false;
         if ($orderedIds !== null) {
             $total = count($orderedIds);
+            $slice = array_slice($orderedIds, ($page - 1) * $limit, $limit);
+            $empty['total'] = $total;
+            if ($slice === []) {
+                return $empty;
+            }
+            $filter['ID'] = $slice;
         } else {
             $total = $this->countFiltered($filter);
             $offset = ($page - 1) * $limit;
@@ -208,20 +250,19 @@ class JobBoardService
             ],
             false,
             false,
-            ['ID', 'NAME', 'CODE', 'PREVIEW_TEXT', 'DETAIL_TEXT', 'PREVIEW_PICTURE', 'DETAIL_PICTURE']
+            ['ID', 'NAME', 'CODE', 'DETAIL_TEXT', 'DETAIL_PICTURE']
         )->Fetch();
         if (!$row) {
             return null;
         }
 
-        $logoId = (int)$row['PREVIEW_PICTURE'] > 0 ? (int)$row['PREVIEW_PICTURE'] : (int)$row['DETAIL_PICTURE'];
+        $logoId = (int)$row['DETAIL_PICTURE'];
         $logo = $logoId > 0 ? (string)CFile::GetPath($logoId) : '';
         $company = [
             'id' => (int)$row['ID'],
             'name' => (string)$row['NAME'],
             'code' => (string)$row['CODE'],
             'logo' => $logo !== '' ? $logo : null,
-            'preview' => trim((string)$row['PREVIEW_TEXT']),
             'detail' => trim((string)$row['DETAIL_TEXT']),
         ];
 
@@ -285,7 +326,7 @@ class JobBoardService
         $codes = $code === 'vacancies' ? ['vacancies', 'positions'] : [$code];
         foreach ($codes as $item) {
             $row = \CIBlock::GetList([], [
-                'TYPE' => $item === 'banners' ? 'system' : 'employers',
+                'TYPE' => self::IBLOCK_TYPES[$item] ?? 'employers',
                 'CODE' => $item,
                 'CHECK_PERMISSIONS' => 'N',
             ])->Fetch();
@@ -295,6 +336,61 @@ class JobBoardService
         }
 
         throw new RuntimeException('Инфоблоки WorkHub ещё не созданы. Выполните миграции.');
+    }
+
+    private function safeCount(string $code): int
+    {
+        try {
+            return $this->countActive($code);
+        } catch (\Throwable) {
+            return 0;
+        }
+    }
+
+    /** @param list<int> $ids
+     *  @return list<int>
+     */
+    private function sortBySalary(array $ids, string $sort): array
+    {
+        $ids = array_values(array_map(static fn (mixed $id): int => (int)$id, $ids));
+        if ($ids === []) {
+            return [];
+        }
+
+        $salaries = [];
+        $rows = CIBlockElement::GetList(
+            [],
+            [
+                'IBLOCK_ID' => $this->iblockId('vacancies'),
+                'ID' => $ids,
+                'CHECK_PERMISSIONS' => 'N',
+            ],
+            false,
+            false,
+            ['ID', 'PROPERTY_SALARY_FROM', 'PROPERTY_SALARY_TO']
+        );
+        while ($row = $rows->Fetch()) {
+            $id = (int)$row['ID'];
+            if (isset($salaries[$id])) {
+                continue;
+            }
+            $value = $row['PROPERTY_SALARY_FROM_VALUE'] ?? null;
+            if ($value === null || $value === '' || $value === false) {
+                $value = $row['PROPERTY_SALARY_TO_VALUE'] ?? 0;
+            }
+            $salaries[$id] = is_numeric($value) ? (int)$value : 0;
+        }
+
+        usort($ids, static function (int $left, int $right) use ($salaries, $sort): int {
+            $cmp = ($salaries[$left] ?? 0) <=> ($salaries[$right] ?? 0);
+            if ($sort === 'salary_desc') {
+                $cmp = -$cmp;
+            }
+
+            return $cmp !== 0 ? $cmp : ($right <=> $left);
+        });
+
+        return $ids;
     }
 
     /** @param list<array{id: int, name: string, code: string, sort: int}> $cities */
@@ -321,10 +417,7 @@ class JobBoardService
      */
     private function collect(array $filter, array $companies, array $cities, bool $withDetail, array|false $nav = false): array
     {
-        $select = ['ID', 'IBLOCK_ID', 'NAME', 'CODE', 'PREVIEW_TEXT', 'SORT'];
-        if ($withDetail) {
-            $select[] = 'DETAIL_TEXT';
-        }
+        $select = ['ID', 'IBLOCK_ID', 'NAME', 'CODE', 'DETAIL_TEXT', 'SORT'];
 
         $vacancies = [];
         $rows = CIBlockElement::GetList(
@@ -359,7 +452,7 @@ class JobBoardService
                 'id' => (int)$fields['ID'],
                 'name' => (string)$fields['NAME'],
                 'code' => (string)$fields['CODE'],
-                'preview' => trim((string)$fields['PREVIEW_TEXT']),
+                'preview' => trim((string)($fields['DETAIL_TEXT'] ?? '')),
                 'salaryFrom' => self::money($props['SALARY_FROM']['VALUE'] ?? null),
                 'salaryTo' => self::money($props['SALARY_TO']['VALUE'] ?? null),
                 'workplace' => self::label($props['WORKPLACE']['VALUE'] ?? null),
@@ -431,12 +524,12 @@ class JobBoardService
             ['IBLOCK_ID' => $iblockId, 'ACTIVE' => 'Y', 'CHECK_PERMISSIONS' => 'N'],
             false,
             false,
-            ['ID', 'NAME', 'CODE', 'PREVIEW_PICTURE']
+            ['ID', 'NAME', 'CODE', 'DETAIL_PICTURE']
         );
         while ($row = $rows->Fetch()) {
             $logo = '';
-            if ((int)$row['PREVIEW_PICTURE'] > 0) {
-                $logo = (string)CFile::GetPath((int)$row['PREVIEW_PICTURE']);
+            if ((int)$row['DETAIL_PICTURE'] > 0) {
+                $logo = (string)CFile::GetPath((int)$row['DETAIL_PICTURE']);
             }
             $companies[(int)$row['ID']] = [
                 'id' => (int)$row['ID'],

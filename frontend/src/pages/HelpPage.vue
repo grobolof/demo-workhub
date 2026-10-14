@@ -114,19 +114,21 @@ async function submit() {
       <div class="prose">Выберите город в шапке и введите название вакансии. Список на главной подгружается по мере прокрутки.
 
 Войти в кабинет можно кнопкой «Войти». Соискателю доступны резюме, избранное и отклики. Работодатель может смотреть резюме в разделе «Поиск резюме».</div>
+    </article>
 
+    <article class="sheet">
       <h2>Заявка</h2>
       <form @submit.prevent="submit">
         <label class="field">
-          <span>Email</span>
+          <span>Email<span class="req" aria-hidden="true">*</span></span>
           <input v-model="email" type="email" autocomplete="email" required />
         </label>
         <label class="field">
-          <span>Тема</span>
+          <span>Тема<span class="req" aria-hidden="true">*</span></span>
           <input v-model="subject" type="text" maxlength="255" required />
         </label>
         <label class="field">
-          <span>Сообщение</span>
+          <span>Сообщение<span class="req" aria-hidden="true">*</span></span>
           <textarea v-model="message" required />
         </label>
         <div class="field">

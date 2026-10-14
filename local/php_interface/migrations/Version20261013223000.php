@@ -37,8 +37,8 @@ class Version20261013223000 extends Version
         ]);
         Option::set('main', 'new_user_email_uniq_check', 'Y');
 
-        $this->linkBlock($helper, 'Favourites', 'favourites', 'favourites');
-        $this->linkBlock($helper, 'Responses', 'responses', 'responses');
+        $this->linkBlock($helper, 'Favourites', 'favourites', 'Избранные вакансии');
+        $this->linkBlock($helper, 'Responses', 'responses', 'Отклики');
 
         $resumesId = $helper->Iblock()->saveIblock([
             'IBLOCK_TYPE_ID' => 'workhub',

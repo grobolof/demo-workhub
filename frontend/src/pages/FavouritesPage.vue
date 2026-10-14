@@ -1,32 +1,48 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { watch } from 'vue'
 import VacancyCard from '../components/VacancyCard.vue'
 import { loadFavourites } from '../api'
+import { useInfiniteList } from '../infiniteList'
 import { session } from '../session'
 
-const vacancies = ref([])
-const loading = ref(true)
-const error = ref('')
-const visible = computed(() => vacancies.value.filter((item) => session.favouriteIds.includes(item.id)))
+const { items, total, initialLoading, loadingMore, error, moreError, drop } = useInfiniteList(
+  loadFavourites,
+  {
+    failure: 'Не удалось загрузить избранное',
+    keep: (item) => session.favouriteIds.includes(item.id),
+  },
+)
 
-onMounted(async () => {
-  document.title = 'Избранное — WorkHub'
-  try {
-    const payload = await loadFavourites()
-    vacancies.value = payload.vacancies || []
-  } catch (exception) {
-    error.value = exception.message || 'Не удалось загрузить избранное'
-  } finally {
-    loading.value = false
-  }
+watch(() => session.favouriteIds.slice(), (ids, previous) => {
+  if (!previous) return
+  const next = new Set(ids)
+  drop(previous.filter((id) => !next.has(id)))
 })
+
+document.title = 'Избранное — WorkHub'
 </script>
 
 <template>
-  <p v-if="loading" class="state">Загружаем избранное…</p>
-  <p v-else-if="error" class="state error">{{ error }}</p>
-  <p v-else-if="visible.length === 0" class="state">В избранном пока пусто. Нажмите на сердечко у вакансии.</p>
-  <div v-else class="list">
-    <VacancyCard v-for="vacancy in visible" :key="vacancy.id" :vacancy="vacancy" />
+  <div v-if="!initialLoading && !error" class="toolbar">
+    <p>{{ items.length }} из {{ total }}</p>
   </div>
+
+  <p v-if="error" class="state error">{{ error }}</p>
+
+  <div v-else-if="initialLoading" class="preloader preloader-block" role="status">
+    <span class="spinner" aria-hidden="true" />
+    <span>Загружаем избранное</span>
+  </div>
+
+  <p v-else-if="items.length === 0" class="state">В избранном пока пусто. Нажмите на сердечко у вакансии.</p>
+
+  <div v-else class="list">
+    <VacancyCard v-for="vacancy in items" :key="vacancy.id" :vacancy="vacancy" />
+  </div>
+
+  <div v-if="loadingMore" class="preloader" role="status">
+    <span class="spinner" aria-hidden="true" />
+    <span>Загружаем избранное</span>
+  </div>
+  <p v-if="moreError" class="state error">{{ moreError }}</p>
 </template>

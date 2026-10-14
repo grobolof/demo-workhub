@@ -67,41 +67,10 @@ class VacancyIndex
 
         self::ensureReady();
 
-        $must = [
-            'bool' => [
-                'should' => [
-                    [
-                        'match' => [
-                            'name' => [
-                                'query' => $query,
-                                'operator' => 'and',
-                            ],
-                        ],
-                    ],
-                    [
-                        'match' => [
-                            'name.prefix' => [
-                                'query' => $query,
-                                'operator' => 'and',
-                            ],
-                        ],
-                    ],
-                ],
-                'minimum_should_match' => 1,
-            ],
-        ];
-
-        $bool = ['must' => [$must]];
-        if ($cityId !== null && $cityId > 0) {
-            $bool['filter'] = [
-                ['term' => ['city_ids' => $cityId]],
-            ];
-        }
-
         $response = self::client()->request('POST', '/' . self::INDEX . '/_search', [
             'size' => 200,
             '_source' => false,
-            'query' => ['bool' => $bool],
+            'query' => self::textQuery($query, $cityId),
         ]);
 
         $ids = [];
@@ -113,6 +82,41 @@ class VacancyIndex
         }
 
         return $ids;
+    }
+
+    /** @return list<string> */
+    public static function suggest(string $query, ?int $cityId): array
+    {
+        $query = trim($query);
+        if (mb_strlen($query) < 2) {
+            return [];
+        }
+
+        self::ensureReady();
+
+        $response = self::client()->request('POST', '/' . self::INDEX . '/_search', [
+            'size' => 40,
+            '_source' => ['name'],
+            'query' => self::textQuery($query, $cityId),
+        ]);
+
+        $names = [];
+        $seen = [];
+        $typed = mb_strtolower($query);
+        foreach ($response['body']['hits']['hits'] ?? [] as $hit) {
+            $name = trim((string)($hit['_source']['name'] ?? ''));
+            $key = mb_strtolower($name);
+            if ($name === '' || $key === $typed || isset($seen[$key])) {
+                continue;
+            }
+            $seen[$key] = true;
+            $names[] = $name;
+            if (count($names) >= 8) {
+                break;
+            }
+        }
+
+        return $names;
     }
 
     public static function sync(int $elementId): void
@@ -152,6 +156,12 @@ class VacancyIndex
     private static function ensureReady(): void
     {
         self::ensureIndex();
+        if (!self::hasPlainAnalyzer()) {
+            self::rebuild();
+
+            return;
+        }
+
         $count = self::client()->request('GET', '/' . self::INDEX . '/_count');
         if ((int)($count['body']['count'] ?? 0) > 0) {
             return;
@@ -161,6 +171,64 @@ class VacancyIndex
         if ($documents !== []) {
             self::bulk($documents);
         }
+    }
+
+    private static function hasPlainAnalyzer(): bool
+    {
+        $response = self::client()->request('GET', '/' . self::INDEX . '/_settings');
+        $settings = $response['body'][self::INDEX]['settings'] ?? [];
+        $analyzers = $settings['index']['analysis']['analyzer']
+            ?? $settings['analysis']['analyzer']
+            ?? [];
+
+        return isset($analyzers['russian_plain']);
+    }
+
+    /** @return array<string, mixed> */
+    private static function textQuery(string $query, ?int $cityId): array
+    {
+        $must = [
+            'bool' => [
+                'should' => [
+                    [
+                        'match' => [
+                            'name.plain' => [
+                                'query' => $query,
+                                'fuzziness' => 'AUTO',
+                                'prefix_length' => 1,
+                                'operator' => 'and',
+                            ],
+                        ],
+                    ],
+                    [
+                        'match' => [
+                            'name' => [
+                                'query' => $query,
+                                'operator' => 'and',
+                            ],
+                        ],
+                    ],
+                    [
+                        'match' => [
+                            'name.prefix' => [
+                                'query' => $query,
+                                'operator' => 'and',
+                            ],
+                        ],
+                    ],
+                ],
+                'minimum_should_match' => 1,
+            ],
+        ];
+
+        $bool = ['must' => [$must]];
+        if ($cityId !== null && $cityId > 0) {
+            $bool['filter'] = [
+                ['term' => ['city_ids' => $cityId]],
+            ];
+        }
+
+        return ['bool' => $bool];
     }
 
     private static function ensureIndex(): void
@@ -343,6 +411,10 @@ class VacancyIndex
                         ],
                     ],
                     'analyzer' => [
+                        'russian_plain' => [
+                            'tokenizer' => 'standard',
+                            'filter' => ['lowercase'],
+                        ],
                         'russian_prefix' => [
                             'tokenizer' => 'standard',
                             'filter' => ['lowercase', 'russian_edge'],
@@ -360,6 +432,10 @@ class VacancyIndex
                         'type' => 'text',
                         'analyzer' => 'russian',
                         'fields' => [
+                            'plain' => [
+                                'type' => 'text',
+                                'analyzer' => 'russian_plain',
+                            ],
                             'prefix' => [
                                 'type' => 'text',
                                 'analyzer' => 'russian_prefix',

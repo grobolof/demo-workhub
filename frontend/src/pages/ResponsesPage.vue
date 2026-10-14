@@ -1,30 +1,36 @@
 <script setup>
-import { onMounted, ref } from 'vue'
 import VacancyCard from '../components/VacancyCard.vue'
 import { loadResponses } from '../api'
+import { useInfiniteList } from '../infiniteList'
 
-const vacancies = ref([])
-const loading = ref(true)
-const error = ref('')
-
-onMounted(async () => {
-  document.title = 'Отклики — WorkHub'
-  try {
-    const payload = await loadResponses()
-    vacancies.value = payload.vacancies || []
-  } catch (exception) {
-    error.value = exception.message || 'Не удалось загрузить отклики'
-  } finally {
-    loading.value = false
-  }
+const { items, total, initialLoading, loadingMore, error, moreError } = useInfiniteList(loadResponses, {
+  failure: 'Не удалось загрузить отклики',
 })
+
+document.title = 'Отклики — WorkHub'
 </script>
 
 <template>
-  <p v-if="loading" class="state">Загружаем отклики…</p>
-  <p v-else-if="error" class="state error">{{ error }}</p>
-  <p v-else-if="vacancies.length === 0" class="state">Вы ещё не откликались на вакансии.</p>
-  <div v-else class="list">
-    <VacancyCard v-for="vacancy in vacancies" :key="vacancy.id" :vacancy="vacancy" />
+  <div v-if="!initialLoading && !error" class="toolbar">
+    <p>{{ items.length }} из {{ total }}</p>
   </div>
+
+  <p v-if="error" class="state error">{{ error }}</p>
+
+  <div v-else-if="initialLoading" class="preloader preloader-block" role="status">
+    <span class="spinner" aria-hidden="true" />
+    <span>Загружаем отклики</span>
+  </div>
+
+  <p v-else-if="items.length === 0" class="state">Вы ещё не откликались на вакансии.</p>
+
+  <div v-else class="list">
+    <VacancyCard v-for="vacancy in items" :key="vacancy.id" :vacancy="vacancy" />
+  </div>
+
+  <div v-if="loadingMore" class="preloader" role="status">
+    <span class="spinner" aria-hidden="true" />
+    <span>Загружаем отклики</span>
+  </div>
+  <p v-if="moreError" class="state error">{{ moreError }}</p>
 </template>

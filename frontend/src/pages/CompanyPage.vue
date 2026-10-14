@@ -61,7 +61,6 @@ watch(() => route.params.id, (id) => load(id), { immediate: true })
         </div>
         <div>
           <h1>{{ company.name }}</h1>
-          <p v-if="company.preview" class="lead">{{ company.preview }}</p>
         </div>
       </article>
 

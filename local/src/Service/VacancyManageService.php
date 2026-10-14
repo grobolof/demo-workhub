@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Exception\ApiException;
+use App\Highload\Link;
+use Bitrix\Main\UserTable;
 use CIBlock;
 use CIBlockElement;
 use CIBlockProperty;
 use CIBlockPropertyEnum;
+use CFile;
 
 class VacancyManageService
 {
@@ -31,8 +34,10 @@ class VacancyManageService
     /** @var array<string, int> */
     private array $enums = [];
 
-    public function __construct(private readonly AuthService $auth)
-    {
+    public function __construct(
+        private readonly AuthService $auth,
+        private readonly ResumeService $resumes,
+    ) {
     }
 
     /** @return array{vacancies: list<array<string, mixed>>} */
@@ -47,8 +52,48 @@ class VacancyManageService
     public function one(int $id): array
     {
         $company = $this->company();
+        $vacancy = $this->owned($company['id'], $id);
+        $vacancy['applicants'] = $this->applicants($id);
 
-        return ['vacancy' => $this->owned($company['id'], $id)];
+        return ['vacancy' => $vacancy];
+    }
+
+    /** @return array{applicant: array<string, mixed>} */
+    public function applicant(int $vacancyId, int $userId): array
+    {
+        $company = $this->company();
+        $this->owned($company['id'], $vacancyId);
+        if ($userId <= 0 || !in_array($userId, (new Link(ResponseService::BLOCK))->userIds($vacancyId), true)) {
+            throw new ApiException('Отклик не найден', 404);
+        }
+
+        $row = UserTable::getRow([
+            'filter' => ['=ID' => $userId],
+            'select' => ['ID', 'NAME', 'LAST_NAME', 'SECOND_NAME', 'EMAIL', 'PERSONAL_PHONE', 'PERSONAL_MOBILE', 'PERSONAL_PHOTO'],
+        ]);
+        if (!$row) {
+            throw new ApiException('Соискатель не найден', 404);
+        }
+
+        $phone = trim((string)($row['PERSONAL_PHONE'] ?? ''));
+        if ($phone === '') {
+            $phone = trim((string)($row['PERSONAL_MOBILE'] ?? ''));
+        }
+        $photoId = (int)($row['PERSONAL_PHOTO'] ?? 0);
+        $avatar = $photoId > 0 ? (string)CFile::GetPath($photoId) : '';
+
+        return [
+            'applicant' => [
+                'id' => $userId,
+                'firstName' => trim((string)$row['NAME']),
+                'lastName' => trim((string)$row['LAST_NAME']),
+                'middleName' => trim((string)$row['SECOND_NAME']),
+                'email' => (string)$row['EMAIL'],
+                'phone' => $phone,
+                'avatar' => $avatar !== '' ? $avatar : null,
+                'resume' => $this->resumes->latestForUser($userId),
+            ],
+        ];
     }
 
     /** @return array{vacancy: array<string, mixed>} */
@@ -62,8 +107,6 @@ class VacancyManageService
             'IBLOCK_ID' => $this->iblockId(),
             'NAME' => $values['title'],
             'ACTIVE' => 'Y',
-            'PREVIEW_TEXT' => $values['preview'],
-            'PREVIEW_TEXT_TYPE' => 'text',
             'DETAIL_TEXT' => $values['description'],
             'DETAIL_TEXT_TYPE' => 'text',
             'PROPERTY_VALUES' => [
@@ -91,8 +134,6 @@ class VacancyManageService
         $element = new CIBlockElement();
         $saved = $element->Update($id, [
             'NAME' => $values['title'],
-            'PREVIEW_TEXT' => $values['preview'],
-            'PREVIEW_TEXT_TYPE' => 'text',
             'DETAIL_TEXT' => $values['description'],
             'DETAIL_TEXT_TYPE' => 'text',
         ]);
@@ -133,7 +174,7 @@ class VacancyManageService
         return $company;
     }
 
-    /** @return array{title: string, description: string, preview: string, salary: int, workplace: string, schedule: string} */
+    /** @return array{title: string, description: string, salary: int, workplace: string, schedule: string} */
     private function values(string $title, string $description, mixed $salary, string $workplace, string $schedule): array
     {
         $title = trim($title);
@@ -163,15 +204,9 @@ class VacancyManageService
             throw new ApiException('Укажите заработную плату числом');
         }
 
-        $preview = $description;
-        if (mb_strlen($preview) > 300) {
-            $preview = rtrim(mb_substr($preview, 0, 300)) . '…';
-        }
-
         return [
             'title' => $title,
             'description' => $description,
-            'preview' => $preview,
             'salary' => (int)$number,
             'workplace' => $workplace,
             'schedule' => $schedule,
@@ -231,10 +266,138 @@ class VacancyManageService
                 'workplaceLabel' => self::WORKPLACES[$workplace] ?? (string)($props['WORKPLACE']['VALUE'] ?? ''),
                 'schedule' => $schedule,
                 'scheduleLabel' => self::SCHEDULES[$schedule] ?? (string)($props['SCHEDULE']['VALUE'] ?? ''),
+                'cityIds' => self::cityIds($props['CITY']['VALUE'] ?? null),
             ];
         }
 
+        $counts = (new Link(ResponseService::BLOCK))->counts(array_column($items, 'id'));
+        $cities = $this->cityNames($items);
+        foreach ($items as $index => $item) {
+            $linked = [];
+            foreach ($item['cityIds'] as $cityId) {
+                if (isset($cities[$cityId])) {
+                    $linked[] = $cities[$cityId];
+                }
+            }
+            $items[$index]['cities'] = $linked;
+            $items[$index]['responses'] = $counts[$item['id']] ?? 0;
+            unset($items[$index]['cityIds']);
+        }
+
         return $items;
+    }
+
+    /** @return list<int> */
+    private static function cityIds(mixed $value): array
+    {
+        if (!is_array($value)) {
+            $value = ($value === null || $value === '' || $value === false) ? [] : [$value];
+        }
+
+        $ids = [];
+        foreach ($value as $id) {
+            $id = (int)$id;
+            if ($id > 0) {
+                $ids[] = $id;
+            }
+        }
+
+        return $ids;
+    }
+
+    /**
+     * @param list<array<string, mixed>> $items
+     * @return array<int, array{id: int, code: string, name: string}>
+     */
+    private function cityNames(array $items): array
+    {
+        $ids = [];
+        foreach ($items as $item) {
+            foreach ($item['cityIds'] as $id) {
+                $ids[$id] = $id;
+            }
+        }
+        if ($ids === []) {
+            return [];
+        }
+
+        $cities = [];
+        $rows = CIBlockElement::GetList(
+            [],
+            ['ID' => array_values($ids), 'CHECK_PERMISSIONS' => 'N'],
+            false,
+            false,
+            ['ID', 'NAME', 'CODE']
+        );
+        while ($row = $rows->Fetch()) {
+            $cities[(int)$row['ID']] = [
+                'id' => (int)$row['ID'],
+                'code' => (string)$row['CODE'],
+                'name' => (string)$row['NAME'],
+            ];
+        }
+
+        return $cities;
+    }
+
+    /** @return list<array{id: int, name: string, email: string, avatar: string|null, resumeId: int, resumeTitle: string, respondedAt: string}> */
+    private function applicants(int $vacancyId): array
+    {
+        $responses = (new Link(ResponseService::BLOCK))->responders($vacancyId);
+        if ($responses === []) {
+            return [];
+        }
+
+        $userIds = array_column($responses, 'userId');
+        $resumeTitles = $this->resumes->titlesByUsers($userIds);
+
+        $rows = [];
+        $result = UserTable::getList([
+            'filter' => ['=ID' => $userIds],
+            'select' => ['ID', 'NAME', 'LAST_NAME', 'SECOND_NAME', 'EMAIL', 'PERSONAL_PHOTO'],
+        ]);
+        while ($row = $result->fetch()) {
+            $rows[(int)$row['ID']] = $row;
+        }
+
+        $people = [];
+        foreach ($responses as $response) {
+            $userId = $response['userId'];
+            $row = $rows[$userId] ?? null;
+            $resume = $resumeTitles[$userId] ?? null;
+            if ($row === null) {
+                $people[] = [
+                    'id' => $userId,
+                    'name' => 'Пользователь',
+                    'email' => '',
+                    'avatar' => null,
+                    'resumeId' => (int)($resume['id'] ?? 0),
+                    'resumeTitle' => (string)($resume['title'] ?? ''),
+                    'respondedAt' => $response['respondedAt'],
+                ];
+                continue;
+            }
+
+            $name = trim(implode(' ', array_filter([
+                trim((string)$row['LAST_NAME']),
+                trim((string)$row['NAME']),
+                trim((string)$row['SECOND_NAME']),
+            ], static fn (string $part): bool => $part !== '')));
+            $photoId = (int)($row['PERSONAL_PHOTO'] ?? 0);
+            $avatar = $photoId > 0 ? (string)CFile::GetPath($photoId) : '';
+            $email = (string)$row['EMAIL'];
+            $people[] = [
+                'id' => $userId,
+                'name' => $name !== '' ? $name : $email,
+                'email' => $email,
+                'avatar' => $avatar !== '' ? $avatar : null,
+                'resumeId' => (int)($resume['id'] ?? 0),
+                'resumeTitle' => (string)($resume['title'] ?? ''),
+                'respondedAt' => $response['respondedAt'],
+            ];
+        }
+
+        return $people;
     }
 
     private function enumId(string $propertyCode, string $xmlId): int

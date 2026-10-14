@@ -29,8 +29,7 @@ function destination() {
     return value
   }
 
-  if (session.user?.role === 'employer') return '/account/vacancies'
-  if (session.user?.role === 'seeker') return '/account/favourites'
+  if (session.user) return '/account'
   return '/'
 }
 
@@ -119,11 +118,11 @@ async function submit() {
 
       <template v-if="isRegister">
         <label class="field">
-          <span>Фамилия</span>
+          <span>Фамилия<span class="req" aria-hidden="true">*</span></span>
           <input v-model="lastName" type="text" autocomplete="family-name" maxlength="50" required />
         </label>
         <label class="field">
-          <span>Имя</span>
+          <span>Имя<span class="req" aria-hidden="true">*</span></span>
           <input v-model="firstName" type="text" autocomplete="given-name" maxlength="50" required />
         </label>
         <label class="field">
@@ -134,23 +133,23 @@ async function submit() {
       </template>
 
       <label class="field">
-        <span>Почта</span>
+        <span>Почта<span class="req" aria-hidden="true">*</span></span>
         <input v-model="email" type="email" autocomplete="email" required />
       </label>
 
       <template v-if="isRegister && role === 'employer'">
         <label class="field">
-          <span>Название компании</span>
+          <span>Название компании<span class="req" aria-hidden="true">*</span></span>
           <input v-model="companyName" type="text" autocomplete="organization" maxlength="255" required />
         </label>
         <label class="field">
-          <span>ИНН</span>
+          <span>ИНН<span class="req" aria-hidden="true">*</span></span>
           <input v-model="inn" type="text" inputmode="numeric" autocomplete="off" maxlength="12" required />
         </label>
       </template>
 
       <label class="field">
-        <span>Пароль</span>
+        <span>Пароль<span class="req" aria-hidden="true">*</span></span>
         <input
           v-model="password"
           type="password"
@@ -161,7 +160,7 @@ async function submit() {
       </label>
 
       <label v-if="isRegister" class="field">
-        <span>Подтверждение пароля</span>
+        <span>Подтверждение пароля<span class="req" aria-hidden="true">*</span></span>
         <input v-model="passwordConfirm" type="password" autocomplete="new-password" required />
       </label>
 

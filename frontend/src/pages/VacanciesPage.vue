@@ -2,7 +2,8 @@
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { loadMyVacancies, saveVacancy } from '../api'
-import { formatMoney } from '../format'
+import VacancyFacts from '../components/VacancyFacts.vue'
+import { formatMoney, responseCount } from '../format'
 import { session } from '../session'
 
 const router = useRouter()
@@ -52,17 +53,21 @@ onMounted(() => {
 
     <div v-else class="list">
       <article v-for="vacancy in vacancies" :key="vacancy.id" class="resume">
-        <div class="resume-top">
-          <h2>{{ vacancy.title }}</h2>
-          <p class="salary">{{ formatMoney(vacancy.salary) }}</p>
-        </div>
-        <ul v-if="vacancy.workplaceLabel || vacancy.scheduleLabel" class="places">
-          <li v-if="vacancy.workplaceLabel">{{ vacancy.workplaceLabel }}</li>
-          <li v-if="vacancy.scheduleLabel">{{ vacancy.scheduleLabel }}</li>
-        </ul>
-        <p class="preview">{{ vacancy.description }}</p>
+        <router-link class="resume-hit" :to="`/account/vacancies/${vacancy.id}`">
+          <div class="resume-top">
+            <h2>{{ vacancy.title }}</h2>
+            <p class="salary">{{ formatMoney(vacancy.salary) }}</p>
+          </div>
+          <VacancyFacts
+            :schedule="vacancy.scheduleLabel"
+            :workplace="vacancy.workplaceLabel"
+            :cities="vacancy.cities || []"
+          />
+          <p class="preview">{{ vacancy.description }}</p>
+          <p class="responses-count">{{ responseCount(vacancy.responses || 0) }}</p>
+        </router-link>
         <div class="resume-actions">
-          <button class="ghost" type="button" @click="router.push(`/account/vacancies/${vacancy.id}`)">Изменить</button>
+          <button class="ghost" type="button" @click="router.push(`/account/vacancies/${vacancy.id}/edit`)">Изменить</button>
           <button class="danger" type="button" @click="remove(vacancy)">Удалить</button>
         </div>
       </article>

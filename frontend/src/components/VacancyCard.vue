@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import FavouriteButton from './FavouriteButton.vue'
 import VacancyActions from './VacancyActions.vue'
+import VacancyFacts from './VacancyFacts.vue'
 import { formatSalary } from '../format'
 
 const props = defineProps({
@@ -43,11 +44,11 @@ const extra = computed(() => (
         <router-link v-if="extra" class="vacancy-extra" :to="`/vacancy/${vacancy.id}`">
           <p v-if="showCompany && vacancy.company" class="company">{{ vacancy.company.name }}</p>
           <p v-if="vacancy.preview" class="preview">{{ vacancy.preview }}</p>
-          <ul v-if="vacancy.workplace || vacancy.schedule || vacancy.cities?.length" class="places">
-            <li v-if="vacancy.workplace">{{ vacancy.workplace }}</li>
-            <li v-if="vacancy.schedule">{{ vacancy.schedule }}</li>
-            <li v-for="place in vacancy.cities" :key="place.code">{{ place.name }}</li>
-          </ul>
+          <VacancyFacts
+            :schedule="vacancy.schedule"
+            :workplace="vacancy.workplace"
+            :cities="vacancy.cities || []"
+          />
         </router-link>
       </div>
     </div>

@@ -2,10 +2,8 @@
 import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import BannerCarousel from '../components/BannerCarousel.vue'
 import VacancyCard from '../components/VacancyCard.vue'
-import { loadBanners, loadVacancies } from '../api'
-import { cityPhrase, vacancyCount } from '../format'
-
-const SUGGESTIONS = ['Курьер', 'Водитель', 'Продавец', 'Программист', 'Повар', 'Бухгалтер', 'Кладовщик', 'Менеджер']
+import { loadBanners, loadVacancies, loadVacancySuggestions } from '../api'
+import { cityPhrase, vacancyProgress } from '../format'
 
 const cityCode = inject('cityCode', ref(''))
 const cities = ref([])
@@ -16,7 +14,11 @@ const banners = ref([])
 const stats = ref(null)
 const bannersLoading = ref(true)
 const query = ref('')
+const sort = ref('')
 const draft = ref('')
+const suggestions = ref([])
+const suggestOpen = ref(false)
+const activeSuggestion = ref(-1)
 const initialLoading = ref(true)
 const refreshing = ref(false)
 const loadingMore = ref(false)
@@ -40,7 +42,7 @@ async function refresh() {
   page.value = 1
   refreshing.value = true
   try {
-    const payload = await loadVacancies({ q: query.value, city: cityCode.value, page: 1 })
+    const payload = await loadVacancies({ q: query.value, city: cityCode.value, page: 1, sort: sort.value })
     if (current !== requestId) return
     cities.value = payload.cities || []
     vacancies.value = payload.vacancies || []
@@ -65,7 +67,7 @@ async function loadMore() {
   loadingMore.value = true
   moreError.value = ''
   try {
-    const payload = await loadVacancies({ q: query.value, city: cityCode.value, page: nextPage })
+    const payload = await loadVacancies({ q: query.value, city: cityCode.value, page: nextPage, sort: sort.value })
     if (current !== requestId) return
     const seen = new Set(vacancies.value.map((item) => item.id))
     let added = 0
@@ -95,6 +97,7 @@ function maybeLoadMore() {
 }
 
 let timer = 0
+let suggestRequest = 0
 
 function flushSearch() {
   window.clearTimeout(timer)
@@ -104,19 +107,78 @@ function flushSearch() {
   refresh()
 }
 
-watch(draft, () => {
+async function loadSuggestions(value) {
+  const current = ++suggestRequest
+  const text = value.trim()
+  if (text.length < 2) {
+    suggestions.value = []
+    suggestOpen.value = false
+    activeSuggestion.value = -1
+    return
+  }
+
+  try {
+    const payload = await loadVacancySuggestions({ q: text, city: cityCode.value })
+    if (current !== suggestRequest) return
+    const typed = text.toLocaleLowerCase('ru')
+    suggestions.value = (payload.suggestions || []).filter((item) => item.toLocaleLowerCase('ru') !== typed)
+    suggestOpen.value = suggestions.value.length > 0
+    activeSuggestion.value = -1
+  } catch {
+    if (current !== suggestRequest) return
+    suggestions.value = []
+    suggestOpen.value = false
+  }
+}
+
+watch(draft, (value) => {
+  if (!value.trim()) {
+    suggestions.value = []
+    suggestOpen.value = false
+  }
   window.clearTimeout(timer)
-  timer = window.setTimeout(flushSearch, 300)
+  timer = window.setTimeout(() => {
+    flushSearch()
+    loadSuggestions(draft.value)
+  }, 300)
 })
 
 function applySuggestion(value) {
   draft.value = value
+  suggestOpen.value = false
+  suggestions.value = []
   flushSearch()
 }
+
+function onSuggestBlur(event) {
+  if (event.currentTarget.contains(event.relatedTarget)) return
+  suggestOpen.value = false
+}
+
+function onSearchKeydown(event) {
+  if (event.key === 'Escape') {
+    suggestOpen.value = false
+    return
+  }
+  if (!suggestOpen.value || suggestions.value.length === 0) return
+  if (event.key === 'ArrowDown') {
+    event.preventDefault()
+    activeSuggestion.value = (activeSuggestion.value + 1) % suggestions.value.length
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault()
+    activeSuggestion.value = (activeSuggestion.value - 1 + suggestions.value.length) % suggestions.value.length
+  } else if (event.key === 'Enter' && activeSuggestion.value >= 0) {
+    event.preventDefault()
+    applySuggestion(suggestions.value[activeSuggestion.value])
+  }
+}
+
+watch(sort, () => refresh())
 
 watch(cityCode, () => {
   document.title = `Работа ${place.value} — WorkHub`
   refresh()
+  if (draft.value.trim().length >= 2) loadSuggestions(draft.value)
 })
 
 onMounted(async () => {
@@ -148,26 +210,37 @@ onUnmounted(() => {
       <div class="search-card">
         <h1>Поиск работы</h1>
         <p class="search-place">{{ place }}</p>
-        <form class="search" @submit.prevent="flushSearch">
-          <label class="sr-only" for="query">Название вакансии</label>
-          <input
-            id="query"
-            v-model="draft"
-            type="search"
-            placeholder="Название вакансии"
-            autocomplete="off"
-          />
-        </form>
-        <div class="suggestions" aria-label="Популярные запросы">
-          <button
-            v-for="item in SUGGESTIONS"
-            :key="item"
-            type="button"
-            :class="{ active: query.toLowerCase() === item.toLowerCase() }"
-            @click="applySuggestion(item)"
-          >
-            {{ item }}
-          </button>
+        <div class="search-field" @focusout="onSuggestBlur">
+          <form class="search" @submit.prevent="flushSearch">
+            <label class="sr-only" for="query">Название вакансии</label>
+            <input
+              id="query"
+              v-model="draft"
+              type="search"
+              placeholder="Название вакансии"
+              autocomplete="off"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-controls="query-suggestions"
+              :aria-expanded="suggestOpen"
+              @keydown="onSearchKeydown"
+              @focus="suggestOpen = suggestions.length > 0"
+            />
+          </form>
+          <ul v-if="suggestOpen" id="query-suggestions" class="suggest-list" role="listbox">
+            <li v-for="(item, index) in suggestions" :key="item" role="presentation">
+              <button
+                type="button"
+                role="option"
+                :class="{ active: index === activeSuggestion }"
+                :aria-selected="index === activeSuggestion"
+                @mousedown.prevent
+                @click="applySuggestion(item)"
+              >
+                {{ item }}
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -175,7 +248,16 @@ onUnmounted(() => {
     <section class="results" :aria-busy="refreshing">
       <div class="results-head">
         <h2>{{ heading }}</h2>
-        <p v-if="!initialLoading && !error">{{ vacancyCount(total) }}</p>
+        <div v-if="!initialLoading && !error" class="results-side">
+          <p>{{ vacancyProgress(vacancies.length, total) }}</p>
+          <label class="sort-field">
+            <select v-model="sort" aria-label="Сортировка">
+              <option value="">Без сортировки</option>
+              <option value="salary_asc">Заработная плата по возрастанию</option>
+              <option value="salary_desc">Заработная плата по убыванию</option>
+            </select>
+          </label>
+        </div>
       </div>
 
       <p v-if="error" class="state error">{{ error }}</p>

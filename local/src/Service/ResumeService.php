@@ -11,7 +11,7 @@ use CIBlockElement;
 
 class ResumeService
 {
-    public const LIMIT = 10;
+    public const LIMIT = 1;
 
     private int $iblock = 0;
 
@@ -44,7 +44,7 @@ class ResumeService
         $user = $this->auth->requireSeeker('Добавлять резюме могут только соискатели');
         $values = $this->values($title, $salary, $description);
         if (count($this->collect($user['id'])) >= self::LIMIT) {
-            throw new ApiException('Можно добавить не больше 10 резюме', 409);
+            throw new ApiException('Можно добавить только одно резюме', 409);
         }
 
         $element = new CIBlockElement();
@@ -267,6 +267,59 @@ class ResumeService
         }
 
         return $items[0];
+    }
+
+    /** @return array<string, mixed>|null */
+    public function latestForUser(int $userId): ?array
+    {
+        if ($userId <= 0) {
+            return null;
+        }
+
+        $items = $this->collect($userId);
+
+        return $items[0] ?? null;
+    }
+
+    /** @param list<int> $userIds
+     *  @return array<int, array{id: int, title: string}>
+     */
+    public function titlesByUsers(array $userIds): array
+    {
+        $userIds = array_values(array_unique(array_filter(
+            array_map(static fn (mixed $id): int => (int)$id, $userIds),
+            static fn (int $id): bool => $id > 0
+        )));
+        if ($userIds === []) {
+            return [];
+        }
+
+        $map = [];
+        $rows = CIBlockElement::GetList(
+            ['ID' => 'DESC'],
+            [
+                'IBLOCK_ID' => $this->iblockId(),
+                'PROPERTY_USER' => $userIds,
+                'CHECK_PERMISSIONS' => 'N',
+            ],
+            false,
+            false,
+            ['ID', 'IBLOCK_ID', 'NAME']
+        );
+        while ($element = $rows->GetNextElement(false)) {
+            $fields = $element->GetFields();
+            $props = $element->GetProperties();
+            $owner = (int)($props['USER']['VALUE'] ?? 0);
+            if ($owner <= 0 || isset($map[$owner])) {
+                continue;
+            }
+            $map[$owner] = [
+                'id' => (int)$fields['ID'],
+                'title' => (string)$fields['NAME'],
+            ];
+        }
+
+        return $map;
     }
 
     /** @return list<array<string, mixed>> */

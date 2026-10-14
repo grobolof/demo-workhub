@@ -45,3 +45,29 @@ export function vacancyCount(count) {
   const label = labeledCount(count, ['вакансия', 'вакансии', 'вакансий'])
   return `${label.value} ${label.word}`
 }
+
+export function vacancyProgress(loaded, total) {
+  const label = labeledCount(loaded, ['вакансия', 'вакансии', 'вакансий'])
+  const all = new Intl.NumberFormat('ru-RU').format(Math.abs(Number(total) || 0))
+  return `${label.value} ${label.word} из ${all}`
+}
+
+export function formatDateTime(value) {
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return ''
+  const day = new Intl.DateTimeFormat('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date).replace(/\s*г\.$/, '')
+  const time = new Intl.DateTimeFormat('ru-RU', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date)
+  return `${day}, ${time}`
+}
+
+export function responseCount(count) {
+  const label = labeledCount(count, ['отклик', 'отклика', 'откликов'])
+  return `${label.value} ${label.word}`
+}

@@ -65,7 +65,7 @@ async function submit() {
       salary: String(salary.value).trim(),
       description: description.value,
     }, session.sessid)
-    router.push('/account/resumes')
+    router.push({ path: '/account', query: { tab: 'resumes' } })
   } catch (exception) {
     error.value = exception.message || 'Не удалось сохранить резюме'
   } finally {
@@ -79,7 +79,7 @@ async function remove() {
   error.value = ''
   try {
     await saveResume({ action: 'delete', id: resumeId.value }, session.sessid)
-    router.push('/account/resumes')
+    router.push({ path: '/account', query: { tab: 'resumes' } })
   } catch (exception) {
     error.value = exception.message || 'Не удалось удалить резюме'
   } finally {
@@ -116,7 +116,7 @@ watch(resumeId, (id) => load(id), { immediate: true })
     <div class="resume-actions">
       <button class="primary slim" type="submit" :disabled="pending">Сохранить</button>
       <button v-if="editing" class="danger" type="button" :disabled="pending" @click="remove">Удалить</button>
-      <router-link class="ghost link" to="/account/resumes">Отмена</router-link>
+      <router-link class="ghost link" :to="{ path: '/account', query: { tab: 'resumes' } }">Отмена</router-link>
     </div>
   </form>
 </template>

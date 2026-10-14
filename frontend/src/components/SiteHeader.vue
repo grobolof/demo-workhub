@@ -96,6 +96,13 @@ onUnmounted(() => {
         </div>
         </div>
 
+        <span
+          v-if="session.ready && session.user"
+          class="role-chip"
+          :class="session.user.role"
+        >
+          {{ session.user.role === 'employer' ? 'Работодатель' : 'Соискатель' }}
+        </span>
         <router-link v-if="session.ready && session.user" class="menu-button solid" to="/account">Кабинет</router-link>
         <router-link v-else-if="session.ready" class="menu-login" to="/login">Войти</router-link>
       </div>

@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import VacancyActions from '../components/VacancyActions.vue'
+import VacancyFacts from '../components/VacancyFacts.vue'
 import { loadVacancy } from '../api'
 import { formatSalary } from '../format'
 
@@ -54,8 +55,6 @@ watch(() => route.params.id, (id) => load(id), { immediate: true })
         <h1>{{ vacancy.name }}</h1>
         <p class="salary">{{ salary }}</p>
       </div>
-      <VacancyActions :vacancy-id="vacancy.id" layout="detail" />
-
       <router-link
         v-if="vacancy.company"
         class="employer"
@@ -71,14 +70,15 @@ watch(() => route.params.id, (id) => load(id), { immediate: true })
         </span>
       </router-link>
 
-      <ul v-if="vacancy.workplace || vacancy.schedule || vacancy.cities?.length" class="places">
-        <li v-if="vacancy.workplace">{{ vacancy.workplace }}</li>
-        <li v-if="vacancy.schedule">{{ vacancy.schedule }}</li>
-        <li v-for="place in vacancy.cities" :key="place.code">{{ place.name }}</li>
-      </ul>
+      <VacancyFacts
+        :schedule="vacancy.schedule"
+        :workplace="vacancy.workplace"
+        :cities="vacancy.cities || []"
+      />
 
       <div v-if="vacancy.detail" class="prose">{{ vacancy.detail }}</div>
       <p v-else-if="vacancy.preview" class="prose">{{ vacancy.preview }}</p>
+      <VacancyActions :vacancy-id="vacancy.id" layout="detail" />
     </article>
   </main>
 </template>

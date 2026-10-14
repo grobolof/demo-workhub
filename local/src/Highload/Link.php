@@ -47,7 +47,8 @@ class Link
         return null;
     }
 
-    public function add(int $userId, int $targetId): void
+    /** @param array<string, mixed> $extra */
+    public function add(int $userId, int $targetId, array $extra = []): void
     {
         if ($this->find($userId, $targetId) !== null) {
             return;
@@ -57,12 +58,102 @@ class Link
         $result = $class::add([
             'UF_USER' => $userId,
             $this->field => $targetId,
+            ...$extra,
         ]);
         if ($result->isSuccess() || $this->find($userId, $targetId) !== null) {
             return;
         }
 
         throw new RuntimeException(implode(' ', $result->getErrorMessages()));
+    }
+
+    /** @param list<int> $targetIds
+     *  @return array<int, int>
+     */
+    public function counts(array $targetIds): array
+    {
+        $targetIds = array_values(array_unique(array_filter(
+            array_map(static fn (mixed $id): int => (int)$id, $targetIds),
+            static fn (int $id): bool => $id > 0
+        )));
+        if ($targetIds === []) {
+            return [];
+        }
+
+        $counts = array_fill_keys($targetIds, 0);
+        $class = $this->dataClass();
+        $result = $class::getList([
+            'filter' => ['=' . $this->field => $targetIds],
+            'select' => ['ID', $this->field],
+        ]);
+        while ($row = $result->fetch()) {
+            $id = (int)$row[$this->field];
+            if (isset($counts[$id])) {
+                $counts[$id]++;
+            }
+        }
+
+        return $counts;
+    }
+
+    /** @return list<int> */
+    public function userIds(int $targetId): array
+    {
+        if ($targetId <= 0) {
+            return [];
+        }
+
+        $class = $this->dataClass();
+        $ids = [];
+        $result = $class::getList([
+            'filter' => ['=' . $this->field => $targetId],
+            'select' => ['ID', 'UF_USER'],
+            'order' => ['ID' => 'DESC'],
+        ]);
+        while ($row = $result->fetch()) {
+            $ids[] = (int)$row['UF_USER'];
+        }
+
+        return $ids;
+    }
+
+    /** @return list<array{userId: int, respondedAt: string}> */
+    public function responders(int $targetId): array
+    {
+        if ($targetId <= 0) {
+            return [];
+        }
+
+        $class = $this->dataClass();
+        $people = [];
+        $result = $class::getList([
+            'filter' => ['=' . $this->field => $targetId],
+            'select' => ['ID', 'UF_USER', 'UF_CREATED'],
+            'order' => ['UF_CREATED' => 'DESC', 'ID' => 'DESC'],
+        ]);
+        while ($row = $result->fetch()) {
+            $people[] = [
+                'id' => (int)$row['ID'],
+                'userId' => (int)$row['UF_USER'],
+                'respondedAt' => self::moment($row['UF_CREATED'] ?? null),
+                'stamp' => self::stamp($row['UF_CREATED'] ?? null),
+            ];
+        }
+
+        usort($people, static function (array $left, array $right): int {
+            $byTime = $right['stamp'] <=> $left['stamp'];
+            if ($byTime !== 0) {
+                return $byTime;
+            }
+
+            return $right['id'] <=> $left['id'];
+        });
+
+        foreach ($people as $index => $person) {
+            unset($people[$index]['id'], $people[$index]['stamp']);
+        }
+
+        return $people;
     }
 
     public function remove(int $userId, int $targetId): void
@@ -97,6 +188,40 @@ class Link
         }
 
         return $rows;
+    }
+
+    private static function stamp(mixed $value): int
+    {
+        if ($value instanceof \DateTimeInterface || (is_object($value) && method_exists($value, 'getTimestamp'))) {
+            return (int)$value->getTimestamp();
+        }
+        if (!is_string($value) || trim($value) === '') {
+            return 0;
+        }
+
+        $value = trim($value);
+        foreach (['d.m.Y H:i:s', 'd.m.Y H:i', \DateTimeInterface::ATOM, 'Y-m-d H:i:s'] as $format) {
+            $parsed = \DateTimeImmutable::createFromFormat($format, $value);
+            if ($parsed instanceof \DateTimeImmutable) {
+                return $parsed->getTimestamp();
+            }
+        }
+
+        $unix = strtotime($value);
+
+        return $unix === false ? 0 : $unix;
+    }
+
+    private static function moment(mixed $value): string
+    {
+        if ($value instanceof \Bitrix\Main\Type\DateTime) {
+            return $value->format(\DateTimeInterface::ATOM);
+        }
+        if (is_string($value) && trim($value) !== '') {
+            return trim($value);
+        }
+
+        return '';
     }
 
     /** @return class-string */

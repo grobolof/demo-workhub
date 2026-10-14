@@ -17,12 +17,12 @@ class FavouriteService
     ) {
     }
 
-    /** @return list<array<string, mixed>> */
-    public function list(): array
+    /** @return array{vacancies: list<array<string, mixed>>, total: int, page: int, limit: int} */
+    public function list(int $page = 1): array
     {
         $user = $this->auth->requireSeeker('Избранное доступно только соискателю');
 
-        return $this->jobBoard->byIds((new Link(self::BLOCK))->vacancyIds($user['id']));
+        return $this->page((new Link(self::BLOCK))->vacancyIds($user['id']), $page);
     }
 
     /** @return array{vacancyId: int, favourite: bool} */
@@ -44,6 +44,24 @@ class FavouriteService
         return [
             'vacancyId' => $vacancyId,
             'favourite' => !$exists,
+        ];
+    }
+
+    /**
+     * @param list<int> $ids
+     * @return array{vacancies: list<array<string, mixed>>, total: int, page: int, limit: int}
+     */
+    private function page(array $ids, int $page): array
+    {
+        $page = max(1, $page);
+        $limit = JobBoardService::PAGE_SIZE;
+        $slice = array_slice($ids, ($page - 1) * $limit, $limit);
+
+        return [
+            'vacancies' => $this->jobBoard->byIds($slice),
+            'total' => count($ids),
+            'page' => $page,
+            'limit' => $limit,
         ];
     }
 }

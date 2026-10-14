@@ -75,7 +75,7 @@ final class Kernel
                 new ResumeFavouriteService($auth, $resumes),
             ),
             ResponseController::class => new ResponseController($request, $response, new ResponseService($auth, $jobBoard)),
-            VacancyController::class => new VacancyController($request, $response, $jobBoard, new VacancyManageService($auth)),
+            VacancyController::class => new VacancyController($request, $response, $jobBoard, new VacancyManageService($auth, $resumes)),
             default => throw new RuntimeException('Неизвестный контроллер'),
         };
     }

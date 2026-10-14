@@ -54,4 +54,42 @@ final class AuthController extends AbstractController
         $this->request->requirePost();
         $this->response->send($this->auth->logout());
     }
+
+    public function profile(): void
+    {
+        $type = (string)($_SERVER['CONTENT_TYPE'] ?? $_SERVER['HTTP_CONTENT_TYPE'] ?? '');
+        if (stripos($type, 'multipart/form-data') !== false) {
+            $this->request->requireForm();
+            $files = $this->request->files('avatar');
+            if ($files !== []) {
+                $this->response->send($this->auth->saveAvatar($files[0]));
+            }
+            $logo = $this->request->files('logo');
+            if ($logo !== []) {
+                $this->response->send($this->auth->saveCompanyLogo($logo[0]));
+            }
+            if ($this->request->post('remove') === '1') {
+                if ($this->request->post('target') === 'logo') {
+                    $this->response->send($this->auth->removeCompanyLogo());
+                }
+                $this->response->send($this->auth->removeAvatar());
+            }
+
+            throw new \App\Exception\ApiException('Выберите изображение');
+        }
+
+        $body = $this->request->requirePost();
+        if (($body['scope'] ?? '') === 'company') {
+            $this->response->send($this->auth->updateCompany(
+                (string)($body['name'] ?? ''),
+                (string)($body['inn'] ?? ''),
+                (string)($body['description'] ?? ''),
+            ));
+        }
+        $this->response->send($this->auth->updateNames(
+            (string)($body['lastName'] ?? ''),
+            (string)($body['firstName'] ?? ''),
+            (string)($body['middleName'] ?? ''),
+        ));
+    }
 }

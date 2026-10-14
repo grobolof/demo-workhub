@@ -92,7 +92,7 @@ async function submit() {
       workplace: workplace.value,
       schedule: schedule.value,
     }, session.sessid)
-    router.push('/account/vacancies')
+    router.push({ path: '/account', query: { tab: 'vacancies' } })
   } catch (exception) {
     error.value = exception.message || 'Не удалось сохранить вакансию'
   } finally {
@@ -106,7 +106,7 @@ async function remove() {
   error.value = ''
   try {
     await saveVacancy({ action: 'delete', id: vacancyId.value }, session.sessid)
-    router.push('/account/vacancies')
+    router.push({ path: '/account', query: { tab: 'vacancies' } })
   } catch (exception) {
     error.value = exception.message || 'Не удалось удалить вакансию'
   } finally {
@@ -124,22 +124,22 @@ watch(vacancyId, (id) => load(id), { immediate: true })
     <h2>{{ editing ? 'Изменить вакансию' : 'Новая вакансия' }}</h2>
 
     <label class="field">
-      <span>Название</span>
+      <span>Название<span class="req" aria-hidden="true">*</span></span>
       <input v-model="title" type="text" maxlength="255" required />
     </label>
 
     <label class="field">
-      <span>Описание</span>
+      <span>Описание<span class="req" aria-hidden="true">*</span></span>
       <textarea v-model="description" required />
     </label>
 
     <label class="field">
-      <span>Заработная плата</span>
+      <span>Заработная плата<span class="req" aria-hidden="true">*</span></span>
       <input v-model="salary" type="text" inputmode="numeric" required />
     </label>
 
     <label class="field">
-      <span>Место работы</span>
+      <span>Место работы<span class="req" aria-hidden="true">*</span></span>
       <select v-model="workplace" required>
         <option disabled value="">Выберите</option>
         <option v-for="item in workplaces" :key="item.value" :value="item.value">{{ item.label }}</option>
@@ -147,7 +147,7 @@ watch(vacancyId, (id) => load(id), { immediate: true })
     </label>
 
     <label class="field">
-      <span>График работы</span>
+      <span>График работы<span class="req" aria-hidden="true">*</span></span>
       <select v-model="schedule" required>
         <option disabled value="">Выберите</option>
         <option v-for="item in schedules" :key="item.value" :value="item.value">{{ item.label }}</option>
@@ -159,7 +159,7 @@ watch(vacancyId, (id) => load(id), { immediate: true })
     <div class="resume-actions">
       <button class="primary slim" type="submit" :disabled="pending">Сохранить</button>
       <button v-if="editing" class="danger" type="button" :disabled="pending" @click="remove">Удалить</button>
-      <router-link class="ghost link" to="/account/vacancies">Отмена</router-link>
+      <router-link class="ghost link" :to="{ path: '/account', query: { tab: 'vacancies' } }">Отмена</router-link>
     </div>
   </form>
 </template>

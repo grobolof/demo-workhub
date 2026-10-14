@@ -25,6 +25,6 @@ final class FavouriteController extends AbstractController
             $this->response->send($this->favourites->toggle((int)($body['vacancyId'] ?? 0)));
         }
 
-        $this->response->send(['vacancies' => $this->favourites->list()]);
+        $this->response->send($this->favourites->list($this->request->queryInt('page', 1)));
     }
 }
