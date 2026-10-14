@@ -43,6 +43,7 @@ export default defineConfig({
   plugins: [vue(), swaggerAssets()],
   server: {
     host: '0.0.0.0',
+    allowedHosts: ['workhub.docker.local'],
     port: 5173,
     strictPort: true,
     watch: {

@@ -93,8 +93,23 @@ if ($error !== null) {
     <p>Работодатели и соискатели входят с паролем <b><?= htmlspecialcharsbx(Restorer::PASSWORD) ?></b>. Поддержка: логин support, пароль support.</p>
     <div id="workhub-restore-result"></div>
     <p id="workhub-restore-status" hidden aria-live="polite"></p>
+    <div id="workhub-restore-warning" hidden role="alert">Нельзя перезагружать страницу, пока выполняется восстановление.</div>
     <input type="submit" class="adm-btn-save" value="Восстановить демо">
 </form>
+<style>
+#workhub-restore-warning {
+    margin: 0 0 16px;
+    padding: 14px 16px;
+    background: #ff9800;
+    color: #1f1300;
+    border: 1px solid #e65100;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.45;
+    box-shadow: 0 4px 16px rgba(230, 81, 0, 0.28);
+}
+</style>
 <script>
 (function () {
     var form = document.getElementById('workhub-restore-form');
@@ -105,6 +120,7 @@ if ($error !== null) {
     var button = form.querySelector('input.adm-btn-save');
     var status = document.getElementById('workhub-restore-status');
     var result = document.getElementById('workhub-restore-result');
+    var warning = document.getElementById('workhub-restore-warning');
     var running = false;
     var left = null;
     var started = 0;
@@ -226,6 +242,9 @@ if ($error !== null) {
             status.hidden = false;
             status.dataset.done = '';
         }
+        if (warning) {
+            warning.hidden = false;
+        }
         renderStatus();
         if (timer) {
             clearInterval(timer);
@@ -283,6 +302,9 @@ if ($error !== null) {
             running = false;
             if (button) {
                 button.disabled = false;
+            }
+            if (warning) {
+                warning.hidden = true;
             }
             if (timer) {
                 clearInterval(timer);
