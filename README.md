@@ -7,7 +7,7 @@
 [![Elasticsearch 8.19](https://img.shields.io/badge/elasticsearch-8.19-%23005571?style=for-the-badge&logo=elasticsearch&logoColor=white)](https://www.elastic.co/elasticsearch)
 
 👉 Публичное демо: [https://workhub.ru.tuna.am](https://workhub.ru.tuna.am)  
-👉 Локально сайт открывается по адресу `http://localhost:5173`
+👉 Локально сайт открывается по адресу `http://localhost`
 
 Это инструкция для тех, кто пользуется сервисом поиска работы и смотрит, где лежат вакансии, резюме и компании.  
 Здесь описано, **где что лежит** и **что происходит по нажатию**.
