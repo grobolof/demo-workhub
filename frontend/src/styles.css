@@ -331,12 +331,13 @@ button, input, textarea { font: inherit; }
 
 .footer-bottom {
   border-top: 1px solid var(--line);
+  text-align: center;
 }
 
 .footer-bottom-inner {
   width: min(var(--content), calc(100% - 32px));
   margin: 0 auto;
-  padding: 16px 0 28px;
+  padding: 16px 0 20px;
 }
 
 .footer-bottom p {
@@ -347,20 +348,8 @@ button, input, textarea { font: inherit; }
   line-height: 1.5;
 }
 
-.footer-credit {
-  border-top: 1px solid var(--line);
-  background: #f7f8fb;
-  text-align: center;
-}
-
-.footer-credit p {
-  width: min(var(--content), calc(100% - 32px));
-  margin: 0 auto;
-  padding: 14px 0 16px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.5;
+.footer-bottom .footer-credit {
+  margin-top: 8px;
 }
 
 .footer-credit a {

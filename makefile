@@ -26,6 +26,10 @@ migrations-create:
 migrations-up:
 	docker compose exec -it application php bin/migrate up
 
+## Очистить демо-данные и загрузить фикстуры заново:
+demo-restore:
+	docker compose exec -T application php bin/demo-restore
+
 ## Откатить все миграции:
 migrations-down:
 	docker compose exec -it application php bin/migrate down

@@ -17,3 +17,21 @@ $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementAdd', [VacancyInde
 $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementUpdate', [VacancyIndex::class, 'onAfterSave']);
 $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementDelete', [VacancyIndex::class, 'onAfterDelete']);
 $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementSetPropertyValuesEx', [VacancyIndex::class, 'onAfterProperties']);
+
+$eventManager->addEventHandler('main', 'OnBuildGlobalMenu', static function (array &$globalMenu, array &$moduleMenu): void {
+    if (!\App\Demo\Restorer::allowed()) {
+        return;
+    }
+
+    $moduleMenu[] = [
+        'parent_menu' => 'global_menu_settings',
+        'section' => 'workhub',
+        'sort' => 1000,
+        'text' => 'Восстановить демо',
+        'title' => 'Очистить данные и заново загрузить демо-фикстуры',
+        'url' => 'workhub_demo_restore.php?lang=' . LANGUAGE_ID,
+        'icon' => 'sys_menu_icon',
+        'page_icon' => 'sys_menu_icon',
+        'items_id' => 'menu_workhub_demo',
+    ];
+});

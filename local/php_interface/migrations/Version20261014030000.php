@@ -83,6 +83,7 @@ class Version20261014030000 extends Version
             'C_SORT' => 220,
         ]);
         $this->saveSupportUser($groupId);
+        \App\Demo\Restorer::grantSupportRights($groupId);
 
         foreach ($iblockIds as $iblockId) {
             $permissions = $helper->Iblock()->getGroupPermissions($iblockId);
@@ -93,7 +94,7 @@ class Version20261014030000 extends Version
         if (!\Bitrix\Main\Loader::includeModule('highloadblock')) {
             throw new \RuntimeException('Модуль highloadblock недоступен');
         }
-        foreach (['Favourites', 'Responses'] as $name) {
+        foreach (['Favourites', 'Responses', 'ResumeFavourites'] as $name) {
             $hlblockId = $helper->Hlblock()->getHlblockId($name);
             if ($hlblockId <= 0) {
                 throw new \RuntimeException('Highload-блок ' . $name . ' не найден');
@@ -123,7 +124,7 @@ class Version20261014030000 extends Version
         $groupId = $helper->UserGroup()->getGroupId('support');
         if ($groupId) {
             if (\Bitrix\Main\Loader::includeModule('highloadblock')) {
-                foreach (['Favourites', 'Responses'] as $name) {
+                foreach (['Favourites', 'Responses', 'ResumeFavourites'] as $name) {
                     $hlblockId = $helper->Hlblock()->getHlblockId($name);
                     if ($hlblockId > 0) {
                         $helper->Hlblock()->saveGroupPermissions($hlblockId, []);
@@ -208,9 +209,9 @@ class Version20261014030000 extends Version
         $fields = [
             'LOGIN' => 'support',
             'EMAIL' => 'support@mail.ru',
-            'NAME' => 'Георгий',
-            'LAST_NAME' => 'Кравиц',
-            'SECOND_NAME' => 'Константинов',
+            'NAME' => 'Константин',
+            'LAST_NAME' => 'Раскольников',
+            'SECOND_NAME' => 'Георгиевич',
             'ACTIVE' => 'Y',
             'GROUP_ID' => [$groupId],
             'PASSWORD' => 'support',

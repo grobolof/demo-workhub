@@ -26,125 +26,6 @@ use OpenApi\Attributes as OA;
     description: 'Bitrix sessid из GET /api/session/',
     schema: new OA\Schema(type: 'string'),
 )]
-#[OA\Schema(
-    schema: 'ApiError',
-    required: ['error'],
-    properties: [
-        new OA\Property(property: 'error', type: 'string', example: 'Вакансия не найдена'),
-    ],
-)]
-#[OA\Schema(
-    schema: 'City',
-    required: ['id', 'name', 'code'],
-    properties: [
-        new OA\Property(property: 'id', type: 'integer'),
-        new OA\Property(property: 'name', type: 'string', example: 'Москва'),
-        new OA\Property(property: 'code', type: 'string', example: 'moscow'),
-    ],
-)]
-#[OA\Schema(
-    schema: 'CompanyCard',
-    required: ['id', 'name'],
-    properties: [
-        new OA\Property(property: 'id', type: 'integer'),
-        new OA\Property(property: 'name', type: 'string'),
-        new OA\Property(property: 'logo', type: 'string', nullable: true),
-    ],
-)]
-#[OA\Schema(
-    schema: 'VacancyCard',
-    required: ['id', 'name', 'salaryFrom', 'salaryTo', 'cities'],
-    properties: [
-        new OA\Property(property: 'id', type: 'integer'),
-        new OA\Property(property: 'name', type: 'string'),
-        new OA\Property(property: 'code', type: 'string'),
-        new OA\Property(property: 'preview', type: 'string'),
-        new OA\Property(property: 'detail', type: 'string'),
-        new OA\Property(property: 'salaryFrom', type: 'integer', nullable: true),
-        new OA\Property(property: 'salaryTo', type: 'integer', nullable: true),
-        new OA\Property(property: 'workplace', type: 'string', example: 'Гибрид'),
-        new OA\Property(property: 'schedule', type: 'string', example: 'Плавающий'),
-        new OA\Property(property: 'company', ref: '#/components/schemas/CompanyCard', nullable: true),
-        new OA\Property(property: 'cities', type: 'array', items: new OA\Items(ref: '#/components/schemas/City')),
-    ],
-)]
-#[OA\Schema(
-    schema: 'VacancyPage',
-    required: ['vacancies', 'total', 'page', 'limit'],
-    properties: [
-        new OA\Property(property: 'vacancies', type: 'array', items: new OA\Items(ref: '#/components/schemas/VacancyCard')),
-        new OA\Property(property: 'total', type: 'integer'),
-        new OA\Property(property: 'page', type: 'integer'),
-        new OA\Property(property: 'limit', type: 'integer'),
-        new OA\Property(property: 'cities', type: 'array', items: new OA\Items(ref: '#/components/schemas/City')),
-    ],
-)]
-#[OA\Schema(
-    schema: 'User',
-    required: ['id', 'email', 'role'],
-    properties: [
-        new OA\Property(property: 'id', type: 'integer'),
-        new OA\Property(property: 'email', type: 'string'),
-        new OA\Property(property: 'role', type: 'string', enum: ['seeker', 'employer']),
-        new OA\Property(property: 'firstName', type: 'string'),
-        new OA\Property(property: 'lastName', type: 'string'),
-        new OA\Property(property: 'middleName', type: 'string'),
-        new OA\Property(property: 'avatar', type: 'string', nullable: true),
-        new OA\Property(property: 'company', nullable: true),
-    ],
-)]
-#[OA\Schema(
-    schema: 'Session',
-    required: ['sessid', 'favouriteIds', 'responseIds', 'resumeFavouriteIds'],
-    properties: [
-        new OA\Property(property: 'sessid', type: 'string'),
-        new OA\Property(property: 'user', ref: '#/components/schemas/User', nullable: true),
-        new OA\Property(property: 'favouriteIds', type: 'array', items: new OA\Items(type: 'integer')),
-        new OA\Property(property: 'responseIds', type: 'array', items: new OA\Items(type: 'integer')),
-        new OA\Property(property: 'resumeFavouriteIds', type: 'array', items: new OA\Items(type: 'integer')),
-    ],
-)]
-#[OA\Schema(
-    schema: 'Resume',
-    required: ['id', 'title', 'description', 'salary'],
-    properties: [
-        new OA\Property(property: 'id', type: 'integer'),
-        new OA\Property(property: 'title', type: 'string'),
-        new OA\Property(property: 'description', type: 'string'),
-        new OA\Property(property: 'salary', type: 'integer'),
-        new OA\Property(property: 'author', type: 'string'),
-    ],
-)]
-#[OA\Schema(
-    schema: 'ManagedVacancy',
-    required: ['id', 'title', 'salary'],
-    properties: [
-        new OA\Property(property: 'id', type: 'integer'),
-        new OA\Property(property: 'title', type: 'string'),
-        new OA\Property(property: 'description', type: 'string'),
-        new OA\Property(property: 'salary', type: 'integer'),
-        new OA\Property(property: 'workplace', type: 'string', example: 'hybrid'),
-        new OA\Property(property: 'workplaceLabel', type: 'string', example: 'Гибрид'),
-        new OA\Property(property: 'schedule', type: 'string', example: 'floating'),
-        new OA\Property(property: 'scheduleLabel', type: 'string', example: 'Плавающий'),
-        new OA\Property(property: 'cities', type: 'array', items: new OA\Items(ref: '#/components/schemas/City')),
-        new OA\Property(property: 'responses', type: 'integer'),
-        new OA\Property(property: 'applicants', type: 'array', items: new OA\Items(ref: '#/components/schemas/Applicant')),
-    ],
-)]
-#[OA\Schema(
-    schema: 'Applicant',
-    required: ['id', 'name', 'respondedAt'],
-    properties: [
-        new OA\Property(property: 'id', type: 'integer'),
-        new OA\Property(property: 'name', type: 'string'),
-        new OA\Property(property: 'email', type: 'string'),
-        new OA\Property(property: 'avatar', type: 'string', nullable: true),
-        new OA\Property(property: 'resumeId', type: 'integer'),
-        new OA\Property(property: 'resumeTitle', type: 'string'),
-        new OA\Property(property: 'respondedAt', type: 'string', format: 'date-time'),
-    ],
-)]
 final class WorkhubApi
 {
     #[OA\Get(
@@ -251,7 +132,7 @@ final class WorkhubApi
         tags: ['Компании'],
         responses: [
             new OA\Response(response: 200, description: 'Компании', content: new OA\JsonContent(properties: [
-                new OA\Property(property: 'companies', type: 'array', items: new OA\Items(type: 'object')),
+                new OA\Property(property: 'companies', type: 'array', items: new OA\Items(ref: '#/components/schemas/CompanyCard')),
             ], type: 'object')),
         ],
     )]
@@ -269,7 +150,7 @@ final class WorkhubApi
         ],
         responses: [
             new OA\Response(response: 200, description: 'Компания и её вакансии', content: new OA\JsonContent(properties: [
-                new OA\Property(property: 'company', type: 'object'),
+                new OA\Property(property: 'company', ref: '#/components/schemas/CompanyView'),
             ], type: 'object')),
             new OA\Response(response: 404, description: 'Компания не найдена', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
         ],
@@ -311,6 +192,7 @@ final class WorkhubApi
         responses: [
             new OA\Response(response: 200, description: 'Сессия нового пользователя', content: new OA\JsonContent(ref: '#/components/schemas/Session')),
             new OA\Response(response: 400, description: 'Ошибка валидации', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
+            new OA\Response(response: 409, description: 'Почта или ИНН уже заняты', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
         ],
     )]
     public function register(): void
@@ -330,7 +212,9 @@ final class WorkhubApi
         ])),
         responses: [
             new OA\Response(response: 200, description: 'Сессия', content: new OA\JsonContent(ref: '#/components/schemas/Session')),
-            new OA\Response(response: 400, description: 'Неверные данные', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
+            new OA\Response(response: 400, description: 'Не заполнены поля', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
+            new OA\Response(response: 401, description: 'Неверная почта или пароль', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
+            new OA\Response(response: 403, description: 'Роль аккаунта не совпадает', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
         ],
     )]
     public function login(): void
@@ -457,6 +341,7 @@ final class WorkhubApi
                 new OA\Property(property: 'resume', ref: '#/components/schemas/Resume'),
                 new OA\Property(property: 'limit', type: 'integer'),
             ], type: 'object')),
+            new OA\Response(response: 401, description: 'Нужна авторизация соискателя', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
         ],
     )]
     #[OA\Post(
@@ -473,8 +358,12 @@ final class WorkhubApi
             new OA\Property(property: 'description', type: 'string'),
         ])),
         responses: [
-            new OA\Response(response: 200, description: 'Резюме сохранено'),
+            new OA\Response(response: 200, description: 'Резюме сохранено или удалено', content: new OA\JsonContent(properties: [
+                new OA\Property(property: 'resume', ref: '#/components/schemas/Resume'),
+                new OA\Property(property: 'deleted', type: 'integer'),
+            ], type: 'object')),
             new OA\Response(response: 400, description: 'Ошибка', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
+            new OA\Response(response: 401, description: 'Нужна авторизация соискателя', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
         ],
     )]
     public function resumes(): void
@@ -493,6 +382,7 @@ final class WorkhubApi
             new OA\Response(response: 200, description: 'Резюме', content: new OA\JsonContent(properties: [
                 new OA\Property(property: 'resumes', type: 'array', items: new OA\Items(ref: '#/components/schemas/Resume')),
             ], type: 'object')),
+            new OA\Response(response: 401, description: 'Нужна авторизация работодателя', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
         ],
     )]
     public function resumeSearch(): void
@@ -520,7 +410,12 @@ final class WorkhubApi
             new OA\Property(property: 'resumeId', type: 'integer'),
         ])),
         responses: [
-            new OA\Response(response: 200, description: 'Состояние избранного'),
+            new OA\Response(response: 200, description: 'Состояние избранного', content: new OA\JsonContent(properties: [
+                new OA\Property(property: 'resumeId', type: 'integer'),
+                new OA\Property(property: 'favourite', type: 'boolean'),
+            ], type: 'object')),
+            new OA\Response(response: 401, description: 'Нужна авторизация работодателя', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
+            new OA\Response(response: 404, description: 'Резюме не найдено', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
         ],
     )]
     public function resumeFavourites(): void
@@ -542,7 +437,7 @@ final class WorkhubApi
             new OA\Response(response: 200, description: 'Вакансии или соискатель', content: new OA\JsonContent(properties: [
                 new OA\Property(property: 'vacancies', type: 'array', items: new OA\Items(ref: '#/components/schemas/ManagedVacancy')),
                 new OA\Property(property: 'vacancy', ref: '#/components/schemas/ManagedVacancy'),
-                new OA\Property(property: 'applicant', type: 'object'),
+                new OA\Property(property: 'applicant', ref: '#/components/schemas/ApplicantCard'),
             ], type: 'object')),
         ],
     )]
@@ -562,9 +457,11 @@ final class WorkhubApi
             new OA\Property(property: 'schedule', type: 'string', enum: ['5-2', 'floating', 'shift']),
         ])),
         responses: [
-            new OA\Response(response: 200, description: 'Вакансия сохранена', content: new OA\JsonContent(properties: [
+            new OA\Response(response: 200, description: 'Вакансия сохранена или удалена', content: new OA\JsonContent(properties: [
                 new OA\Property(property: 'vacancy', ref: '#/components/schemas/ManagedVacancy'),
+                new OA\Property(property: 'deleted', type: 'integer'),
             ], type: 'object')),
+            new OA\Response(response: 401, description: 'Нужна авторизация работодателя', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
         ],
     )]
     public function myVacancies(): void
@@ -586,7 +483,9 @@ final class WorkhubApi
             ])),
         ]),
         responses: [
-            new OA\Response(response: 200, description: 'Заявка принята'),
+            new OA\Response(response: 200, description: 'Заявка принята', content: new OA\JsonContent(properties: [
+                new OA\Property(property: 'id', type: 'integer'),
+            ], type: 'object')),
             new OA\Response(response: 400, description: 'Ошибка', content: new OA\JsonContent(ref: '#/components/schemas/ApiError')),
         ],
     )]
