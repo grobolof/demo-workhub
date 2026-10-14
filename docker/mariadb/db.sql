@@ -35960,7 +35960,7 @@ CREATE TABLE IF NOT EXISTS `transaction_registry` (
 -- Current Database: `sitemanager`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `sitemanager` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `sitemanager` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 
 USE `sitemanager`;
 
@@ -36064,7 +36064,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_agent` WRITE;
 /*!40000 ALTER TABLE `b_agent` DISABLE KEYS */;
 INSERT INTO `b_agent` VALUES
-(1,'main',100,'CCaptchaAgent::DeleteOldCaptcha(3600);','Y','2026-10-14 12:21:25','2026-10-14 13:21:25',NULL,3600,'N',NULL,'N',0),
+(1,'main',100,'CCaptchaAgent::DeleteOldCaptcha(3600);','Y','2026-10-14 13:30:17','2026-10-14 14:30:17',NULL,3600,'N',NULL,'N',0),
 (2,'main',100,'CSiteCheckerTest::CommonTest();','Y','2026-10-14 03:03:32','2026-10-15 03:03:32',NULL,86400,'N',NULL,'N',0),
 (3,'main',100,'CEvent::CleanUpAgent();','Y','2026-10-14 03:11:03','2026-10-15 03:11:03',NULL,86400,'N',NULL,'N',0),
 (4,'main',100,'CUser::CleanUpHitAuthAgent();','Y','2026-10-14 03:15:31','2026-10-15 03:15:31',NULL,86400,'N',NULL,'N',0),
@@ -36077,7 +36077,7 @@ INSERT INTO `b_agent` VALUES
 (11,'main',100,'CEventLog::CleanUpAgent();','Y','2026-10-14 04:30:20','2026-10-15 04:30:20',NULL,86400,'N',NULL,'N',0),
 (12,'clouds',100,'CCloudStorage::CleanUp();','Y','2026-10-13 17:46:57','2026-10-14 17:46:57',NULL,86400,'N',NULL,'N',0),
 (13,'landing',100,'Bitrix\\Landing\\Agent::clearRecycle();','Y','2026-10-14 13:00:20','2026-10-14 15:00:20',NULL,7200,'N',NULL,'N',0),
-(14,'landing',100,'Bitrix\\Landing\\Agent::clearFiles(30);','Y','2026-10-14 12:21:25','2026-10-14 13:21:25',NULL,3600,'N',NULL,'N',0),
+(14,'landing',100,'Bitrix\\Landing\\Agent::clearFiles(30);','Y','2026-10-14 13:30:17','2026-10-14 14:30:17',NULL,3600,'N',NULL,'N',0),
 (15,'landing',100,'Bitrix\\Landing\\Agent::sendRestStatistic();','Y','2026-10-13 17:46:57','2026-10-14 17:46:57',NULL,86400,'N',NULL,'N',0),
 (16,'landing',100,'Bitrix\\Landing\\Agent::clearTempFiles();','Y','2026-10-13 17:46:57','2026-10-14 17:46:57',NULL,86400,'N',NULL,'N',0),
 (18,'location',100,'\\Bitrix\\Location\\Infrastructure\\Service\\RecentAddressesService::cleanUp();','Y','2026-10-13 20:39:50','2026-10-14 20:39:50',NULL,86400,'N',NULL,'N',0),
@@ -36087,20 +36087,20 @@ INSERT INTO `b_agent` VALUES
 (22,'rest',100,'\\Bitrix\\Rest\\EventOfflineTable::cleanProcessAgent();','Y','2026-10-13 17:46:58','2026-10-14 17:46:58',NULL,86400,'N',NULL,'N',0),
 (23,'rest',100,'\\Bitrix\\Rest\\LogTable::cleanUpAgent();','Y','2026-10-13 17:46:58','2026-10-14 17:46:58',NULL,86400,'N',NULL,'N',0),
 (24,'rest',100,'\\Bitrix\\Rest\\Configuration\\Helper::sendStatisticAgent();','Y','2026-10-13 17:46:58','2026-10-14 17:46:58',NULL,86400,'N',NULL,'N',0),
-(25,'rest',100,'\\Bitrix\\Rest\\UsageStatTable::sendAgent();','Y','2026-10-14 12:21:25','2026-10-14 13:21:25',NULL,3600,'N',NULL,'N',0),
-(26,'rest',100,'\\Bitrix\\Rest\\UsageStatTable::cleanUpAgent();','Y','2026-10-14 12:21:25','2026-10-14 13:21:25',NULL,3600,'N',NULL,'N',0),
+(25,'rest',100,'\\Bitrix\\Rest\\UsageStatTable::sendAgent();','Y','2026-10-14 13:30:17','2026-10-14 14:30:17',NULL,3600,'N',NULL,'N',0),
+(26,'rest',100,'\\Bitrix\\Rest\\UsageStatTable::cleanUpAgent();','Y','2026-10-14 13:30:17','2026-10-14 14:30:17',NULL,3600,'N',NULL,'N',0),
 (27,'rest',100,'\\Bitrix\\Rest\\Marketplace\\Notification::checkAgent();','Y','2026-10-13 17:46:58','2026-10-14 17:46:58',NULL,86400,'N',NULL,'N',0),
 (28,'rest',100,'\\Bitrix\\Rest\\Marketplace\\Immune::load();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
 (29,'rest',100,'\\Bitrix\\Rest\\Configuration\\Structure::clearContentAgent();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
 (30,'rest',100,'\\Bitrix\\Rest\\Helper::recoveryAgents();','Y','2026-10-13 17:46:59','2026-10-20 17:46:59',NULL,604800,'N',NULL,'N',0),
 (31,'search',10,'CSearchSuggest::CleanUpAgent();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
 (32,'search',10,'CSearchStatistic::CleanUpAgent();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
-(33,'security',100,'CSecuritySession::CleanUpAgent();','Y','2026-10-14 13:00:20','2026-10-14 13:30:20',NULL,1800,'N',NULL,'N',0),
-(34,'security',100,'CSecurityIPRule::CleanUpAgent();','Y','2026-10-14 12:21:25','2026-10-14 13:21:25',NULL,3600,'N',NULL,'N',0),
-(35,'seo',100,'Bitrix\\Seo\\Engine\\YandexDirect::updateAgent();','Y','2026-10-14 12:21:25','2026-10-14 13:21:25',NULL,3600,'N',NULL,'N',0),
+(33,'security',100,'CSecuritySession::CleanUpAgent();','Y','2026-10-14 13:30:20','2026-10-14 14:00:20',NULL,1800,'N',NULL,'N',0),
+(34,'security',100,'CSecurityIPRule::CleanUpAgent();','Y','2026-10-14 13:30:17','2026-10-14 14:30:17',NULL,3600,'N',NULL,'N',0),
+(35,'seo',100,'Bitrix\\Seo\\Engine\\YandexDirect::updateAgent();','Y','2026-10-14 13:30:17','2026-10-14 14:30:17',NULL,3600,'N',NULL,'N',0),
 (36,'seo',100,'Bitrix\\Seo\\Adv\\LogTable::clean();','Y','2026-10-13 17:46:59','2026-10-14 17:46:59',NULL,86400,'N',NULL,'N',0),
-(37,'seo',100,'Bitrix\\Seo\\Adv\\Auto::checkQuantityAgent();','Y','2026-10-14 12:21:25','2026-10-14 13:21:25',NULL,3600,'N',NULL,'N',0),
-(39,'ui',100,'\\Bitrix\\UI\\FileUploader\\TempFileAgent::clearOldRecords();','Y','2026-10-14 13:00:20','2026-10-14 13:30:20',NULL,1800,'N',NULL,'N',0);
+(37,'seo',100,'Bitrix\\Seo\\Adv\\Auto::checkQuantityAgent();','Y','2026-10-14 13:30:17','2026-10-14 14:30:17',NULL,3600,'N',NULL,'N',0),
+(39,'ui',100,'\\Bitrix\\UI\\FileUploader\\TempFileAgent::clearOldRecords();','Y','2026-10-14 13:30:20','2026-10-14 14:00:20',NULL,1800,'N',NULL,'N',0);
 /*!40000 ALTER TABLE `b_agent` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -36229,7 +36229,7 @@ INSERT INTO `b_bitrixcloud_option` VALUES
 (1,'backup_quota',0,'0','0'),
 (2,'backup_total_size',0,'0','0'),
 (3,'backup_last_backup_time',0,'0','1791902823'),
-(4,'monitoring_expire_time',0,'0','1791971690');
+(4,'monitoring_expire_time',0,'0','1791975623');
 /*!40000 ALTER TABLE `b_bitrixcloud_option` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -42923,8 +42923,9 @@ INSERT INTO `b_option` VALUES
 ('main','~crypto_b_user_auth_code','a:1:{s:10:\"OTP_SECRET\";b:1;}',NULL,NULL),
 ('main','~crypto_b_user_phone_auth','a:1:{s:10:\"OTP_SECRET\";b:1;}',NULL,NULL),
 ('main','~new_license18_0_sign','Y',NULL,NULL),
+('main','~update_autocheck_result','a:3:{s:10:\"check_date\";i:0;s:6:\"result\";b:0;s:5:\"error\";s:56:\"[LICENSE_NOT_FOUND] Лицензия не найдена\";}',NULL,NULL),
 ('main','admin_lid','ru',NULL,NULL),
-('main','admin_passwordh','FVkQeWYUBwUtCUVcARcFCgsTAQ==',NULL,NULL),
+('main','admin_passwordh','FVsQemYUBwUtCUVcDhcGCgsTAQ==',NULL,NULL),
 ('main','control_file_duplicates','Y',NULL,NULL),
 ('main','email_from','admin@mail.ru',NULL,NULL),
 ('main','group_default_task','1',NULL,NULL),
@@ -42964,6 +42965,7 @@ INSERT INTO `b_option` VALUES
 ('main','smile_last_update','1791902763',NULL,NULL),
 ('main','update_site','www.1c-bitrix.ru',NULL,NULL),
 ('main','update_site_ns','Y',NULL,NULL),
+('main','update_system_check_time','1791973845',NULL,NULL),
 ('main','update_use_https','Y',NULL,NULL),
 ('main','vendor','1c_bitrix',NULL,NULL),
 ('main_sec','sec_actualize_vendor_notifications','1791902816',NULL,NULL),
@@ -57186,7 +57188,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `b_user` WRITE;
 /*!40000 ALTER TABLE `b_user` DISABLE KEYS */;
 INSERT INTO `b_user` VALUES
-(1,NULL,'admin','$6$lx3pl8d3oGvoqP0q$FGvsYh7buMiQ5/YwXOORIFqn8bgxmpXihRo/orExX/KzIrE093P2/stqv8mo07GItJwiNGeLdxU.PwIb1NGXY/','$6$wQhUgUd4B0U6YYNG$roKxnq9EBM.T.RZ2knu4cGKoUeGV/h0vHZFe00QHQZALHtGONdHt2k89X460FfVp/jONQkPM3RVpzAS68Ew6s1','Y','Константин','Волков','admin@mail.ru','2026-10-14 12:27:43','2026-10-13 17:46:54',NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-13 17:46:54',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N'),
+(1,NULL,'admin','$6$lx3pl8d3oGvoqP0q$FGvsYh7buMiQ5/YwXOORIFqn8bgxmpXihRo/orExX/KzIrE093P2/stqv8mo07GItJwiNGeLdxU.PwIb1NGXY/','$6$wQhUgUd4B0U6YYNG$roKxnq9EBM.T.RZ2knu4cGKoUeGV/h0vHZFe00QHQZALHtGONdHt2k89X460FfVp/jONQkPM3RVpzAS68Ew6s1','Y','Константин','Волков','admin@mail.ru','2026-10-14 13:30:20','2026-10-13 17:46:54',NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-13 17:46:54',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N'),
 (10,'2026-10-14 09:28:54','support','$6$esVYIF8toYqWxjFf$z0XwedEHFNRZDDDYOQueUsKD7cjPnK8Q4me46plG.RkWhs/2qvvBGSD7he4Y.dJa7Q.N4DIMNLj5ZXtaW3GnT1','$6$ZUV13QCwCHJ0aVFw$ZghNLZYuFQwA643NZU7rOE7WsoO3agOeaNRzhsYsPJyPl7/cJJKITYhzUJGrI81ds0vYzP95CC1ZkjfabnZBR0','Y','Константин','Раскольников','support@mail.ru','2026-10-14 13:00:31','2026-10-13 23:55:05',NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-14 12:28:54','Георгиевич',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'ru','N','N'),
 (238,NULL,'anna.volkova@demo-workhub.ru','$6$6IQDr1kBTPQ2hkoh$ni.c4MWS3IQcbNCdzoITTE4HolCTIcWhuWgW3b8r7WHPX9to95lVEGBIJdpn3V/t5TyFNGC9oAG7GOG3mHMoO0','$6$x6HEORpgV5HMQ0sh$ayINFB4eeaXP1dW8BZQpswPfPeJRBGCBaZD2gDDVmFYbmFtmJ3HyqZ4ex1rItTVioVArzx1j7RloYEe4wtnxA0','Y','Анна','Волкова','anna.volkova@demo-workhub.ru',NULL,'2026-10-14 12:28:54','s1',NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-14 12:28:54','Сергеевна',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N','N'),
 (239,NULL,'igor.semenov@demo-workhub.ru','$6$sEUSb4va1uvVSEWW$yOqUHeos8CQ5nONL5yJszWX4To657QY5HAGmz.4FR4BA5HUgTQ4WZ2tgTr39BxP9/Q3CRRmIUwjXMfVz7HGvl/','$6$P7foN247R41YJQC2$XTTSWUfDQ2XldJHkvT5f06KV3Jqu18glIwfQBMaoDUhg5IVABrCyaTqs85rIzef3/05giRw/deXT6fb9V./jY1','Y','Игорь','Семёнов','igor.semenov@demo-workhub.ru',NULL,'2026-10-14 12:28:54','s1',NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-10-14 12:28:54','Павлович',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'N','N'),
@@ -58567,7 +58569,7 @@ CREATE TABLE `b_user_option` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ux_user_category_name` (`USER_ID`,`CATEGORY`,`NAME`),
   KEY `ix_b_user_option_category_name` (`CATEGORY`,`NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58581,8 +58583,8 @@ INSERT INTO `b_user_option` VALUES
 (1,0,'intranet','~gadgets_admin_index','a:1:{i:0;a:1:{s:7:\"GADGETS\";a:8:{s:20:\"ADMIN_INFO@333333333\";a:3:{s:6:\"COLUMN\";i:0;s:3:\"ROW\";i:0;s:4:\"HIDE\";s:1:\"N\";}s:19:\"HTML_AREA@444444444\";a:5:{s:6:\"COLUMN\";i:0;s:3:\"ROW\";i:1;s:4:\"HIDE\";s:1:\"N\";s:8:\"USERDATA\";a:1:{s:7:\"content\";s:805:\"<table class=\"bx-gadgets-info-site-table\" cellspacing=\"0\"><tr>	<td class=\"bx-gadget-gray\">Создатель сайта:</td>	<td>Группа компаний &laquo;1С-Битрикс&raquo;.</td>	<td class=\"bx-gadgets-info-site-logo\" rowspan=\"5\"><img src=\"/bitrix/components/bitrix/desktop/templates/admin/images/site_logo.png\" alt=\"\"></td></tr><tr>	<td class=\"bx-gadget-gray\">Адрес сайта:</td>	<td><a href=\"https://www.1c-bitrix.ru\">www.1c-bitrix.ru</a></td></tr><tr>	<td class=\"bx-gadget-gray\">Сайт сдан:</td>	<td>12 декабря 2010 г.</td></tr><tr>	<td class=\"bx-gadget-gray\">Ответственное лицо:</td>	<td>Иван Иванов</td></tr><tr>	<td class=\"bx-gadget-gray\">E-mail:</td>	<td><a href=\"mailto:info@1c-bitrix.ru\">info@1c-bitrix.ru</a></td></tr></table>\";}s:8:\"SETTINGS\";a:1:{s:9:\"TITLE_STD\";s:34:\"Информация о сайте\";}}s:25:\"ADMIN_CHECKLIST@777888999\";a:3:{s:6:\"COLUMN\";i:0;s:3:\"ROW\";i:2;s:4:\"HIDE\";s:1:\"N\";}s:19:\"RSSREADER@777777777\";a:4:{s:6:\"COLUMN\";i:1;s:3:\"ROW\";i:3;s:4:\"HIDE\";s:1:\"N\";s:8:\"SETTINGS\";a:3:{s:9:\"TITLE_STD\";s:33:\"Новости 1С-Битрикс\";s:3:\"CNT\";i:10;s:7:\"RSS_URL\";s:45:\"https://www.1c-bitrix.ru/about/life/news/rss/\";}}s:24:\"ADMIN_SECURITY@555555555\";a:3:{s:6:\"COLUMN\";i:1;s:3:\"ROW\";i:0;s:4:\"HIDE\";s:1:\"N\";}s:25:\"ADMIN_SITESPEED@666666777\";a:3:{s:6:\"COLUMN\";i:1;s:3:\"ROW\";i:1;s:4:\"HIDE\";s:1:\"N\";}s:23:\"ADMIN_PERFMON@666666666\";a:3:{s:6:\"COLUMN\";i:1;s:3:\"ROW\";i:2;s:4:\"HIDE\";s:1:\"N\";}s:23:\"ADMIN_MARKETPALCE@22549\";a:3:{s:6:\"COLUMN\";i:1;s:3:\"ROW\";i:3;s:4:\"HIDE\";s:1:\"N\";}}}}','Y'),
 (2,0,'main.interface','global','a:1:{s:5:\"theme\";s:5:\"green\";}','Y'),
 (3,1,'admin_panel','settings','a:1:{s:4:\"edit\";s:3:\"off\";}','N'),
-(4,1,'favorite','favorite_menu','a:1:{s:5:\"stick\";s:1:\"Y\";}','N'),
-(6,1,'admin_menu','pos','a:1:{s:8:\"sections\";s:147:\"menu_iblock_%2Fvacancies%2F2,menu_iblock_/vacancies,menu_iblock_/workhub,menu_iblock_/system,menu_iblock_/seekers,menu_iblock_/employers,menu_users\";}','N'),
+(4,1,'favorite','favorite_menu','a:1:{s:5:\"stick\";s:1:\"N\";}','N'),
+(6,1,'admin_menu','pos','a:3:{s:8:\"sections\";s:147:\"menu_iblock_%2Fvacancies%2F2,menu_iblock_/vacancies,menu_iblock_/workhub,menu_iblock_/system,menu_iblock_/seekers,menu_iblock_/employers,menu_users\";s:5:\"width\";i:435;s:3:\"ver\";s:2:\"on\";}','N'),
 (9,1,'main.ui.filter','tbl_iblock_6faacc0f142012c4f876d4bd15e05533','a:6:{s:14:\"use_pin_preset\";b:1;s:15:\"deleted_presets\";a:0:{}s:15:\"default_presets\";a:0:{}s:7:\"default\";s:14:\"default_filter\";s:6:\"filter\";s:14:\"default_filter\";s:7:\"filters\";a:0:{}}','N'),
 (10,1,'main.interface.grid','tbl_iblock_6faacc0f142012c4f876d4bd15e05533','a:3:{s:5:\"views\";a:1:{s:7:\"default\";a:3:{s:7:\"columns\";s:0:\"\";s:13:\"columns_sizes\";a:2:{s:6:\"expand\";i:1;s:7:\"columns\";a:0:{}}s:15:\"sticked_columns\";a:0:{}}}s:7:\"filters\";a:0:{}s:12:\"current_view\";s:7:\"default\";}','N'),
 (19,1,'filter','tbl_favourites_filter_id','a:1:{s:4:\"rows\";s:1:\"0\";}','N'),
@@ -59054,4 +59056,4 @@ USE `sitemanager`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-10-14 10:22:28
+-- Dump completed on 2026-10-14 10:30:57
